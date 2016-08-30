@@ -1,0 +1,70 @@
+{
+  "root": {
+    "src": "resources/assets",
+    "dest": "public",
+    "watch": "public"
+  },
+
+  "tasks": {
+    "scripts": {
+      "src": "scripts",
+      "dest": "scripts",
+      "glob": "/**/*.js",
+      "deps": ["scripts:lint"],
+      "webpack": {
+        "common": true,
+        "entry": {
+          "main": "./main.js",
+          "second": "./second.js"
+        }
+      }
+    },
+
+    "styles": {
+      "src": "styles",
+      "dest": "styles",
+      "glob": "/**/*.scss",
+      "deps": ["styles:lint"],
+      "sass": {
+        "outputStyle": "expanded"
+      },
+      "autoprefixer": {
+        "browsers": ["> 1%", "last 2 versions", "Firefox ESR"]
+      }
+    },
+
+    "images": {
+      "src": "images",
+      "dest": "images",
+      "glob": "/**/*",
+      "deps": [],
+      "imagemin": {
+        "progressive": true,
+        "interlaced": true,
+        "svgoPlugins": [{"cleanupIDs": false}]
+      }
+    },
+
+    "fonts": {
+      "src": "fonts",
+      "dest": "fonts",
+      "glob": "/**/*.{eot,svg,ttf,woff,woff2}",
+      "deps": []
+    },
+
+    "serve": {
+      "browserSync": {
+        "notify": false,
+        "port": 9000,
+        "proxy": false
+      },
+      "deps": ["scripts", "styles", "images", "fonts"]
+    },
+
+    "watch": {
+      "tasks": ["scripts", "styles", "images", "fonts"],
+      "glob": ["/**/*.html"],
+      "deps": []
+    }
+  }
+}

@@ -1,0 +1,300 @@
+/// Gets a color out of $color-map and can apply several color manipulations.
+/// @param  {Color}   $key
+/// @param  {ArgList} $callbacks...
+/// @return {Color}
+@function get-color($key, $callbacks...) {
+  $color: null;
+  $callback-function: null;
+  $callbacks-length: length($callbacks);
+
+  // if $key is a color by itself and not in $color-map return $key
+  // otherwise get the color from $color-map
+  @if type-of($key) == color and not(map-has-key($color-map, $key)) {
+    $color: $key;
+  }
+
+  @else {
+    $color: map-get($color-map, $key);
+  }
+
+  // throw a warning if $key is neither a valid color
+  // nor in the color map and stop prpagation
+  @if type-of($color) == 'null' {
+    @warn '#{$key} is neither a valid color nor in the color map.';
+  }
+
+  // check if any callbacks are set
+  @else {
+    @if $callbacks-length > 0 {
+
+      // loop through callbacks
+      @for $i from 1 through $callbacks-length {
+        $callback: nth($callbacks, $i);
+        $callback-args: ($color);
+        $callback-length: length($callback);
+
+        // check if there are any more args for the callback
+        @if $callback-length > 1 {
+          $callback-function: nth($callback, 1);
+
+          // append args to the callback list
+          @for $n from 2 through $callback-length {
+            $callback-args: append($callback-args, nth($callback, $n));
+          }
+        }
+
+        // if $callback-length is 1 then there is
+        // only a function without any more args
+        @else {
+          $callback-function: $callback;
+        }
+
+        // call function
+        $color: call($callback-function, $callback-args...);
+      }
+    }
+  }
+
+  // return the color
+  @return $color;
+}
+
+/// Shorthand for get-color()
+@function c($key, $callbacks...) {
+  @return get-color($key, $callbacks...);
+}
+
+
+
+/// @todo description
+@function tint($color, $amount) {
+  @return mix(white, $color, $amount);
+}
+
+/// @todo description
+@function shade($color, $amount) {
+  @return mix(black, $color, $amount);
+}
+
+/// @todo description
+@function opacity($color, $amount) {
+  @return transparentize($color, (1 - $amount));
+}
+
+
+
+/// @todo description
+@function get-option($key, $multiplier: 1) {
+  $value: map-get($options-map, $key);
+
+  @if type-of($value) == 'number' {
+    @return $value * $multiplier;
+  }
+
+  @return $value;
+}
+
+/// Shorthand for get-option()
+@function o($key, $multiplier: 1) {
+  @return get-option($key, $multiplier);
+}
+
+
+
+/// @todo description
+@function get-breakpoint($key, $multiplier: 1) {
+  $breakpoints: get-option('breakpoints');
+
+  @return map-get($breakpoints, $key) * $multiplier;
+}
+
+/// Shorthand for get-breakpoint()
+@function b($key, $multiplier: 1) {
+  @return get-breakpoint($key, $multiplier);
+}
+
+
+
+/// @todo description
+@function get-spacing($key, $multiplier: 1) {
+  $spacings: get-option('spacings');
+
+  @return map-get($spacings, $key) * $multiplier;
+}
+
+/// Shorthand for get-spacing()
+@function s($key, $multiplier: 1) {
+  @return get-spacing($key, $multiplier);
+}
+
+
+
+/// @todo description
+@function get-font-family($key: 'default') {
+  $font-families: get-option('font-families');
+  $font-family: map-get($font-families, $key);
+
+  @if type-of($font-family) == 'null' {
+    @error '#{$key} is neither a valid font-family nor specified in the options.';
+  }
+
+  @return unquote($font-family);
+}
+
+/// Shorthand for get-font()
+@function ff($key: 'default') {
+  @return get-font-family($key);
+}
+
+
+
+/// @todo description
+@function get-font-size($key: 'default', $multiplier: 1) {
+  @if type-of($key) == 'number' {
+    @return $key * $multiplier;
+  }
+
+  $font-sizes: get-option('font-sizes');
+  $font-size: map-get($font-sizes, $key);
+  $font-size: nth($font-size, 1);
+
+  @if type-of($font-size) == 'null' {
+    @error '#{$key} is neither a valid font-size nor specified in the options.';
+  }
+
+  @return $font-size * $multiplier;
+}
+
+/// Shorthand for get-font()
+@function fs($key: 'default', $multiplier: 1) {
+  @return get-font-size($key, $multiplier);
+}
+
+
+
+/// @todo description
+@function get-line-height($key: 'default', $multiplier: 1) {
+
+  @if type-of($key) == 'number' {
+    @return $key * $multiplier;
+  }
+
+  $font-sizes: get-option('font-sizes');
+  $font-size: map-get($font-sizes, $key);
+
+  @return nth($font-size, 2) * $multiplier;
+}
+
+/// Shorthand for get-font()
+@function lh($key: 'default', $multiplier: 1) {
+  @return get-line-height($key, $multiplier);
+}
+
+
+
+/// @todo description
+@function rem($size) {
+  $unit: unit($size);
+
+  @if $unit == 'px' {
+    @return $size / 16px * 1rem;
+  }
+
+  @else if $unit == '' {
+    @return $size / 16 * 1rem;
+  }
+
+  @return $size;
+}
+
+
+/// Returns $list as a string, prettified if $pre is set to true.
+/// @param  {List}   $list
+/// @param  {Bool}   $pre
+/// @param  {Number} $level (1)
+/// @return {String}
+@function debug($list, $pre: false, $level: 1) {
+  // scss-lint:disable SpaceBetweenParens
+  @if is-empty($list) {
+    @return '( )';
+  }
+
+  @if is-single($list) {
+    @return if($pre, '(' + type-of($list) + ') ', '') + $list;
+  }
+
+  $tab: '    ';
+  $indent: '';
+  $break: if($pre, '\A ', '');
+  $length: length($list);
+
+  @for $i from 1 to $level {
+    $indent: $indent + $tab;
+  }
+
+  $result: '[' + $break;
+
+  @for $i from 1 through $length {
+    $item: nth($list, $i);
+    $result: $result + if($pre, $indent + $tab, ' ');
+
+    @if has-multiple-values($item) {
+      $result: $result + if($pre, '(list: ' + length($item) + ') ', '') + debug($item, $pre, $level + 1);
+    }
+
+    @else {
+      @if $pre {
+        $result: $result + '(' + type-of($item) + ') ';
+      }
+
+      @if is-empty($item) {
+        $result: $result + '( )';
+      }
+
+      @else if type-of($item) == 'string' {
+        $result: $result + quote($item);
+      }
+
+      @else if $item == null {
+        $result: $result + 'null';
+      }
+
+      @else {
+        $result: $result + $item;
+      }
+    }
+
+    @if $i != $length {
+      $result: $result + ',' + $break;
+    }
+  }
+
+  $result: $result + $break + if($pre, if($level > 1, $indent, ''), ' ') + ']';
+
+  @return quote($result);
+  // scss-lint:enable SpaceBetweenParens
+}
+
+
+/// Tests whether $list is empty.
+/// @param  {List} $list
+/// @return {Bool}
+@function is-empty($list) {
+  @return length($list) == 0;
+}
+
+
+/// Tests whether $list has a single item.
+/// @param  {List} $list
+/// @return {Bool}
+@function is-single($list) {
+  @return length($list) == 1;
+}
+
+
+/// Tests whether $list has at least 2 values.
+/// @oaram  {List} $list
+/// @return {Bool}
+@function has-multiple-values($list) {
+  @return length($list) > 1;
+}

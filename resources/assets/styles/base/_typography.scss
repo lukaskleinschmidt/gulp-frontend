@@ -1,0 +1,161 @@
+body {
+  // @include hyphens();
+  font-family: get-font-family();
+  font-size: get-font-size();
+  line-height: get-line-height();
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.as-h1,
+.as-h2,
+.as-h3,
+.as-h4,
+.as-h5,
+.as-h6 {
+  font-family: get-font-family('mono');
+  text-transform: uppercase;
+  font-weight: 200;
+  margin: 30px 0;
+}
+
+h1,
+.as-h1 {
+  font-size: get-font-size('h1');
+  line-height: get-line-height('h1');
+}
+
+h2,
+.as-h2 {
+  font-size: get-font-size('h2');
+  line-height: get-line-height('h2');
+}
+
+h3,
+.as-h3 {
+  font-size: get-font-size('h3');
+  line-height: get-line-height('h3');
+}
+
+h4,
+.as-h4 {
+  font-size: get-font-size('h4');
+  line-height: get-line-height('h4');
+}
+
+h5,
+.as-h5 {
+  font-size: get-font-size('h5');
+  line-height: get-line-height('h5');
+}
+
+h6,
+.as-h6 {
+  font-size: get-font-size('h6');
+  line-height: get-line-height('h6');
+}
+
+p,
+ul,
+ol,
+table,
+blockquote,
+figure,
+hr,
+pre,
+code {
+  margin: 20px 0;
+}
+
+a {
+  &[href^='tel:'] {
+    pointer-events: none;
+  }
+
+  &[href^='mailto:'] {
+
+  }
+
+  &[target='_blank'] {
+
+  }
+
+  &:hover {
+
+  }
+
+  &:active {
+
+  }
+}
+
+ul,
+ol {
+  ul,
+  ol {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+li {
+
+}
+
+hr {
+  border-style: solid none none;
+  border-color: c('black', tint 10%);
+  border-width: 1px;
+
+  &::before {
+
+  }
+
+  &::after {
+
+  }
+}
+
+blockquote {
+
+}
+
+figure {
+
+}
+
+p {
+
+}
+
+small {
+
+}
+
+img {
+
+}
+
+b,
+strong {
+
+}
+
+i,
+em {
+
+}
+
+pre,
+code {
+
+}
+
+::selection {
+  color: c('white');
+  background: c('primary-lighter');
+}
