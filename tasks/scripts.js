@@ -3,7 +3,7 @@ import gulp        from 'gulp';
 import plumber     from 'gulp-plumber';
 import sourcemaps  from 'gulp-sourcemaps';
 import webpack     from 'webpack';
-import gulpWebpack from 'webpack-stream';
+import gulpWebpack from 'gulp-webpack';
 import browserSync from 'browser-sync';
 import notifier    from 'node-notifier';
 import path        from 'path';
