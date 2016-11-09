@@ -1,6 +1,7 @@
 import config   from '../gulp.config';
 import gulp     from 'gulp';
 import sassLint from 'gulp-sass-lint';
+import plumber  from 'gulp-plumber';
 import path     from 'path';
 
 var styles = config.tasks.styles;
@@ -12,7 +13,8 @@ gulp.task('styles:lint', () => {
     '!bower_components/**',
     '!node_modules/**'
   ])
+  // .pipe(plumber())
   .pipe(sassLint())
   .pipe(sassLint.format())
-  .pipe(sassLint.failOnError());
+  // .pipe(sassLint.failOnError());
 });

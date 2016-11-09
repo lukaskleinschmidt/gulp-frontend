@@ -3,7 +3,7 @@ import gulp        from 'gulp';
 import plumber     from 'gulp-plumber';
 import sourcemaps  from 'gulp-sourcemaps';
 import webpack     from 'webpack';
-import gulpWebpack from 'gulp-webpack';
+import gulpWebpack from 'webpack-stream';
 import browserSync from 'browser-sync';
 import notifier    from 'node-notifier';
 import path        from 'path';
@@ -20,8 +20,8 @@ var webpackConfig = {
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
-        loader: 'babel',
+        test: /\.js$/,
+        loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
           presets: ['es2015']
@@ -44,7 +44,7 @@ gulp.task('scripts', deps, () => {
   return gulp.src(path.join(config.root.src, scripts.src, scripts.glob))
     .pipe(plumber())
     .pipe(sourcemaps.init())
-    .pipe(gulpWebpack(webpackConfig, null, (err, stats) => {
+    .pipe(gulpWebpack(webpackConfig, webpack, (err, stats) => {
       if (stats.compilation.errors.length) {
         var pathRelative = path.relative(path.join(config.root.src, scripts.src), stats.compilation.errors[0].module.resource);
         var line = stats.compilation.errors[0].error.loc.line;
