@@ -25,6 +25,15 @@ h6,
 }
 
 h1,
+h2,
+h3,
+.as-h1,
+.as-h2,
+.as-h3 {
+  margin-top: 60px;
+}
+
+h1,
 .as-h1 {
   font-size: get-font-size('h1');
   line-height: get-line-height('h1');
