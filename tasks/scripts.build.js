@@ -1,6 +1,8 @@
 var config = require('../gulp.config');
-var gulp = require('gulp');
 var exec = require('child_process').exec;
+var gzip = require('gulp-gzip');
+var gulp = require('gulp');
+var path = require('path');
 
 var task = config.tasks.scripts;
 var deps = task.deps || [];
@@ -11,5 +13,11 @@ gulp.task('scripts:build', deps, () => {
       throw error;
     }
     console.log(stdout);
+
+    gulp.src(path.join(config.roots.dest, task.roots.dest, '/*.js'))
+      .pipe(gzip({
+        append: true
+      }))
+      .pipe(gulp.dest(path.join(config.roots.dest, task.roots.dest)));
   });
 });
