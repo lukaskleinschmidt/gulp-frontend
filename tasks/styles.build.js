@@ -1,13 +1,14 @@
-import config  from '../gulp.config';
-import gulp    from 'gulp';
-import cssnano from 'gulp-cssnano';
-import gzip    from 'gulp-gzip';
-import path    from 'path';
+var config = require('../gulp.config');
+var cssnano = require('gulp-cssnano');
+var gzip = require('gulp-gzip');
+var gulp = require('gulp');
+var path = require('path');
 
-var dest = path.join(config.root.dest, config.tasks.styles.dest);
+var task = config.tasks.styles;
+var dest = path.join(config.roots.dest, task.roots.dest);
 
 gulp.task('styles:build', ['styles'], () => {
-  return gulp.src(path.join(config.root.dest, config.tasks.styles.dest, '/*.css'))
+  return gulp.src(path.join(config.roots.dest, task.roots.dest, '/*.css'))
     .pipe(cssnano({
       reduceIdents: {
         keyframes: false

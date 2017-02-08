@@ -1,17 +1,15 @@
-import config  from '../gulp.config';
-import gulp    from 'gulp';
-import uglify  from 'gulp-uglify';
-import gzip    from 'gulp-gzip';
-import path    from 'path';
+var config = require('../gulp.config');
+var gulp = require('gulp');
+var exec = require('child_process').exec;
 
-var dest = path.join(config.root.dest, config.tasks.scripts.dest);
+var task = config.tasks.scripts;
+var deps = task.deps || [];
 
-gulp.task('scripts:build', ['scripts'], () => {
-  return gulp.src(path.join(config.root.dest, config.tasks.scripts.dest, '/*.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest(dest))
-    .pipe(gzip({
-      append: true
-    }))
-    .pipe(gulp.dest(dest));
+gulp.task('scripts:build', deps, () => {
+  exec('webpack --color --config webpack.config.js -p', (error, stdout, stderr) => {
+    if(error) {
+      throw error;
+    }
+    console.log(stdout);
+  });
 });

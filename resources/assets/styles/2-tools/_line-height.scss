@@ -1,0 +1,17 @@
+// TODO: Add description
+@function get-line-height($key: 'default', $multiplier: 1) {
+
+  @if type-of($key) == 'number' {
+    @return $key * $multiplier;
+  }
+
+  $font-sizes: get-option('font-size');
+  $font-size: map-get($font-sizes, $key);
+
+  @return nth($font-size, 2) * $multiplier;
+}
+
+/// Shorthand for get-font()
+@function lh($key: 'default', $multiplier: 1) {
+  @return get-line-height($key, $multiplier);
+}

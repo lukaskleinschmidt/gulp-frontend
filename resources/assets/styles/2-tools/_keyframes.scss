@@ -1,0 +1,88 @@
+/// Print all frames
+/// @param {string} $animation-name
+/// @param {bool}   $relative
+@mixin keyframes($animation-name, $relative: true) {
+
+  @content;
+
+  // 'property': list-seperator, comma | space
+  $stackable-properties: (
+    'transform': space,
+  );
+
+  $frame-properties: ();
+
+  @if $relative and not(map-has-key($keyframes, '100%')) {
+    @include frame(100%);
+  }
+
+  @keyframes #{$animation-name} {
+    @while length($keyframes) > 0 {
+
+      $frames: map-keys($keyframes);
+      $frame: min($frames...);
+
+      $frame-data: map-get($keyframes, $frame);
+      $keyframes: map-remove($keyframes, $frame);
+
+      #{$frame} {
+
+        @if not($relative) {
+          $frame-properties: ();
+        }
+
+        $length: length($frame-data);
+
+        @for $i from 1 through $length {
+          $data: nth(nth($frame-data, $i), 2);
+          $properties: map-get($data, 'properties');
+
+          @each $property, $value in $properties {
+            @if map-has-key($stackable-properties, $property) and map-has-key($frame-properties, $property) {
+              $value: append(map-get($frame-properties, $property), $value, map-get($stackable-properties, $property));
+            }
+
+            $frame-properties: map-merge($frame-properties, ($property: $value));
+          }
+        }
+
+        @each $property, $value in $frame-properties {
+          #{$property}: #{$value};
+        }
+      }
+    }
+  }
+
+  // reset $keyframes
+  $keyframes: () !global;
+}
+
+
+/// Add a frame
+/// @param {string} $frame
+/// @param {map}    $properties
+/// @param {bool}   $stack
+@mixin frame($frame, $properties: ()) {
+
+  $data: (
+    'properties': $properties,
+  );
+
+  $index: 1;
+
+  @if not(global-variable-exists('keyframes')) {
+    $keyframes: () !global;
+  }
+
+  @if map-has-key($keyframes, $frame) {
+    $frame-data: map-get($keyframes, $frame);
+    $index: length($frame-data) + 1;
+    $frame-data: map-merge($frame-data, ($index: $data));
+  }
+
+  @else {
+    $frame-data: ($index: $data);
+  }
+
+  $keyframes: map-merge($keyframes, ($frame: $frame-data)) !global;
+}

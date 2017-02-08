@@ -1,0 +1,16 @@
+// TODO: Add description
+@function get-font-family($key: 'default') {
+  $font-families: get-option('font-family');
+  $font-family: map-get($font-families, $key);
+
+  @if type-of($font-family) == 'null' {
+    @error '#{$key} is neither a valid font-family nor specified in the options.';
+  }
+
+  @return unquote($font-family);
+}
+
+/// Shorthand for get-font()
+@function ff($key: 'default') {
+  @return get-font-family($key);
+}

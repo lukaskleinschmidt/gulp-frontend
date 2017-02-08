@@ -1,0 +1,21 @@
+// TODO: Add description
+@function get-font-size($key: 'default', $multiplier: 1) {
+  @if type-of($key) == 'number' {
+    @return $key * $multiplier;
+  }
+
+  $font-sizes: get-option('font-size');
+  $font-size: map-get($font-sizes, $key);
+  $font-size: nth($font-size, 1);
+
+  @if type-of($font-size) == 'null' {
+    @error '#{$key} is neither a valid font-size nor specified in the options.';
+  }
+
+  @return $font-size * $multiplier;
+}
+
+/// Shorthand for get-font()
+@function fs($key: 'default', $multiplier: 1) {
+  @return get-font-size($key, $multiplier);
+}

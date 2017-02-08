@@ -1,0 +1,96 @@
+// TODO: Add description
+@mixin set($key, $value) {
+  @if not(global-variable-exists('options-map')) {
+    /// Global variable to keep track of all options
+    $options-map: () !global;
+  }
+
+  @if map-has-key($options-map, $key) {
+    $current-value: map-get($options-map, $key);
+
+    @if type-of($current-value) == 'map' and type-of($value) == 'map' {
+      $value: map-merge($current-value, $value);
+    }
+
+    @else {
+      @warn '"#{$key}" is overwritten with: "#{$value}".';
+    }
+  }
+
+  $options-map: map-merge($options-map, ($key: $value)) !global;
+}
+
+// TODO: Add description
+@mixin set-breakpoint($key, $value) {
+  @include set('breakpoint', ($key: $value));
+}
+
+// TODO: Add description
+@mixin set-font-size($key, $value) {
+  @include set('font-size', ($key: $value));
+}
+
+// TODO: Add description
+@mixin set-font-family($key, $value) {
+  @include set('font-family', ($key: $value));
+}
+
+// TODO: Add description
+@mixin set-spacing($key, $value) {
+  @include set('spacing', ($key: $value));
+}
+
+// TODO: Add description
+@mixin set-color($key, $value, $gradients: false) {
+  @include set('color', ($key: $value));
+  @if $gradients {
+    @include set-color-gradients($key);
+  }
+}
+
+// TODO: Add description
+@mixin set-color-gradients($key) {
+  @if not(global-variable-exists('options-map')) {
+    /// Global variable to keep track of all options
+    $options-map: () !global;
+  }
+
+  $color-map: map-get($options-map, 'color');
+  $color: map-get($color-map, $key);
+  $white: #fff;
+  $black: #000;
+
+  @if type-of($color) != 'color' {
+    @warn '#{$key} is neither a valid color nor in the color map.';
+  }
+
+  // suffixes for light gradients
+  $gradients: (
+    'light',
+    'lighter',
+    'lightest',
+  );
+
+  $length: length($gradients);
+
+  // loop through the gradients
+  @for $i from 1 through $length {
+    $color-gradient: mix($white, $color, percentage($i / ($length + 1)));
+    @include set-color(#{$key + '-' + nth($gradients, $i)}, $color-gradient);
+  }
+
+  // suffixes for dark gradients
+  $gradients: (
+    'dark',
+    'darker',
+    'darkest',
+  );
+
+  $length: length($gradients);
+
+  @for $i from 1 through $length {
+    $color-gradient: mix($black, $color, percentage($i / ($length + 1)));
+    @include set-color(#{$key + '-' + nth($gradients, $i)}, $color-gradient);
+  }
+
+}

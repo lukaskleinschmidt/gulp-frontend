@@ -1,11 +1,11 @@
-import config   from '../gulp.config';
-import gulp     from 'gulp';
-import path     from 'path';
+var config = require('../gulp.config');
+var gulp = require('gulp');
+var path = require('path');
 
-var images = config.tasks.images;
-var deps = images.deps || [];
+var task = config.tasks.images;
+var deps = task.deps || [];
 
 gulp.task('images', deps, () => {
-  return gulp.src(path.join(config.root.src, images.src, images.glob))
-    .pipe(gulp.dest(path.join(config.root.dest, images.dest)));
+  return gulp.src(path.join(config.roots.src, task.roots.src, task.glob))
+    .pipe(gulp.dest(path.join(config.roots.dest, task.roots.dest)));
 });

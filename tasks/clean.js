@@ -1,14 +1,16 @@
-import config from '../gulp.config';
-import gulp   from 'gulp';
-import path   from 'path';
-import del    from 'del';
+var config = require('../gulp.config');
+var gulp = require('gulp');
+var path = require('path');
+var del = require('del');
 
-var tasks = config.tasks;
-var dest = config.root.dest;
+var task = config.tasks.clean;
+var deps = task.deps || [];
 
-gulp.task('clean', del.bind(null, [
-  path.join(dest, tasks.scripts.dest),
-  path.join(dest, tasks.styles.dest),
-  path.join(dest, tasks.images.dest),
-  path.join(dest, tasks.fonts.dest)
-]));
+var paths = [];
+
+task.tasks.forEach(task => {
+  task = config.tasks[task];
+  paths.push(path.join(config.roots.dest, task.roots.dest));
+});
+
+gulp.task('clean', deps, del.bind(null, paths));
