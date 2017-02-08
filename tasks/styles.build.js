@@ -11,15 +11,13 @@ gulp.task('styles:build', ['styles'], () => {
   return gulp.src(path.join(config.roots.dest, task.roots.dest, '/*.css'))
     .pipe(cssnano({
       reduceIdents: {
-        keyframes: false
+        keyframes: true
       },
       discardUnused: {
-        keyframes: false
+        keyframes: true
       }
     }))
     .pipe(gulp.dest(dest))
-    .pipe(gzip({
-      append: true
-    }))
+    .pipe(gzip({ append: true }))
     .pipe(gulp.dest(dest));
 });

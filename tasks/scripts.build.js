@@ -15,9 +15,7 @@ gulp.task('scripts:build', deps, () => {
     console.log(stdout);
 
     gulp.src(path.join(config.roots.dest, task.roots.dest, '/*.js'))
-      .pipe(gzip({
-        append: true
-      }))
+      .pipe(gzip({ append: true }))
       .pipe(gulp.dest(path.join(config.roots.dest, task.roots.dest)));
   });
 });
