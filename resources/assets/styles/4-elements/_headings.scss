@@ -1,0 +1,45 @@
+// @each $heading in 'h1' 'h2' 'h3' 'h4' 'h5' 'h6' {
+//   #{unquote($heading)} {
+//     font-size: fs($heading);
+//     line-height: lh($heading);
+//   }
+// }
+
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//
+// }
+
+h1 {
+  font-size: fs('h1');
+  line-height: lh('h1');
+}
+
+h2 {
+  font-size: fs('h2');
+  line-height: lh('h2');
+}
+
+h3 {
+  font-size: fs('h3');
+  line-height: lh('h3');
+}
+
+h4 {
+  font-size: fs('h4');
+  line-height: lh('h4');
+}
+
+h5 {
+  font-size: fs('h5');
+  line-height: lh('h5');
+}
+
+h6 {
+  font-size: fs('h6');
+  line-height: lh('h6');
+}

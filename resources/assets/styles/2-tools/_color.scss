@@ -1,4 +1,4 @@
-/// Gets a color out of $options-map and can apply several color manipulations.
+/// Gets a color out of $GLOBAL_OPTIONS and can apply several color manipulations.
 /// @param  {Color}   $key
 /// @param  {ArgList} $callbacks...
 /// @return {Color}
@@ -6,16 +6,16 @@
   $color: null;
   $callback-function: null;
   $callbacks-length: length($callbacks);
-  $color-map: get-option('color');
+  $colors: get('color');
 
-  // if $key is a color by itself and not in $color-map return $key
-  // otherwise get the color from $color-map
-  @if type-of($key) == color and not(map-has-key($color-map, $key)) {
+  // if $key is a color by itself and not in $colors return $key
+  // otherwise get the color from $colors
+  @if type-of($key) == color and not(map-has-key($colors, $key)) {
     $color: $key;
   }
 
   @else {
-    $color: map-get($color-map, $key);
+    $color: map-get($colors, $key);
   }
 
   // throw a warning if $key is neither a valid color

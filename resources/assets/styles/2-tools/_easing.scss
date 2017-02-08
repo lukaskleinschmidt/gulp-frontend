@@ -1,8 +1,6 @@
 // TODO: Add description
 @function get-easing($key) {
-  $easings: get-option('easing');
-
-  @return map-get($easings, $key);
+  @return get('easing', $key);
 }
 
 /// Shorthand for get-easing()

@@ -1,6 +1,11 @@
 // TODO: Add description
+@function get($keys...) {
+  @return map-deep-get($GLOBAL_OPTIONS, $keys...);
+}
+
+// TODO: Add description
 @function get-option($key, $multiplier: 1) {
-  $value: map-get($options-map, $key);
+  $value: get($key);
 
   @if type-of($value) == 'number' {
     @return $value * $multiplier;

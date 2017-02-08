@@ -1,8 +1,6 @@
 // TODO: Add description
 @function get-spacing($key, $multiplier: 1) {
-  $spacings: get-option('spacing');
-
-  @return map-get($spacings, $key) * $multiplier;
+  @return get('spacing', $key) * $multiplier;
 }
 
 /// Shorthand for get-spacing()

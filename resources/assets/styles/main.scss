@@ -24,11 +24,12 @@
 /// Styling for bare HTML elements (like H1, A, etc.). These
 /// come with default styling from the browser so we can
 /// redefine them here.
-// @import '4-elements/';
+@import '4-elements/body';
+@import '4-elements/headings';
 
 /// Class-based selectors which define undecorated design patterns,
 /// for example media object known from OOCSS
-// @import '5-objects/';
+@import '5-objects/grid';
 
 /// Specific UI components. This is where majority of our
 /// work takes place and our UI components are often

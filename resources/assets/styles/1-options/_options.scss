@@ -1,14 +1,8 @@
-// sass-lint:disable indentation hex-length
-
 /// Breakpoints
 @include set('breakpoint', (
   'small': 480px,
   'medium': 640px,
   'large': 1200px,
-  'test': (
-    'lorem': 'ipsum',
-    'dolor': 2
-  )
 ));
 
 /// Font families
@@ -19,13 +13,13 @@
 
 /// Font sizes
 @include set('font-size', (
-  'default': 16px 22px,
-  'h1': 48px 60px,
-  'h2': 20px 28px,
-  'h3': 16px 22px,
-  'h4': 16px 22px,
-  'h5': 16px 22px,
-  'h6': 16px 22px,
+  'default': 16px 1.5,
+  'h1': 48px 1.7,
+  'h2': 40px 1.7,
+  'h3': 32px 1.7,
+  'h4': 24px 1.7,
+  'h5': 16px 1.7,
+  'h6': 16px 1.7,
 ));
 
 /// Spacings
@@ -79,3 +73,6 @@
   'easeOutBack': cubic-bezier(0.175, 0.885, 0.32, 1.275),
   'easeInOutBack': cubic-bezier(0.68, -0.55, 0.265, 1.55),
 ));
+
+/// Divisors used for the grid
+@include set('divisors', 2 3 4 5);

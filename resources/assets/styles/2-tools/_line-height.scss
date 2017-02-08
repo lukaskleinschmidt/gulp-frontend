@@ -1,14 +1,17 @@
 // TODO: Add description
 @function get-line-height($key: 'default', $multiplier: 1) {
-
   @if type-of($key) == 'number' {
     @return $key * $multiplier;
   }
 
-  $font-sizes: get-option('font-size');
-  $font-size: map-get($font-sizes, $key);
+  $font-size: get('font-size', $key);
+  $line-height: nth($font-size, 2);
 
-  @return nth($font-size, 2) * $multiplier;
+  @if type-of($line-height) == 'null' {
+    @error '#{$key} is neither a valid line-height nor specified in the options.';
+  }
+
+  @return $line-height * $multiplier;
 }
 
 /// Shorthand for get-font()

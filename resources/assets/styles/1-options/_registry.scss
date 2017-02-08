@@ -1,12 +1,12 @@
 // TODO: Add description
 @mixin set($key, $value) {
-  @if not(global-variable-exists('options-map')) {
+  @if not(global-variable-exists('GLOBAL_OPTIONS')) {
     /// Global variable to keep track of all options
-    $options-map: () !global;
+    $GLOBAL_OPTIONS: () !global;
   }
 
-  @if map-has-key($options-map, $key) {
-    $current-value: map-get($options-map, $key);
+  @if map-has-key($GLOBAL_OPTIONS, $key) {
+    $current-value: map-get($GLOBAL_OPTIONS, $key);
 
     @if type-of($current-value) == 'map' and type-of($value) == 'map' {
       $value: map-merge($current-value, $value);
@@ -17,7 +17,7 @@
     }
   }
 
-  $options-map: map-merge($options-map, ($key: $value)) !global;
+  $GLOBAL_OPTIONS: map-merge($GLOBAL_OPTIONS, ($key: $value)) !global;
 }
 
 // TODO: Add description
@@ -50,12 +50,7 @@
 
 // TODO: Add description
 @mixin set-color-gradients($key) {
-  @if not(global-variable-exists('options-map')) {
-    /// Global variable to keep track of all options
-    $options-map: () !global;
-  }
-
-  $color-map: map-get($options-map, 'color');
+  $color-map: map-get($GLOBAL_OPTIONS, 'color');
   $color: map-get($color-map, $key);
   $white: #fff;
   $black: #000;
