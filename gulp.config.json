@@ -16,6 +16,8 @@
       "plugins": {
         "webpack": {
           "commons": true,
+          "overlay": false,
+          "quiet": false,
           "entry": {
             "app": "./app.js"
           }
