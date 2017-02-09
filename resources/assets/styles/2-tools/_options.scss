@@ -1,9 +1,4 @@
 // TODO: Add description
-@function get($keys...) {
-  @return map-deep-get($GLOBAL_OPTIONS, $keys...);
-}
-
-// TODO: Add description
 @function get-option($key, $multiplier: 1) {
   $value: get($key);
 

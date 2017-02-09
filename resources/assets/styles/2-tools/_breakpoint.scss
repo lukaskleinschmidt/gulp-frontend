@@ -1,8 +1,6 @@
 // TODO: Add description
 @function get-breakpoint($key, $multiplier: 1) {
-  $breakpoints: get-option('breakpoint');
-
-  @return map-get($breakpoints, $key) * $multiplier;
+  @return get('breakpoint', $key) * $multiplier;
 }
 
 /// Shorthand for get-breakpoint()

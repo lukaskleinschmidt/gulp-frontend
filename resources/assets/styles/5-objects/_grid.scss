@@ -1,24 +1,4 @@
-@debug get('divisors');
-
-@mixin fractions($breakpoint: null) {
-  @each $divisor in o('divisors') {
-    @for $dividend from 1 through $divisor - 1 {
-      @if $breakpoint {
-        &--#{$dividend}\/#{$divisor}\@#{$breakpoint} {
-          flex-basis: $dividend / $divisor * 100%;
-          max-width: $dividend / $divisor * 100%;
-        }
-      }
-
-      @else {
-        &--#{$dividend}\/#{$divisor} {
-          flex-basis: $dividend / $divisor * 100%;
-          max-width: $dividend / $divisor * 100%;
-        }
-      }
-    }
-  }
-}
+$divisors: get('divisors');
 
 .o-grid {
   flex: 1 0 auto;
@@ -39,9 +19,9 @@
     flex-grow: 1;
   }
 
-  @include fractions();
+  @include grid-fractions($divisors);
 
-  @each $breakpoint, $value in o('breakpoint') {
+  @each $breakpoint, $value in get('breakpoint') {
     @include breakpoint($value) {
       &--auto\@#{$breakpoint} {
         flex-basis: auto;
@@ -68,7 +48,7 @@
         max-width: 100%;
       }
 
-      @include fractions($breakpoint);
+      @include grid-fractions($divisors, $breakpoint);
     }
   }
 
