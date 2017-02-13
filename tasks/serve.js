@@ -39,13 +39,13 @@ gulp.task('serve', deps.concat('watch'), () => {
     'fonts': '/**/*.{eot,svg,ttf,woff,woff2}',
   };
 
-  task.plugins.browserSync.files.forEach(file => {
-    files.push(path.join(config.roots.dest, file));
-  });
-
   config.tasks.watch.tasks.forEach(task => {
     var glob = task in globs ? globs[task] : '/**/*';
     files.push(path.join(config.roots.dest, config.tasks[task].roots.dest, glob));
+  });
+
+  task.plugins.browserSync.files.forEach(file => {
+    files.push(path.join(config.roots.public, file));
   });
 
   var browserSyncConfig = proxy ? {
@@ -60,7 +60,7 @@ gulp.task('serve', deps.concat('watch'), () => {
     port: port,
     server: {
       middleware: middleware,
-      baseDir: config.roots.dest,
+      baseDir: config.roots.public,
       routes: {
         '/node_modules': 'node_modules'
       },

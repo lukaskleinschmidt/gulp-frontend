@@ -1,7 +1,8 @@
 {
   "roots": {
     "src": "assets",
-    "dest": "public"
+    "dest": "public/assets",
+    "public": "public"
   },
 
   "tasks": {
@@ -9,12 +10,13 @@
     "scripts": {
       "roots": {
         "src": "scripts",
-        "dest": "assets/scripts"
+        "dest": "scripts"
       },
       "glob": "/**/*.js",
       "deps": [],
       "plugins": {
         "webpack": {
+          "publicPath": "/assets/scripts",
           "commons": true,
           "overlay": false,
           "quiet": false,
@@ -28,7 +30,7 @@
     "styles": {
       "roots": {
         "src": "styles",
-        "dest": "assets/styles"
+        "dest": "styles"
       },
       "glob": "/**/*.scss",
       "deps": [],
@@ -45,7 +47,7 @@
     "images": {
       "roots": {
         "src": "images",
-        "dest": "assets/images"
+        "dest": "images"
       },
       "glob": "/**/*",
       "deps": [],
@@ -61,7 +63,7 @@
     "fonts": {
       "roots": {
         "src": "fonts",
-        "dest": "assets/fonts"
+        "dest": "fonts"
       },
       "glob": "/**/*.{eot,svg,ttf,woff,woff2}",
       "deps": [],

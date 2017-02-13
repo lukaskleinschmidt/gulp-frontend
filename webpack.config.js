@@ -29,6 +29,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, config.roots.dest, task.roots.dest),
     filename: '[name].js',
-    publicPath: '/' + task.roots.dest,
+    publicPath: task.plugins.webpack.publicPath,
   },
 };
