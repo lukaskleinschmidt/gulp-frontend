@@ -43,7 +43,7 @@ gulp.task('serve', deps.concat('watch'), () => {
     files.push(path.join(config.roots.dest, file));
   });
 
-  deps.forEach(task => {
+  config.tasks.watch.tasks.forEach(task => {
     var glob = task in globs ? globs[task] : '/**/*';
     files.push(path.join(config.roots.dest, config.tasks[task].roots.dest, glob));
   });

@@ -69,7 +69,7 @@
     },
 
     "serve": {
-      "deps": ["styles", "images", "fonts"],
+      "deps": ["scripts", "styles", "images", "fonts"],
       "plugins": {
         "browserSync": {
           "notify": false,
