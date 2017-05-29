@@ -1,9 +1,0 @@
-// TODO: Add description
-@function get-easing($key) {
-  @return get('easing', $key);
-}
-
-/// Shorthand for get-easing()
-@function e($key) {
-  @return get-easing($key);
-}

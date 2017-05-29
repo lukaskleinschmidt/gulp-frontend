@@ -7,19 +7,30 @@
 
 /// Font families
 @include set('font-family', (
-  'default': 'Arial, Helvetica, sans-serif',
+  'base': 'Arial, Helvetica, sans-serif',
   'mono': '"Courier New", Courier, monospace',
 ));
 
 /// Font sizes
 @include set('font-size', (
-  'default': 16px 1.5,
-  'h1': 48px 1.7,
-  'h2': 40px 1.7,
-  'h3': 32px 1.7,
-  'h4': 24px 1.7,
-  'h5': 16px 1.7,
-  'h6': 16px 1.7,
+  'base': 16px,
+  'h1': 48px,
+  'h2': 40px,
+  'h3': 32px,
+  'h4': 24px,
+  'h5': 16px,
+  'h6': 16px,
+));
+
+/// Line heights
+@include set('line-height', (
+  'base': 1.5,
+  'h1': 48px,
+  'h2': 40px,
+  'h3': 32px,
+  'h4': 24px,
+  'h5': 16px,
+  'h6': 16px,
 ));
 
 /// Spacings
@@ -30,8 +41,8 @@
 ));
 
 /// Colors
-@include set-color('primary', #ff6858, true);
-@include set-color('secondary', #444444, true);
+@include set-color('primary', #1cf5b4, true);
+@include set-color('secondary', #0980ed, true);
 @include set-color('gray', gray, true);
 @include set-color('white', white);
 @include set-color('black', black);
@@ -73,6 +84,3 @@
   'easeOutBack': cubic-bezier(0.175, 0.885, 0.32, 1.275),
   'easeInOutBack': cubic-bezier(0.68, -0.55, 0.265, 1.55),
 ));
-
-/// Divisors used for the grid
-@include set('divisors', 2 3 4 5);

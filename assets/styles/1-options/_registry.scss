@@ -21,26 +21,6 @@
 }
 
 // TODO: Add description
-@mixin set-breakpoint($key, $value) {
-  @include set('breakpoint', ($key: $value));
-}
-
-// TODO: Add description
-@mixin set-font-size($key, $value) {
-  @include set('font-size', ($key: $value));
-}
-
-// TODO: Add description
-@mixin set-font-family($key, $value) {
-  @include set('font-family', ($key: $value));
-}
-
-// TODO: Add description
-@mixin set-spacing($key, $value) {
-  @include set('spacing', ($key: $value));
-}
-
-// TODO: Add description
 @mixin set-color($key, $value, $gradients: false, $config: ()) {
   @include set('color', ($key: $value));
   @if $gradients {

@@ -7,16 +7,8 @@
 /// Globally used mixins and functions. It’s important not
 /// to output any CSS in the first 2 layers.
 @import '2-tools/utils';
-@import '2-tools/options';
 @import '2-tools/breakpoint';
 @import '2-tools/color';
-@import '2-tools/easing';
-@import '2-tools/font-family';
-@import '2-tools/font-size';
-@import '2-tools/line-height';
-@import '2-tools/spacing';
-@import '2-tools/keyframes';
-@import '2-tools/grid';
 
 /// Reset and/or normalize styles, box-sizing definition,
 /// etc. This is the first layer which generates actual CSS.
@@ -30,7 +22,7 @@
 
 /// Class-based selectors which define undecorated design patterns,
 /// for example media object known from OOCSS
-@import '5-objects/grid';
+// @import '5-objects/';
 
 /// Specific UI components. This is where majority of our
 /// work takes place and our UI components are often

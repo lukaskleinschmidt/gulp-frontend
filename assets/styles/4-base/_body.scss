@@ -1,5 +1,5 @@
 body {
-  font-size: fs();
-  line-height: lh();
-  font-family: ff();
+  font-family: get('font-family', 'base');
+  font-size: get('font-size', 'base');
+  line-height: get('line-height', 'base');
 }

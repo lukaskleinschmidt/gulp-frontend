@@ -1,6 +1,6 @@
 {
   "name": "webpack-fronted",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Webpack Frontend-Boilerplate",
   "repository": "",
   "scripts": {
@@ -20,7 +20,7 @@
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.0",
     "require-dir": "^0.3.1",
-    "webpack": "^2.6.0",
+    "webpack": "^2.6.1",
     "webpack-dev-middleware": "^1.10.2",
     "webpack-hot-middleware": "^2.18.0",
     "webpack-module-hot-accept": "^1.0.5"

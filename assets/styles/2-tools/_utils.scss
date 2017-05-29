@@ -4,7 +4,28 @@
 }
 
 // TODO: Add description
-@function to-em($value, $base-font-size: 16px) {
+@function to-px($value, $base: 16px, $context: 16px) {
+  $unit: unit($value);
+
+  @if $unit == 'px' {
+    @return $value;
+  }
+
+  @else if $unit == 'em' {
+    @return strip-unit($value) * $context;
+  }
+
+  @else if $unit == 'rem' {
+    @return strip-unit($value) * $base;
+  }
+
+  @else {
+    @error 'You sould use em or rem.';
+  }
+}
+
+// TODO: Add description
+@function to-em($value, $base: 16px, $context: 16px) {
   $unit: unit($value);
 
   @if $unit == 'em' {
@@ -12,25 +33,25 @@
   }
 
   @else if $unit == 'px' {
-    @return $value / $base-font-size * 1em;
+    @return $value / $context * 1em;
   }
 
   @else if $unit == 'rem' {
-    @return $value / 1rem * 1em;
+    @return strip-unit($value) / strip-unit($context) * strip-unit($base) * 1em;
   }
 
   @else if unitless($value) {
     @warn 'Assuming #{$value} to be in pixels, attempting to convert it into em.';
-    @return $value / strip-unit($base-font-size) * 1em;
+    @return $value / strip-unit($context) * 1em;
   }
 
   @else {
-    @error 'You sould use px, rem or em.';
+    @error 'You sould use px or rem.';
   }
 }
 
 // TODO: Add description
-@function to-rem($value, $base-font-size: 16px) {
+@function to-rem($value, $base: 16px, $context: 16px) {
   $unit: unit($value);
 
   @if $unit == 'rem' {
@@ -38,16 +59,20 @@
   }
 
   @else if $unit == 'px' {
-    @return $size / 16px * 1rem;
+    @return $value / $base * 1rem;
+  }
+
+  @else if $unit == 'em' {
+    @return strip-unit($value) / strip-unit($base) * strip-unit($context) * 1rem;
   }
 
   @else if unitless($value) {
     @warn 'Assuming #{$value} to be in pixels, attempting to convert it into rem.';
-    @return $value / strip-unit($base-font-size) * 1rem;
+    @return $value / strip-unit($base) * 1rem;
   }
 
   @else {
-    @error 'You sould use px, rem or em.';
+    @error 'You sould use px or em.';
   }
 }
 

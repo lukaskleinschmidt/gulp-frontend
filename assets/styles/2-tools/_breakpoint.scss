@@ -1,16 +1,6 @@
 // TODO: Add description
-@function get-breakpoint($key, $multiplier: 1) {
-  @return get('breakpoint', $key) * $multiplier;
-}
-
-/// Shorthand for get-breakpoint()
-@function b($key, $multiplier: 1) {
-  @return get-breakpoint($key, $multiplier);
-}
-
-// TODO: Add description
 @function parse-breakpoint-width($width) {
-  $breakpoints: get-option('breakpoint');
+  $breakpoints: get('breakpoint');
 
   @if type-of($width) == 'string' and map-has-key($breakpoints, $width) {
     $width: map-get($breakpoints, $width);
