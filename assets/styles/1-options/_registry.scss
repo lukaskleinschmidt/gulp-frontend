@@ -73,8 +73,14 @@
 // TODO: Add description
 @function get($keys...) {
   $map: $GLOBAL_OPTIONS;
+
   @each $key in $keys {
     $map: map-get($map, $key);
   }
+
+  @if type-of($map) == 'string' {
+    @return unquote($map);
+  }
+
   @return $map;
 }
