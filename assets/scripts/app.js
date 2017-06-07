@@ -1,4 +1,12 @@
-import * as lib from './components/lib.js';
+import Breakpoint from './components/breakpoint';
+import Model from './components/model';
 
-console.log(lib.square(11)); // 121
-console.log(lib.diag(4, 3)); // 5
+const breakpoint = new Breakpoint('(min-width: 800px)');
+
+breakpoint.on('match', () => {
+  console.log('match');
+}).check();
+
+breakpoint.on('unmatch', () => {
+  console.log('unmatch');
+});
