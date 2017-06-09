@@ -8,7 +8,7 @@ var task = config.tasks.styles;
 var dest = path.join(config.roots.dest, task.roots.dest);
 
 gulp.task('styles:build', ['styles'], () => {
-  return gulp.src(path.join(config.roots.dest, task.roots.dest, '/*.css'))
+  return gulp.src(path.join(config.roots.dest, task.roots.dest, '/**/*.css'))
     .pipe(cssnano({
       reduceIdents: {
         keyframes: true
