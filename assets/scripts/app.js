@@ -1,5 +1,5 @@
 import Breakpoint from './components/breakpoint';
-import Model from './components/model';
+import Component from './components/component';
 
 const breakpoint = new Breakpoint('(min-width: 800px)');
 
