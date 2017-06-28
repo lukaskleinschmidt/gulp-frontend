@@ -26,6 +26,7 @@
     "webpack-module-hot-accept": "^1.0.5"
   },
   "dependencies": {
+    "lodash": "^4.17.4",
     "normalize-scss": "^7.0.0"
   },
   "license": "MIT"
