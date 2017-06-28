@@ -1,7 +1,6 @@
-import set from 'lodash/set';
-import get from 'lodash/get';
+import { set, get, has } from 'lodash';
 
-export default class Model {
+export default class Component {
   constructor() {
     this._data = {};
     this._observers = {};
@@ -10,13 +9,15 @@ export default class Model {
 
   set(path, value) {
     set(this._data, path, value);
-
-    //return this for chaining
-    return this;
+    return value;
   }
 
   get(path, defaultValue) {
     return get(this._data, path, defaultValue);
+  }
+
+  has(path) {
+    return has(this._data, path);
   }
 
   on(event, listener) {
