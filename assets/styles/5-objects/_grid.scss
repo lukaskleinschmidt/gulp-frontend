@@ -1,0 +1,71 @@
+.o-grid {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+
+  > * {
+    box-sizing: border-box;
+    max-width: 100%;
+    flex: 0 1 auto;
+  }
+}
+
+$col: (
+  'col:1': 100%,
+  'col:2': 100% / 2,
+  'col:3': 100% / 3,
+  'col:4': 100% / 4,
+);
+
+@each $key, $value in $col {
+  [data-grid*="#{$key}"] {
+    > * {
+      flex-basis: $value;
+      max-width: $value;
+    }
+  }
+}
+
+@each $breakpoint, $value in get('breakpoint') {
+  @include breakpoint($value) {
+    @each $key, $value in $col {
+      [data-grid-#{$breakpoint}*="#{$key}"] {
+        > * {
+          flex-basis: $value;
+          max-width: $value;
+        }
+      }
+    }
+  }
+}
+
+$gap: (
+  'gap:small': get('spacing', 'small'),
+  'gap:medium': get('spacing', 'medium'),
+);
+
+@each $key, $value in $gap {
+  [data-grid*="#{$key}"] {
+    margin: -#{$value} 0 0 -#{$value};
+
+    > * {
+      padding: #{$value} 0 0 #{$value};
+    }
+  }
+}
+
+@each $breakpoint, $value in get('breakpoint') {
+  @include breakpoint($value) {
+    @each $key, $value in $gap {
+      [data-grid-#{$breakpoint}*="#{$key}"] {
+        margin: -#{$value} 0 0 -#{$value)};
+
+        > * {
+          padding: #{$value} 0 0 #{$value};
+        }
+      }
+    }
+  }
+}
