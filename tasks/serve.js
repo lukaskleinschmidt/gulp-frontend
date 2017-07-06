@@ -8,25 +8,26 @@ var deps = task.deps || [];
 
 gulp.task('serve', deps.concat('watch'), () => {
 
-  var webpack = require('webpack');
-  var webpackDevMiddleware = require('webpack-dev-middleware');
-  var webpackHotMiddleware = require('webpack-hot-middleware');
+  var middleware = [];
 
-  var webpackConfig = require('../webpack.config.hot');
-  var bundler = webpack(webpackConfig);
+  if(task.plugins.browserSync.hot) {
+    var webpack = require('webpack');
+    var webpackDevMiddleware = require('webpack-dev-middleware');
+    var webpackHotMiddleware = require('webpack-hot-middleware');
 
-  var middleware = [
-    webpackDevMiddleware(bundler, {
+    var webpackConfig = require('../webpack.config.hot');
+    var bundler = webpack(webpackConfig);
+
+    // for other settings see
+    // http://webpack.github.io/docs/webpack-dev-middleware.html
+    middleware.push(webpackDevMiddleware(bundler, {
       publicPath: webpackConfig.output.publicPath,
       stats: { colors: true },
-
-      // for other settings see
-      // http://webpack.github.io/docs/webpack-dev-middleware.html
-    }),
+    }));
 
     // bundler should be the same as above
-    webpackHotMiddleware(bundler),
-  ];
+    middleware.push(webpackHotMiddleware(bundler));
+  }
 
   var notify = task.plugins.browserSync.notify;
   var proxy = task.plugins.browserSync.proxy;
