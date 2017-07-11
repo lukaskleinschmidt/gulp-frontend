@@ -46,8 +46,9 @@ $col: (
 }
 
 $gap: (
-  'gap:small': get('spacing', 'small'),
-  'gap:medium': get('spacing', 'medium'),
+  'gap:tiny':   $spacing-tiny,
+  'gap:small':  $spacing-small,
+  'gap:medium': $spacing-medium,
 );
 
 @each $key, $value in $gap {

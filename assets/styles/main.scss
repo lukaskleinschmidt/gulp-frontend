@@ -18,12 +18,11 @@
 /// come with default styling from the browser so we can
 /// redefine them here.
 @import '4-base/body';
-@import '4-base/headings';
+@import '4-base/typo';
 
 /// Class-based selectors which define undecorated design patterns,
 /// for example media object known from OOCSS
 @import '5-objects/grid';
-@import '5-objects/text';
 
 /// Specific UI components. This is where majority of our
 /// work takes place and our UI components are often
@@ -32,4 +31,5 @@
 
 /// Utilities and helper classes with ability to override anything
 /// which goes before in the triangle, eg. hide helper class
-// @import '7-trumps/';
+@import '7-trumps/collapse';
+@import '7-trumps/overflow';

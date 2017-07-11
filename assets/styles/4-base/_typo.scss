@@ -1,0 +1,42 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family-heading;
+  line-height: $line-height-heading;
+  margin: $spacing-medium 0 $spacing-small;
+}
+
+h1 {
+  font-size: $font-size-large;
+}
+
+h2 {
+  font-size: $font-size-large;
+}
+
+h3 {
+  font-size: $font-size-medium;
+}
+
+h4 {
+  font-size: $font-size-medium;
+}
+
+h5 {
+  font-size: $font-size-base;
+}
+
+h6 {
+  font-size: $font-size-base;
+}
+
+small {
+  font-size: $font-size-small / $font-size-base * 100%;
+}
+
+p {
+  margin: $spacing-small 0;
+}
