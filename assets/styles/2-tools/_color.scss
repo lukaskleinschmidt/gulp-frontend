@@ -65,17 +65,17 @@
   @return get-color($key, $callbacks...);
 }
 
-// TODO: Add description
+/// Lighten color
 @function tint($color, $amount) {
   @return mix(white, $color, $amount);
 }
 
-// TODO: Add description
+/// Darken color
 @function shade($color, $amount) {
   @return mix(black, $color, $amount);
 }
 
-// TODO: Add description
+/// Adjust transparency
 @function opacity($color, $amount) {
   @return transparentize($color, (1 - $amount));
 }
