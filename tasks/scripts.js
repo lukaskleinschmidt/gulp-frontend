@@ -8,7 +8,7 @@ var deps = task.deps || [];
 gulp.task('scripts', deps, () => {
   exec('webpack --color --config webpack.config.js', (error, stdout, stderr) => {
     if(error) {
-      throw error;
+      console.log(error);
     }
     console.log(stdout);
   });
