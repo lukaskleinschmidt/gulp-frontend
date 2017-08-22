@@ -16,6 +16,15 @@
   }
 }
 
+@each $breakpoint, $value in get('breakpoint') {
+  [data-grid-#{$breakpoint}~="auto"] {
+    > * {
+      flex-basis: auto;
+      max-width: 100%;
+    }
+  }
+}
+
 $col: (
   'col:1': 100%,
   'col:2': 100% / 2,
@@ -24,7 +33,7 @@ $col: (
 );
 
 @each $key, $value in $col {
-  [data-grid*="#{$key}"] {
+  [data-grid~="#{$key}"] {
     > * {
       flex-basis: $value;
       max-width: $value;
@@ -35,7 +44,7 @@ $col: (
 @each $breakpoint, $value in get('breakpoint') {
   @include breakpoint($value) {
     @each $key, $value in $col {
-      [data-grid-#{$breakpoint}*="#{$key}"] {
+      [data-grid-#{$breakpoint}~="#{$key}"] {
         > * {
           flex-basis: $value;
           max-width: $value;
@@ -46,13 +55,14 @@ $col: (
 }
 
 $gap: (
+  'gap:none':   0,
   'gap:tiny':   $spacing-tiny,
   'gap:small':  $spacing-small,
   'gap:medium': $spacing-medium,
 );
 
 @each $key, $value in $gap {
-  [data-grid*="#{$key}"] {
+  [data-grid~="#{$key}"] {
     margin: -#{$value} 0 0 -#{$value};
 
     > * {
@@ -64,7 +74,7 @@ $gap: (
 @each $breakpoint, $value in get('breakpoint') {
   @include breakpoint($value) {
     @each $key, $value in $gap {
-      [data-grid-#{$breakpoint}*="#{$key}"] {
+      [data-grid-#{$breakpoint}~="#{$key}"] {
         margin: -#{$value} 0 0 -#{$value)};
 
         > * {

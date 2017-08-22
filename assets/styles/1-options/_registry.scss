@@ -30,44 +30,46 @@
 
 // TODO: Add description
 @mixin set-color-gradients($key, $config: ()) {
-  $color-map: map-get($GLOBAL_OPTIONS, 'color');
-  $color: map-get($color-map, $key);
+  $color: null;
+  $colors: get('color');
 
-  $config: map_merge((
-    'gradients-light': 'light' 'lighter' 'lightest',
-    'gradients-dark': 'dark' 'darker' 'darkest',
-    'light': #fff,
-    'dark': #000,
-  ), $config);
-
-  @if type-of($color) != 'color' {
-    @warn '#{$key} is neither a valid color nor in the color map.';
+  // if $key is a color by itself and not in $colors return $key
+  // otherwise get the color from $colors
+  @if not(map-has-key($colors, $key)) {
+    @warn '#{$key} is not in the color map.';
   }
 
-  $gradients-light: map-get($config, 'gradients-light');
-  $light: map-get($config, 'light');
+  @else {
+    $color: map-get($colors, $key);
+  }
 
-  @if type-of($gradients-light) == 'list' and type-of($light) == 'color' {
-    $length: length($gradients-light);
+  // default config
+  @if length($config) == 0 {
+    $config: (
+      (
+        'suffix': 'light' 'lighter' 'lightest',
+        'color': #fff,
+      ),
+      (
+        'suffix': 'dark' 'darker' 'darkest',
+        'color': #000,
+      )
+    );
+  }
 
-    @for $i from 1 through $length {
-      $color-gradient: mix($light, $color, percentage($i / ($length + 1)));
-      @include set-color(#{$key + '-' + nth($gradients-light, $i)}, $color-gradient);
+  @each $gradient in $config  {
+    $gradient-suffix: map-get($gradient, 'suffix');
+    $gradient-color: map-get($gradient, 'color');
+
+    @if type-of($gradient-suffix) == 'list' and type-of($gradient-color) == 'color' {
+      $length: length($gradient-suffix);
+
+      @for $i from 1 through $length {
+        $mix: mix($gradient-color, $color, percentage($i / ($length + 1)));
+        @include set-color(#{$key + '-' + nth($gradient-suffix, $i)}, $mix);
+      }
     }
   }
-
-  $gradients-dark: map-get($config, 'gradients-dark');
-  $dark: map-get($config, 'dark');
-
-  @if type-of($gradients-dark) == 'list' and type-of($dark) == 'color' {
-    $length: length($gradients-dark);
-
-    @for $i from 1 through $length {
-      $color-gradient: mix($dark, $color, percentage($i / ($length + 1)));
-      @include set-color(#{$key + '-' + nth($gradients-dark, $i)}, $color-gradient);
-    }
-  }
-
 }
 
 // TODO: Add description

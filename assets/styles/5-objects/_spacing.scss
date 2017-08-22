@@ -1,0 +1,75 @@
+.o-spacing {
+  padding-top: $spacing-small;
+  padding-bottom: $spacing-small;
+}
+
+$spacing: (
+  'none':   0,
+  'tiny':   $spacing-tiny,
+  'small':  $spacing-small,
+  'medium': $spacing-medium,
+);
+
+@each $key, $value in $spacing {
+  [data-spacing~="#{$key}"] {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+}
+
+@each $breakpoint, $value in get('breakpoint') {
+  @include breakpoint($value) {
+    @each $key, $value in $spacing {
+      [data-spacing-#{$breakpoint}~="#{$key}"] {
+        padding-top: $value;
+        padding-bottom: $value;
+      }
+    }
+  }
+}
+
+$top: (
+  'top:none':   0,
+  'top:tiny':   $spacing-tiny,
+  'top:small':  $spacing-small,
+  'top:medium': $spacing-medium,
+);
+
+@each $key, $value in $top {
+  [spacing~="#{$key}"] {
+    padding-top: $value;
+  }
+}
+
+@each $breakpoint, $value in get('breakpoint') {
+  @include breakpoint($value) {
+    @each $key, $value in $top {
+      [spacing-#{$breakpoint}~="#{$key}"] {
+        padding-top: $value;
+      }
+    }
+  }
+}
+
+$bottom: (
+  'bottom:none':   0,
+  'bottom:tiny':   $spacing-tiny,
+  'bottom:small':  $spacing-small,
+  'bottom:medium': $spacing-medium,
+);
+
+@each $key, $value in $bottom {
+  [data-spacing~="#{$key}"] {
+    padding-bottom: $value;
+  }
+}
+
+@each $breakpoint, $value in get('breakpoint') {
+  @include breakpoint($value) {
+    @each $key, $value in $bottom {
+      [data-spacing-#{$breakpoint}~="#{$key}"] {
+        padding-bottom: $value;
+      }
+    }
+  }
+}
