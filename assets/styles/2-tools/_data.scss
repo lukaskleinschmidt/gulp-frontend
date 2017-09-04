@@ -20,20 +20,8 @@
 ///   text-align: left;
 /// }
 ///
-/// @media (min-width: 48em) {
-///   [data-typo-medium~="left"] {
-///     text-align: left;
-///   }
-/// }
-///
 /// [data-typo~="right"] {
 ///   text-align: right;
-/// }
-///
-/// @media (min-width: 48em) {
-///   [data-typo-medium~="right"] {
-///     text-align: right;
-///   }
 /// }
 ///
 /// [data-typo~="center"] {
@@ -41,14 +29,23 @@
 /// }
 ///
 /// @media (min-width: 48em) {
+///   [data-typo-medium~="left"] {
+///     text-align: left;
+///   }
+///
+///   [data-typo-medium~="right"] {
+///     text-align: right;
+///   }
+///
 ///   [data-typo-medium~="center"] {
 ///     text-align: center;
 ///   }
 /// }
 @mixin data($attribute, $options, $breakpoints: get('breakpoint')) {
   $index: 0;
-  $type:type-of($options);
+  $type: type-of($options);
 
+  // data attribute without any breakpoint
   @each $option-key, $option-value in $options {
 
     // cache key and value
@@ -60,14 +57,29 @@
     // increase index
     $index: $index + 1;
 
-    // data attribute without any breakpoint
     [data-#{$attribute}~="#{$option-key}"] {
       @content;
     }
+  }
 
-    // data attribute for all breakpoints
-    @each $breakpoint-key, $breakpoint-value in $breakpoints {
-      @include breakpoint($breakpoint-value) {
+  // data attribute for all breakpoints
+  @each $breakpoint-key, $breakpoint-value in $breakpoints {
+
+    // reset index
+    $index: 0;
+
+    @include breakpoint($breakpoint-value) {
+      @each $option-key, $option-value in $options {
+
+        // cache key and value
+        @include set('_data', (
+          'key': if($type == 'list', $index, $option-key),
+          'value': if($type == 'list', $option-key, $option-value),
+        ));
+
+        // increase index
+        $index: $index + 1;
+
         [data-#{$attribute}-#{$breakpoint-key}~="#{$option-key}"] {
           @content;
         }
