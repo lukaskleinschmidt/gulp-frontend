@@ -10,10 +10,6 @@ gulp serve
 # build assests
 gulp build
 ```
-
-## Gulp
-Configure gulp to match the project with the `gulp.config.json` file.
-
 ## Styles
 This boilerplate comes with an set of css rules and some scss functions and mixins.  
 All classes mixins and functions are opinionated and should be modified / or removed to match the projects requirements.
