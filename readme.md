@@ -45,7 +45,7 @@ Create a flex grid.
 </div>
 ```
 
-#### [`.o-spacing`](/assets/styles/5-objects/_spacing.scss)
+#### [`.o-spacing`](/assets/styles/7-trumps/_spacing.scss)
 Add paddings.
 
 ```html
