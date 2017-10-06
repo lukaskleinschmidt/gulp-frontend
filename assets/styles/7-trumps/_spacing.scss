@@ -1,13 +1,11 @@
-.o-spacing {
-  padding-top: $spacing-small;
-  padding-bottom: $spacing-small;
-}
-
-@include data('spacing', (
-  'none':   0,
-  'tiny':   $spacing-tiny,
-  'small':  $spacing-small,
-  'medium': $spacing-medium,
+@include data((
+  's:none':   0,
+  's:tiny':   $spacing-tiny,
+  's:small':  $spacing-small,
+  's:base':   $spacing-base,
+  's:medium': $spacing-medium,
+  's:large':  $spacing-large,
+  's:larger': $spacing-larger,
 )) {
   $value: value();
 
@@ -15,21 +13,26 @@
   padding-bottom: $value;
 }
 
-@include data('spacing', (
-  'top:none':   0,
-  'top:tiny':   $spacing-tiny,
-  'top:small':  $spacing-small,
-  'top:medium': $spacing-medium,
+@include data((
+  'st:none':   0,
+  'st:tiny':   $spacing-tiny,
+  'st:small':  $spacing-small,
+  'st:base':   $spacing-base,
+  'st:medium': $spacing-medium,
+  'st:large':  $spacing-large,
+  'st:larger': $spacing-larger,
 )) {
   padding-top: value();
 }
 
-
-@include data('spacing', (
-  'bottom:none':   0,
-  'bottom:tiny':   $spacing-tiny,
-  'bottom:small':  $spacing-small,
-  'bottom:medium': $spacing-medium,
+@include data((
+  'sb:none':   0,
+  'sb:tiny':   $spacing-tiny,
+  'sb:small':  $spacing-small,
+  'sb:base':   $spacing-base,
+  'sb:medium': $spacing-medium,
+  'sb:large':  $spacing-large,
+  'sb:larger': $spacing-larger,
 )) {
   padding-bottom: value();
 }
