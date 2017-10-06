@@ -4,8 +4,6 @@
   's:small':  $spacing-small,
   's:base':   $spacing-base,
   's:medium': $spacing-medium,
-  's:large':  $spacing-large,
-  's:larger': $spacing-larger,
 )) {
   $value: value();
 
@@ -19,8 +17,6 @@
   'st:small':  $spacing-small,
   'st:base':   $spacing-base,
   'st:medium': $spacing-medium,
-  'st:large':  $spacing-large,
-  'st:larger': $spacing-larger,
 )) {
   padding-top: value();
 }
@@ -31,8 +27,6 @@
   'sb:small':  $spacing-small,
   'sb:base':   $spacing-base,
   'sb:medium': $spacing-medium,
-  'sb:large':  $spacing-large,
-  'sb:larger': $spacing-larger,
 )) {
   padding-bottom: value();
 }
