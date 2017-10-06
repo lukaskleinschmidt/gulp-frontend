@@ -41,46 +41,6 @@
 ///     text-align: center;
 ///   }
 /// }
-///
-/// Namespace:
-///
-/// @include data('typo', (
-///   'left',
-///   'right',
-///   'center',
-/// ), (
-///   'medium': 48em,
-/// )) {
-///   text-align: value();
-/// }
-///
-/// Output:
-///
-/// [data-typo~="left"] {
-///   text-align: left;
-/// }
-///
-/// [data-typo~="right"] {
-///   text-align: right;
-/// }
-///
-/// [data-typo~="center"] {
-///   text-align: center;
-/// }
-///
-/// @media (min-width: 48em) {
-///   [data-typo-medium~="left"] {
-///     text-align: left;
-///   }
-///
-///   [data-typo-medium~="right"] {
-///     text-align: right;
-///   }
-///
-///   [data-typo-medium~="center"] {
-///     text-align: center;
-///   }
-/// }
 @mixin data($args...) {
   @if not(type-of(nth($args, 1)) == 'string') {
     $args: join(null, $args);
