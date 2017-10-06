@@ -26,7 +26,6 @@
 /// for example media object known from OOCSS
 @import '5-objects/container';
 @import '5-objects/grid';
-@import '5-objects/spacing';
 
 /// Specific UI components. This is where majority of our
 /// work takes place and our UI components are often
@@ -36,5 +35,8 @@
 /// Utilities and helper classes with ability to override anything
 /// which goes before in the triangle, eg. hide helper class
 @import '7-trumps/collapse';
+@import '7-trumps/display';
 @import '7-trumps/overflow';
-@import '7-trumps/visibility';
+@import '7-trumps/spacing';
+@import '7-trumps/text';
+@import '7-trumps/vertical-rhythm';

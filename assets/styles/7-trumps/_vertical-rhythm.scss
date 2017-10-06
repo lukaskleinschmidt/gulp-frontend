@@ -1,0 +1,11 @@
+@include data((
+  'vr:none':   0,
+  'vr:tiny':   $spacing-tiny,
+  'vr:small':  $spacing-small,
+  'vr:base':   $spacing-base,
+  'vr:medium': $spacing-medium,
+)) {
+  > *:nth-child(n+2) {
+    margin-top: value();
+  }
+}

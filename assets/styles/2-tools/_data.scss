@@ -1,8 +1,48 @@
 /// Creates responsive data attributes
-/// @param  {String}   $attribute
-/// @param  {Max|List} $options
-/// @param  {Map}      $breakpoints
+/// @param  {String}     $attribute - optional
+/// @param  {Map | List} $options
+/// @param  {Map}        $breakpoints - optional
 /// @example
+///
+/// @include data((
+///   'left',
+///   'right',
+///   'center',
+/// ), (
+///   'medium': 48em,
+/// )) {
+///   text-align: value();
+/// }
+///
+/// Output:
+///
+/// [data-base~="left"] {
+///   text-align: left;
+/// }
+///
+/// [data-base~="right"] {
+///   text-align: right;
+/// }
+///
+/// [data-base~="center"] {
+///   text-align: center;
+/// }
+///
+/// @media (min-width: 48em) {
+///   [data-medium~="left"] {
+///     text-align: left;
+///   }
+///
+///   [data-medium~="right"] {
+///     text-align: right;
+///   }
+///
+///   [data-medium~="center"] {
+///     text-align: center;
+///   }
+/// }
+///
+/// Namespace:
 ///
 /// @include data('typo', (
 ///   'left',
@@ -41,9 +81,24 @@
 ///     text-align: center;
 ///   }
 /// }
-@mixin data($attribute, $options, $breakpoints: get('breakpoint')) {
+@mixin data($args...) {
+  @if not(type-of(nth($args, 1)) == 'string') {
+    $args: join(null, $args);
+  }
+
+  @if length($args) < 3 {
+    $args: append($args, get('breakpoint'));
+  }
+
+  $breakpoints: nth($args, 3);
+  $attribute: nth($args, 1);
+  $options: nth($args, 2);
   $index: 0;
   $type: type-of($options);
+
+  @if type-of($attribute) == 'string' {
+    $attribute: -#{$attribute};
+  }
 
   // data attribute without any breakpoint
   @each $option-key, $option-value in $options {
@@ -57,7 +112,7 @@
     // increase index
     $index: $index + 1;
 
-    [data-#{$attribute}~="#{$option-key}"] {
+    [data#{if($attribute, $attribute, '-base')}~="#{$option-key}"] {
       @content;
     }
   }
@@ -80,7 +135,7 @@
         // increase index
         $index: $index + 1;
 
-        [data-#{$attribute}-#{$breakpoint-key}~="#{$option-key}"] {
+        [data#{$attribute}-#{$breakpoint-key}~="#{$option-key}"] {
           @content;
         }
       }

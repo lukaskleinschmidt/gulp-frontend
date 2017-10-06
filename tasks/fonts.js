@@ -1,11 +1,11 @@
-var config = require('../gulp.config');
-var gulp = require('gulp');
-var path = require('path');
+const roots = require('../gulpfile').roots;
+const task  = require('../gulpfile').tasks['fonts'];
+const gulp  = require('gulp');
+const path  = require('path');
 
-var task = config.tasks.fonts;
-var deps = task.deps || [];
-
-gulp.task('fonts', deps, () => {
-  return gulp.src(path.join(config.roots.src, task.roots.src, task.glob))
-    .pipe(gulp.dest(path.join(config.roots.dest, task.roots.dest)));
+gulp.task('fonts', () => {
+  return gulp.src(path.join(roots.src, task.roots.src, task.glob))
+    .pipe(gulp.dest(path.join(roots.dest, task.roots.dest)));
 });
+
+exports.task = task;

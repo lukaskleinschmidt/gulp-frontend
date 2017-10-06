@@ -1,15 +1,10 @@
-var config = require('../gulp.config');
-var gulp = require('gulp');
-var exec = require('child_process').exec;
+const task = require('../gulpfile').tasks['scripts'];
+const gulp = require('gulp');
+const exec = require('child_process').exec;
 
-var task = config.tasks.scripts;
-var deps = task.deps || [];
-
-gulp.task('scripts', deps, () => {
+gulp.task('scripts', () => {
   exec('webpack --color --config webpack.config.js', (error, stdout, stderr) => {
-    if(error) {
-      console.log(error);
-    }
+    if(error) console.log(error);
     console.log(stdout);
   });
 });

@@ -24,16 +24,16 @@ $breakpoint-largest: 1120px;
 
 
 /// Spacings
+$spacing-base:   20px;
 $spacing-tiny:   5px;
-$spacing-small:  20px;
+$spacing-small:  10px;
 $spacing-medium: 40px;
-$spacing-large:  80px;
 
 @include set('spacing', (
   'tiny':   $spacing-tiny,
   'small':  $spacing-small,
+  'base':   $spacing-base,
   'medium': $spacing-medium,
-  'large':  $spacing-large,
 ));
 
 

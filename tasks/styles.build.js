@@ -1,14 +1,14 @@
-var config = require('../gulp.config');
-var cssnano = require('gulp-cssnano');
-var gzip = require('gulp-gzip');
-var gulp = require('gulp');
-var path = require('path');
+const roots   = require('../gulpfile').roots;
+const task    = require('../gulpfile').tasks['styles'];
+const cssnano = require('gulp-cssnano');
+const gzip    = require('gulp-gzip');
+const gulp    = require('gulp');
+const path    = require('path');
 
-var task = config.tasks.styles;
-var dest = path.join(config.roots.dest, task.roots.dest);
+const dest = path.join(roots.dest, task.roots.dest);
 
 gulp.task('styles:build', ['styles'], () => {
-  return gulp.src(path.join(config.roots.dest, task.roots.dest, '/**/*.css'))
+  return gulp.src(path.join(roots.dest, task.roots.dest, '/**/*.css'))
     .pipe(cssnano({
       reduceIdents: {
         keyframes: true
@@ -18,6 +18,8 @@ gulp.task('styles:build', ['styles'], () => {
       }
     }))
     .pipe(gulp.dest(dest))
-    .pipe(gzip({ append: true }))
+    .pipe(gzip({
+      append: true
+    }))
     .pipe(gulp.dest(dest));
 });

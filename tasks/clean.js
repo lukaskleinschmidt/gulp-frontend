@@ -1,16 +1,13 @@
-var config = require('../gulp.config');
-var gulp = require('gulp');
-var path = require('path');
-var del = require('del');
+const roots = require('../gulpfile').roots;
+const tasks = require('../gulpfile').tasks;
+const gulp  = require('gulp');
+const path  = require('path');
+const del   = require('del');
 
-var task = config.tasks.clean;
-var deps = task.deps || [];
+const paths = [];
 
-var paths = [];
-
-task.tasks.forEach(task => {
-  task = config.tasks[task];
-  paths.push(path.join(config.roots.dest, task.roots.dest));
+Object.keys(tasks).forEach(task => {
+  paths.push(path.join(roots.dest, tasks[task].roots.dest));
 });
 
-gulp.task('clean', deps, del.bind(null, paths));
+gulp.task('clean', del.bind(null, paths));

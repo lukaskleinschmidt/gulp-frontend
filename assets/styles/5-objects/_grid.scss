@@ -16,7 +16,7 @@
   }
 }
 
-@include data('grid', (
+@include data((
   'col:1': 100%,
   'col:2': 100% / 2,
   'col:3': 100% / 3,
@@ -30,10 +30,11 @@
   }
 }
 
-@include data('grid', (
+@include data((
   'gap:none':   0,
   'gap:tiny':   $spacing-tiny,
   'gap:small':  $spacing-small,
+  'gap:base':   $spacing-base,
   'gap:medium': $spacing-medium,
 )) {
   $value: value();
@@ -43,4 +44,24 @@
   > * {
     padding: #{$value} 0 0 #{$value};
   }
+}
+
+@include data((
+  'align:baseline': flex-baseline,
+  'align:stretch':  stretch,
+  'align:center':   center,
+  'align:start':    flex-start,
+  'align:end':      flex-end,
+)) {
+  align-items: value();
+}
+
+@include data((
+  'justify:between': space-between,
+  'justify:around':  space-around,
+  'justify:center':  center,
+  'justify:start':   flex-start,
+  'justify:end':     flex-end,
+)) {
+  justify-content: value();
 }

@@ -29,22 +29,10 @@ Limit the width, center the element and add some padding to the left and right.
 ```
 
 #### [`.o-grid`](/assets/styles/5-objects/_grid.scss)
-Create a flex grid.  
-Configure the spacing with the `data-grid` or `data-grid-{breakpoint}` attributes.
-
-Available options:
-- `auto` (default)
-- `col:1`
-- `col:2`
-- `col:3`
-- `col:3`
-- `gap:none` (default)
-- `gap:tiny`
-- `gap:small`
-- `gap:medium`
+Create a flex grid.
 
 ```html
-<div class="o-grid" data-grid="col:1 gap:small" data-grid-medium="col:2 gap:medium" data-grid-large="col:3">
+<div class="o-grid" data-base="col:1 gap:small" data-medium="col:2 gap:medium" data-large="col:3">
   <div>
     <!-- content -->
   </div>
@@ -58,25 +46,10 @@ Available options:
 ```
 
 #### [`.o-spacing`](/assets/styles/5-objects/_spacing.scss)
-Add padding to the top and bottom of an element.  
-Configure the spacing with the `data-spacing` or `data-spacing-{breakpoint}` attributes.
-
-Available options:
-- `none`
-- `tiny`
-- `small`
-- `medium` (default)
-- `top:none`
-- `top:tiny`
-- `top:small`
-- `top:medium`
-- `bottom:none`
-- `bottom:tiny`
-- `bottom:small`
-- `bottom:medium`
+Add paddings.
 
 ```html
-<div class="o-spacing" data-spacing-medium="small" data-spacing-large="bottom:none">
+<div data-base="s:small" data-medium="sb:none" data-large="st:medium">
   <!-- content -->
 </div>
 ```
@@ -172,6 +145,75 @@ Available options:
   )
 ));
 
+@include data((
+  'text:left':   left,
+  'text:right':  right,
+  'text:center': center,
+), (
+  'medium': 48em,
+)) {
+  text-align: value();
+}
+// [data-base~="text:left"] {
+//   text-align: left;
+// }
+//
+// [data-base~="text:right"] {
+//   text-align: right;
+// }
+//
+// [data-base~="text:center"] {
+//   text-align: center;
+// }
+//
+// @media (min-width: 48em) {
+//   [data-medium~="text:left"] {
+//     text-align: left;
+//   }
+//   
+//   [data-medium~="text:right"] {
+//     text-align: right;
+//   }
+//   
+//   [data-medium~="text:center"] {
+//     text-align: center;
+//   }
+// }
+
+@include data('text', (
+  'left',
+  'right',
+  'center',
+), (
+  'medium': 48em,
+)) {
+  text-align: value();
+}
+// [data-text~="left"] {
+//   text-align: left;
+// }
+//
+// [data-text~="right"] {
+//   text-align: right;
+// }
+//
+// [data-text~="center"] {
+//   text-align: center;
+// }
+//
+// @media (min-width: 48em) {
+//   [data-text-medium~="left"] {
+//     text-align: left;
+//   }
+//   
+//   [data-text-medium~="right"] {
+//     text-align: right;
+//   }
+//   
+//   [data-text-medium~="center"] {
+//     text-align: center;
+//   }
+// }
 ```
 
 ### Functions

@@ -1,18 +1,22 @@
-var config = require('../gulp.config');
-var autoprefixer = require('gulp-autoprefixer');
-var sourcemaps = require('gulp-sourcemaps');
-var sass = require('gulp-sass');
-var gulp = require('gulp');
-var path = require('path');
+const roots        = require('../gulpfile').roots;
+const task         = require('../gulpfile').tasks['styles'];
+const autoprefixer = require('gulp-autoprefixer');
+const sourcemaps   = require('gulp-sourcemaps');
+const sass         = require('gulp-sass');
+const gulp         = require('gulp');
+const path         = require('path');
 
-var task = config.tasks.styles;
-var deps = task.deps || [];
-
-gulp.task('styles', deps, () => {
-  return gulp.src(path.join(config.roots.src, task.roots.src, task.glob))
+gulp.task('styles', () => {
+  return gulp.src(path.join(roots.src, task.roots.src, task.glob))
     .pipe(sourcemaps.init())
-    .pipe(sass.sync(task.plugins.sass).on('error', sass.logError))
-    .pipe(autoprefixer(task.plugins.autoprefixer))
+    .pipe(sass.sync({
+      outputStyle: 'expanded',
+    }).on('error', sass.logError))
+    .pipe(autoprefixer({
+      browsers: ['> 1%', 'last 2 versions', 'Firefox ESR'],
+    }))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(path.join(config.roots.dest, task.roots.dest)))
+    .pipe(gulp.dest(path.join(roots.dest, task.roots.dest)))
 });
+
+exports.task = task;
