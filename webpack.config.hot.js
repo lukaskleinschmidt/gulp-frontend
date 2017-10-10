@@ -1,16 +1,11 @@
-var config = require('./gulp.config');
-var webpack = require('webpack');
-var path = require('path');
-
-var task = config.tasks.scripts;
-
-var webpackConfig = require('./webpack.config');
+const webpackConfig = require('./webpack.config');
+const webpack       = require('webpack');
 
 Object.keys(webpackConfig.entry).forEach(key => {
   var entry = webpackConfig.entry[key];
   webpackConfig.entry[key] = [
     'webpack/hot/dev-server',
-    'webpack-hot-middleware/client?reload=true&quiet=' + task.plugins.webpack.quiet.toString() + '&overlay=' + task.plugins.webpack.overlay.toString(),
+    'webpack-hot-middleware/client?reload=true&quiet=true&overlay=false',
   ];
   webpackConfig.entry[key].push(entry);
 });

@@ -1,23 +1,20 @@
-var config = require('./gulp.config');
-var webpack = require('webpack');
-var path = require('path');
+const roots   = require('./gulpfile').roots;
+const task    = require('./gulpfile').tasks['scripts'];
+const path    = require('path');
+const webpack = require('webpack');
+const plugins = [];
 
-var task = config.tasks.scripts;
-
-var entry = task.plugins.webpack.entry;
-var plugins = [];
-
-if(task.plugins.webpack.commons) {
-  plugins.push(new webpack.optimize.CommonsChunkPlugin({
-    name: 'commons',
-    filename: 'commons.js',
-    minChunks: 2,
-  }));
-}
+plugins.push(new webpack.optimize.CommonsChunkPlugin({
+  name: 'commons',
+  filename: 'commons.js',
+  minChunks: 2,
+}));
 
 module.exports = {
-  context: path.resolve(__dirname, config.roots.src, task.roots.src),
-  entry: entry,
+  context: path.resolve(__dirname, roots.src, task.roots.src),
+  entry: {
+    'app': './app.js',
+  },
   module: {
     rules: [{
       test: /\.js$/,
@@ -25,10 +22,19 @@ module.exports = {
       exclude: /node_modules/,
     }],
   },
+  resolve: {
+    alias: {
+      component: path.resolve(__dirname, roots.src, task.roots.src, 'components/component.js'),
+    },
+    modules: [
+      path.resolve(__dirname, roots.src, task.roots.src),
+      path.resolve(__dirname, 'node_modules'),
+    ],
+  },
   plugins: plugins,
   output: {
-    path: path.resolve(__dirname, config.roots.dest, task.roots.dest),
+    path: path.resolve(__dirname, roots.dest, task.roots.dest),
     filename: '[name].js',
-    publicPath: task.plugins.webpack.publicPath,
+    publicPath: '/assets/scripts',
   },
 };
