@@ -10,8 +10,6 @@ Object.keys(webpackConfig.entry).forEach(key => {
   webpackConfig.entry[key].push(entry);
 });
 
-webpackConfig.module.rules[0].use.push({loader: 'webpack-module-hot-accept'});
-
 webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
 webpackConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
 
