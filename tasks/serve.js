@@ -29,7 +29,13 @@ gulp.task('serve', ['scripts', 'styles', 'images', 'fonts', 'watch'], () => {
   // // bundler should be the same as above
   // middleware.push(webpackHotMiddleware(bundler));
 
-  const files = [path.join(roots.public, '/**/*.php'), path.join(roots.public, '/**/*.html')];
+  // Files browsersync should watch
+  // to trigger a page realod
+  const files = [
+    path.join(roots.public, '/**/*.php'),
+    path.join(roots.public, '/**/*.html'),
+  ];
+
   const globs = {
     scripts: '/**/*.js',
     styles: '/**/*.css',
