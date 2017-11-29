@@ -9,14 +9,7 @@ const dest = path.join(roots.dest, task.roots.dest);
 
 gulp.task('styles:build', ['styles'], () => {
   return gulp.src(path.join(roots.dest, task.roots.dest, '/**/*.css'))
-    .pipe(cssnano({
-      reduceIdents: {
-        keyframes: true
-      },
-      discardUnused: {
-        keyframes: true
-      }
-    }))
+    .pipe(cssnano())
     .pipe(gulp.dest(dest))
     .pipe(gzip({
       append: true
