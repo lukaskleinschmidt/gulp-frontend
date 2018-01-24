@@ -19,8 +19,8 @@
 /// Styling for bare HTML elements (like H1, A, etc.). These
 /// come with default styling from the browser so we can
 /// redefine them here.
-@import '4-base/body';
-@import '4-base/typo';
+@import '4-elements/body';
+@import '4-elements/typo';
 
 /// Class-based selectors which define undecorated design patterns,
 /// for example media object known from OOCSS
@@ -30,13 +30,10 @@
 /// Specific UI components. This is where majority of our
 /// work takes place and our UI components are often
 /// composed of Objects and Components
-// @import '6-components/';
+@import '6-components/component';
 
 /// Utilities and helper classes with ability to override anything
 /// which goes before in the triangle, eg. hide helper class
-@import '7-trumps/collapse';
-@import '7-trumps/display';
-@import '7-trumps/overflow';
-@import '7-trumps/spacing';
-@import '7-trumps/text';
-@import '7-trumps/vertical-rhythm';
+@import '7-utilities/collapse';
+@import '7-utilities/overflow';
+@import '7-utilities/proto';

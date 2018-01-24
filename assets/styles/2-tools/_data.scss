@@ -56,10 +56,6 @@
   $index: 0;
   $type: type-of($options);
 
-  @if type-of($attribute) == 'string' {
-    $attribute: -#{$attribute};
-  }
-
   // data attribute without any breakpoint
   @each $option-key, $option-value in $options {
 
@@ -71,8 +67,10 @@
 
     // increase index
     $index: $index + 1;
+    $key: if($attribute, #{$attribute}-#{'base'}, #{'base'});
 
-    [data#{if($attribute, $attribute, '-base')}~="#{$option-key}"] {
+    #{'%'}#{$key}__#{$option-key},
+    [data-#{$key}~="#{$option-key}"] {
       @content;
     }
   }
@@ -94,8 +92,10 @@
 
         // increase index
         $index: $index + 1;
+        $key: if($attribute, #{$attribute}-#{$breakpoint-key}, #{$breakpoint-key});
 
-        [data#{$attribute}-#{$breakpoint-key}~="#{$option-key}"] {
+        #{'%'}#{$key}__#{$option-key},
+        [data-#{$key}~="#{$option-key}"] {
           @content;
         }
       }

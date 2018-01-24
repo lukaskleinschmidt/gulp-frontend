@@ -10,16 +10,22 @@ $color-secondary: #0980ed;
 
 
 /// Breakpoints
-$breakpoint-small:   480px;
-$breakpoint-medium:  640px;
-$breakpoint-large:   960px;
-$breakpoint-largest: 1120px;
+$breakpoint-small:     480px;
+$breakpoint-smallish:  600px;
+$breakpoint-medium:    720px;
+$breakpoint-mediumish: 800px;
+$breakpoint-large:     960px;
+$breakpoint-largeish:  1080px;
+$breakpoint-largest:   1200px;
 
 @include set('breakpoint', (
-  'small':   $breakpoint-small,
-  'medium':  $breakpoint-medium,
-  'large':   $breakpoint-large,
-  'largest': $breakpoint-largest,
+  'small':     $breakpoint-small,
+  'smallish':  $breakpoint-smallish,
+  'medium':    $breakpoint-medium,
+  'mediumish': $breakpoint-mediumish,
+  'large':     $breakpoint-large,
+  'largeish':  $breakpoint-largeish,
+  'largest':   $breakpoint-largest,
 ));
 
 

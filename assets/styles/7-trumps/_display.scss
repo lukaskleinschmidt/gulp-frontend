@@ -1,8 +1,0 @@
-@include data((
-  'd:none': none,
-  'd:block': block,
-  'd:inline': inline,
-  'd:inline-block': inline-block,
-)) {
-  display: value();
-}
