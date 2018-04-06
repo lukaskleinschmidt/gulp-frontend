@@ -1,40 +1,40 @@
-const roots   = require('./gulpfile').roots;
-const task    = require('./gulpfile').tasks['scripts'];
-const path    = require('path');
-const webpack = require('webpack');
-const plugins = [];
-
-plugins.push(new webpack.optimize.CommonsChunkPlugin({
-  name: 'commons',
-  filename: 'commons.js',
-  minChunks: 2,
-}));
+const paths   = require('./gulpfile').paths
+const task    = require('./gulpfile').tasks['scripts']
+const path    = require('path')
+const webpack = require('webpack')
 
 module.exports = {
-  context: path.resolve(__dirname, roots.src, task.roots.src),
+  context: path.resolve(__dirname, paths.src, task.paths.src),
+  mode: 'development',
   entry: {
-    'app': './app.js',
+    'app': './app.js'
   },
   module: {
     rules: [{
       test: /\.js$/,
       use: ['babel-loader?presets=es2015'],
-      exclude: /node_modules/,
-    }],
+      exclude: /node_modules/
+    }]
   },
   resolve: {
     alias: {
-      component: path.resolve(__dirname, roots.src, task.roots.src, 'components/component.js'),
+      component: path.resolve(__dirname, paths.src, task.paths.src, 'components/component.js'),
     },
     modules: [
-      path.resolve(__dirname, roots.src, task.roots.src),
-      path.resolve(__dirname, 'node_modules'),
-    ],
+      path.resolve(__dirname, paths.src, task.paths.src),
+      path.resolve(__dirname, 'node_modules')
+    ]
   },
-  plugins: plugins,
+  optimization: {
+    splitChunks: {
+      name: 'commons',
+      chunks: 'all'
+    }
+  },
+  plugins: [],
   output: {
-    path: path.resolve(__dirname, roots.dest, task.roots.dest),
+    path: path.resolve(__dirname, paths.dest, task.paths.dest),
     filename: '[name].js',
-    publicPath: '/assets/scripts',
-  },
-};
+    publicPath: '/assets/scripts'
+  }
+}

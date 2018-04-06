@@ -1,12 +1,14 @@
-import Breakpoint from './components/breakpoint';
-import Component from './components/component';
+import Breakpoint from './components/breakpoint'
+import Component from './components/component'
 
-const breakpoint = new Breakpoint('(min-width: 800px)');
+const breakpoint = new Breakpoint('(min-width: 800px)')
 
 breakpoint.on('match', () => {
-  console.log('match');
-}).check();
+  console.log('match')
+})
 
 breakpoint.on('unmatch', () => {
-  console.log('unmatch');
-});
+  console.log('unmatch')
+})
+
+breakpoint.check()
