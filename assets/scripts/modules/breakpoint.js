@@ -1,6 +1,6 @@
-import Component from './component'
+import Module from 'module'
 
-export default class Breakpoint extends Component {
+export default class Breakpoint extends Module {
   init(mediaQueryString) {
     const mql = window.matchMedia(mediaQueryString)
     const listener = () => this.trigger(mql.matches ? 'match' : 'unmatch', [mql])

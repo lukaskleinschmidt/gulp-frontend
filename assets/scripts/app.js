@@ -1,5 +1,4 @@
-import Breakpoint from './components/breakpoint'
-import Component from './components/component'
+import Breakpoint from 'modules/breakpoint'
 
 const breakpoint = new Breakpoint('(min-width: 800px)')
 

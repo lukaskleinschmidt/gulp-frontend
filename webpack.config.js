@@ -18,7 +18,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      component: path.resolve(__dirname, paths.src, task.paths.src, 'components/component.js'),
+      modules: path.resolve(__dirname, paths.src, task.paths.src, 'modules'),
+      module: path.resolve(__dirname, paths.src, task.paths.src, 'modules/module.js'),
     },
     modules: [
       path.resolve(__dirname, paths.src, task.paths.src),

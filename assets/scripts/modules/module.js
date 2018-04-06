@@ -2,7 +2,7 @@ import set from 'lodash/set'
 import get from 'lodash/get'
 import has from 'lodash/has'
 
-export default class Component {
+export default class Module {
   constructor() {
     this._data = {}
     this._observers = {}
