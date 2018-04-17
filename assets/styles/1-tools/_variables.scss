@@ -1,0 +1,81 @@
+/// Make custom properties also available in SCSS.
+/// @param {Map} $values - Map of custom properties
+/// @param {String} $group (null) - Name of the group
+/// @example
+/// :root {
+///   @include variables((
+///     --sizing: border-box,
+///   ));
+///
+///   @include variables((
+///     --primary: steelblue,
+///   ), color);
+///
+///   @include variables((
+///     --breakpoint-medium: 768px,
+///     --breakpoint-large: 960px,
+///   ), breakpoint);
+/// }
+///
+/// $__REGISTRY: (
+///   --sizing: border-box,
+///   --primary: steelblue,
+///   --breakpoint-medium: 720px,
+///   --breakpoint-large: 960px,
+///   color: (
+///     primary: steelblue
+///   ),
+///   breakpoint: (
+///     medium: 720px,
+///     large: 960px
+///   ),
+/// );
+///
+/// :root {
+///   --sizing: border-box;
+///   --primary: steelblue;
+///   --breakpoint-medium: 720px
+///   --breakpoint-large: 960px;
+/// }
+@mixin variables($values, $group: null) {
+
+  // check if a selector is present
+  // otherwise use the :root selector
+  @if & {
+    @each $key, $value in $values {
+      #{$key}: #{$value};
+    }
+  }
+
+  @else {
+    :root {
+      @each $key, $value in $values {
+        #{$key}: #{$value};
+      }
+    }
+  }
+
+  @each $key, $value in $values {
+    @include set($key, $value);
+
+    // IDEA: check if the key has the correct format (e.g starts with two dashes)
+
+    // remove the dashes at the front
+    $key: str-slice($key, 3);
+
+    // when a group is supplied the mixin will try
+    // to group the variables with the given group
+    @if $group {
+      $needle: '#{$group}-';
+      $index: str-index($key, $needle);
+      $key: if($index, str-slice($key, str-length($needle) + 1), $key);
+      @include set($group, ($key: $value));
+    }
+
+    // otherwise just set the $value with the
+    // sliced $key
+    @else {
+      @include set($key, $value);
+    }
+  }
+}

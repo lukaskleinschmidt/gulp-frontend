@@ -1,7 +1,7 @@
 const autoprefixer = require('gulp-autoprefixer')
 const sourcemaps   = require('gulp-sourcemaps')
 const exec         = require('child_process').exec;
-const bs           = require('browser-sync')
+const browserSync  = require('browser-sync')
 const cssnano      = require('gulp-cssnano')
 const sass         = require('gulp-sass')
 const gzip         = require('gulp-gzip')
@@ -9,17 +9,21 @@ const gulp         = require('gulp')
 const path         = require('path')
 const del          = require('del');
 
+
+const postcss      = require('gulp-postcss')
+const postCSSCustomProperties      = require('postcss-custom-properties')
+
 const proxy = false;
 const port = 3000;
 const hot = false;
 
-const paths = {
-  public: 'public',
+const paths = exports.paths = {
+  src:    'assets',
   dest:   'public/assets',
-  src:    'assets'
+  public: 'public'
 }
 
-const tasks = {
+const tasks = exports.tasks = {
   scripts: {
     glob: '/**/*.js',
     paths: {
@@ -53,7 +57,7 @@ const tasks = {
   }
 }
 
-const clean = () => {
+function clean() {
   const globs = []
 
   Object.keys(tasks).forEach(task => {
@@ -63,14 +67,14 @@ const clean = () => {
   return del(globs)
 }
 
-const scripts = () => {
+function scripts() {
   return exec('webpack --color --config webpack.config.js', (error, stdout, stderr) => {
     if(error) console.log(error);
     console.log(stdout);
   })
 }
 
-const scriptsBuild = () => {
+function scriptsBuild() {
   const task = tasks.scripts
   const base = path.join(paths.dest, task.paths.dest)
   const src  = path.join(base, task.glob)
@@ -87,7 +91,7 @@ const scriptsBuild = () => {
   })
 }
 
-const styles = () => {
+function styles() {
   const task = tasks.styles
   const base = path.join(paths.src, task.paths.src)
   const src  = path.join(base, task.glob)
@@ -100,6 +104,11 @@ const styles = () => {
         .sync({ outputStyle: 'expanded' })
         .on('error', sass.logError)
     )
+    // .pipe(
+    //   postcss([
+    //     postCSSCustomProperties()
+    //   ])
+    // )
     .pipe(
       autoprefixer({ browsers: ['last 2 versions'] })
     )
@@ -107,7 +116,7 @@ const styles = () => {
     .pipe(gulp.dest(dest))
 }
 
-const stylesBuild = () => {
+function stylesBuild() {
   const task = tasks.styles
   const dest = path.join(paths.dest, task.paths.dest)
 
@@ -120,7 +129,7 @@ const stylesBuild = () => {
     .pipe(gulp.dest(dest))
 }
 
-const browsersync = done => {
+function browsersync(done) {
   const middleware = [];
 
   if (hot) {
@@ -149,18 +158,12 @@ const browsersync = done => {
     path.join(paths.public, '/**/*.html')
   ]
 
-  const globs = {
-    scripts: '/**/*.js',
-    styles: '/**/*.css',
-    fonts: '/**/*.{eot,svg,ttf,woff,woff2}'
-  }
-
   Object.keys(tasks).forEach(task => {
     // Webpack will watch the js files
     // when hot reloading is anabled
     if (hot && task == 'scripts') return
-    const glob = task in globs ? globs[task] : '/**/*'
-    files.push(path.join(paths.dest, tasks[task].paths.dest, glob))
+
+    files.push(path.join(paths.dest, tasks[task].paths.dest, '/**/*'))
   })
 
   const config = proxy ? {
@@ -182,71 +185,64 @@ const browsersync = done => {
     }
   }
 
-  bs(config)
+  browserSync(config)
   done()
 }
 
-const images = () => {
-  const task = tasks.images
-  const base = path.join(paths.src, task.paths.src)
-  const src  = path.join(base, task.glob)
-  const dest = path.join(paths.dest, task.paths.dest)
-
-  return gulp.src(src, { base: base })
-    .pipe(gulp.dest(dest))
-}
-
-const fonts = () => {
-  const task = tasks.fonts
-  const base = path.join(paths.src, task.paths.src)
-  const src  = path.join(base, task.glob)
-  const dest = path.join(paths.dest, task.paths.dest)
-
-  return gulp.src(src, { base: base })
-    .pipe(gulp.dest(dest))
-}
-
-const watch = () => {
-  Object.keys(tasks).forEach(task => {
+function watch() {
+  Object.keys(tasks).forEach(key => {
     // Webpack will watch the js files
     // when hot reloading is anabled
-    if (hot && task == 'scripts') return
-    const glob = path.join(paths.src, tasks[task].paths.src, tasks[task].glob)
-    exports[task]()
-    gulp.watch(glob.split(path.sep).join('/'), exports[task])
+    if (hot && key == 'scripts') return
+
+    const task = tasks[key]
+    const glob = path.join(paths.src, task.paths.src, task.glob)
+    const call = gulp.series(key)
+
+    gulp.watch(glob.split(path.sep).join('/'), { ignoreInitial: false }, call)
   });
 }
 
-const serve = gulp.parallel(
-  browsersync,
-  watch
-)
+function copy(key) {
+  const task = tasks[key]
+  const base = path.join(paths.src, task.paths.src)
+  const src  = path.join(base, task.glob)
+  const dest = path.join(paths.dest, task.paths.dest)
 
-const build = gulp.series(clean, gulp.parallel(
-  scriptsBuild,
-  stylesBuild,
-  images,
-  fonts
-))
+  return gulp.src(src, { base: base })
+    .pipe(gulp.dest(dest))
+}
+
+function images() {
+  return copy('images')
+}
+
+function fonts() {
+  return copy('fonts')
+}
 
 gulp.task('clean', clean)
 gulp.task('scripts', scripts)
 gulp.task('scripts.build', scriptsBuild)
 gulp.task('styles', styles)
 gulp.task('styles.build', stylesBuild)
+gulp.task('browsersync', browsersync)
 gulp.task('images', images)
 gulp.task('fonts', fonts)
-gulp.task('serve', serve)
 gulp.task('watch', watch)
+
+const serve = gulp.parallel(
+  'browsersync',
+  'watch'
+)
+
+const build = gulp.series('clean', gulp.parallel(
+  'scripts.build',
+  'styles.build',
+  'images',
+  'fonts'
+))
+
 gulp.task('default', build)
 gulp.task('build', build)
-
-// tasks listetd in the tasks object
-// must be exported so they can be
-// called dynamically
-exports.paths = paths
-exports.tasks = tasks
-exports.scripts = scripts
-exports.styles = styles
-exports.images = images
-exports.fonts = fonts
+gulp.task('serve', serve)

@@ -12,8 +12,10 @@ module.exports = {
   module: {
     rules: [{
       test: /\.js$/,
-      use: ['babel-loader?presets=es2015'],
-      exclude: /node_modules/
+      loader: 'babel-loader',
+      options: {
+        presets: ['es2015']
+      }
     }]
   },
   resolve: {

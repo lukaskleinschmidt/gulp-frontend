@@ -1,0 +1,72 @@
+.is-capitalized {
+  text-transform: capitalize;
+}
+
+.is-lowercase {
+  text-transform: lowercase;
+}
+
+.is-uppercase {
+  text-transform: uppercase;
+}
+
+.is-italic {
+  font-style: italic;
+}
+
+.has-text-left {
+  text-align: left;
+}
+
+.has-text-right {
+  text-align: right;
+}
+
+.has-text-centered {
+  text-align: center;
+}
+
+.has-text-justified {
+  text-align: justify;
+}
+
+.is-size-h1 {
+  @include properties((
+    line-height: $line-height-h1,
+    font-size: $size-h1
+  ))
+}
+
+.is-size-h2 {
+  @include properties((
+    line-height: $line-height-h2,
+    font-size: $size-h2
+  ))
+}
+
+.is-size-h2 {
+  @include properties((
+    line-height: $line-height-h3,
+    font-size: $size-h3
+  ))
+}
+
+.is-size-normal {
+  @include properties((
+    line-height: $line-height-normal,
+    font-size: $size-normal
+  ))
+}
+
+.is-size-small {
+  @include properties((
+    line-height: $line-height-small,
+    font-size: $size-small
+  ))
+}
+
+@each $key, $value in get(weight) {
+  .has-text-#{$key} {
+    font-weight: $value;
+  }
+}

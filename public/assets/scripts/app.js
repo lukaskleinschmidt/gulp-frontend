@@ -143,7 +143,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar _breakpoint = __webpack_require__(/*! modules/breakpoint */ \"./modules/breakpoint.js\");\n\nvar _breakpoint2 = _interopRequireDefault(_breakpoint);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar breakpoint = new _breakpoint2.default('(min-width: 800px)');\n\nbreakpoint.on('match', function () {\n  console.log('match');\n});\n\nbreakpoint.on('unmatch', function () {\n  console.log('unmatch');\n});\n\nbreakpoint.check();\n\nalert('in');\n\n//# sourceURL=webpack:///./app.js?");
+eval("\n\nvar _breakpoint = __webpack_require__(/*! modules/breakpoint */ \"./modules/breakpoint.js\");\n\nvar _breakpoint2 = _interopRequireDefault(_breakpoint);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar breakpoint = new _breakpoint2.default('(min-width: 800px)');\n\nbreakpoint.on('match', function () {\n  console.log('match');\n});\n\nbreakpoint.on('unmatch', function () {\n  console.log('unmatch');\n});\n\nbreakpoint.check();\n\n//# sourceURL=webpack:///./app.js?");
 
 /***/ }),
 

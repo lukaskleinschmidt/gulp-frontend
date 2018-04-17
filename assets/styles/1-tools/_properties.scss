@@ -1,0 +1,87 @@
+/// Generate responsive properties.
+/// @param  {Mixed} $args
+/// @example
+/// .is-size-h1 {
+///   @include properties((
+///     line-height: var(--line-height-1),
+///     font-size: (
+///       normal: var(--size-2),
+///       medium: var(--size-1),
+///       1500px: 120px
+///     )
+///   ))
+///
+/// alternatively you could use the mixin
+/// like this depending on your properties
+/// you actually need to set
+///
+///   line-height: var(--line-height-1);
+///
+///   @include properties(font-size, (
+///     normal: var(--size-2),
+///     medium: var(--size-1),
+///     1500px: 120px
+///   ))
+/// }
+///
+/// .is-size-h1 {
+///   line-height: var(--line-height-1);
+///   font-size: var(--size-2);
+/// }
+///
+/// @media (min-width: 768px) {
+///   .is-size-h1 {
+///     font-size: var(--size-1);
+///   }
+/// }
+///
+/// @media (min-width: 1500px) {
+///   .is-size-h1 {
+///     font-size: 120px;
+///   }
+/// }
+@mixin properties($args...) {
+  $cache: ();
+  $data: nth($args, 1);
+
+  // normalize data
+  @if type-of($data) == 'string' {
+    $data: ($data: nth($args, 2));
+  }
+
+  @each $property, $values in $data {
+
+    // normalize values
+    @if not(type-of($values) == 'map') {
+      $values: ('normal': $values);
+    }
+
+    @each $key, $value in $values {
+
+      // cache $property: $value
+      @if not($key == 'normal') {
+        $value: ($property: $value);
+
+        @if map-has-key($cache, $key) {
+          $value: map-merge(map-get($cache, $key), $value);
+        }
+
+        $cache: map-merge($cache, ($key: $value));
+      }
+
+      // just print $property: $value
+      @else {
+        #{$property}: $value;
+      }
+    }
+  }
+
+  // print all properties grouped by breakpoint
+  @each $key, $values in $cache {
+    @include breakpoint($key) {
+      @each $property, $value in $values {
+        #{$property}: $value;
+      }
+    }
+  }
+}
