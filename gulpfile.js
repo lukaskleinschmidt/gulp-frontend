@@ -9,10 +9,6 @@ const gulp         = require('gulp')
 const path         = require('path')
 const del          = require('del');
 
-
-const postcss      = require('gulp-postcss')
-const postCSSCustomProperties      = require('postcss-custom-properties')
-
 const proxy = false;
 const port = 3000;
 const hot = false;
