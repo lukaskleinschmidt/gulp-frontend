@@ -1,30 +1,31 @@
 @charset 'utf-8';
 
-/// Globally used mixins and functions. It’s important not to output any CSS in the first 2 layers.
+// Globally used mixins and functions. It’s important not to output any CSS in the first 2 layers.
 @import '1-tools/breakpoint';
 @import '1-tools/font-face';
 @import '1-tools/properties';
 @import '1-tools/registry';
 @import '1-tools/variables';
 
-/// Contain fonts, colors definitions, etc.
+// Contain fonts, colors definitions, etc.
 @import '2-options/options';
+@import '2-options/root';
 
-/// Reset and/or normalize styles, box-sizing definition, etc. This is the first layer which generates actual CSS.
+// Reset and/or normalize styles, box-sizing definition, etc. This is the first layer which generates actual CSS.
 @import '3-generic/normalize';
 
-/// Styling for bare HTML elements (like H1, A, etc.). These come with default styling from the browser so we can redefine them here.
+// Styling for bare HTML elements (like H1, A, etc.). These come with default styling from the browser so we can redefine them here.
 @import '4-elements/body';
 @import '4-elements/generic';
 
-/// Class-based selectors which define undecorated design patterns, for example media object known from OOCSS.
+// Class-based selectors which define undecorated design patterns, for example media object known from OOCSS.
 @import '5-objects/column';
 @import '5-objects/columns';
 @import '5-objects/container';
 
-/// Specific UI components. This is where majority of our work takes place and our UI components are often composed of Objects and Components.
+// Specific UI components. This is where majority of our work takes place and our UI components are often composed of Objects and Components.
 // @import '6-components/';
 
-/// Utilities and helper classes with ability to override anything which goes before in the triangle, eg. hide helper class.
+// Utilities and helper classes with ability to override anything which goes before in the triangle, eg. hide helper class.
 @import '7-utilities/helpers';
 @import '7-utilities/typo';

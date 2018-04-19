@@ -67,6 +67,7 @@
       $index: str-index($key, $group);
       $key: if($index, str-slice($key, str-length($group) + 1), $key);
       $key: remove-leading-dashes($key);
+      $key: to-lower-case(str-slice($key, 1, 1)) + str-slice($key, 2);
       @include set($group, ($key: $value));
     }
 

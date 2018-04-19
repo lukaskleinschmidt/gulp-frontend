@@ -1,29 +1,19 @@
+import Dispatcher from 'modules/dispatcher'
 import Module from 'module'
 
 export default class Breakpoint extends Module {
   init(mediaQueryString) {
-    const mql = window.matchMedia(mediaQueryString)
-    const listener = () => this.trigger(mql.matches ? 'match' : 'unmatch', [mql])
-
-    mql.addListener(listener)
-
-    this.set('mql', mql)
-    this.set('listener', listener)
+    this.mql = window.matchMedia(mediaQueryString)
+    this.listener = () => this.emit(this.mql.matches ? 'match' : 'unmatch', [this.mql])
+    this.mql.addListener(this.listener)
   }
 
   check() {
-    this.get('listener').call()
-
-    //return this for chaining
+    this.listener.call()
     return this
   }
 
   destroy() {
-    const mql = this.get('mql')
-    const listener = this.get('listener')
-
-    mql.removeListener(listener)
-
-    super.destroy()
+    this.mql.removeListener(this.listener)
   }
 }
