@@ -1,4 +1,3 @@
-import Dispatcher from 'modules/dispatcher'
 import Module from 'module'
 
 export default class Breakpoint extends Module {

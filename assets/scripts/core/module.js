@@ -1,4 +1,4 @@
-import Dispatcher from 'modules/dispatcher'
+import Dispatcher from 'core/dispatcher'
 
 export default class Module {
   constructor() {

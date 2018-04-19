@@ -21,7 +21,8 @@ module.exports = {
   resolve: {
     alias: {
       modules: path.resolve(__dirname, paths.src, task.paths.src, 'modules'),
-      module: path.resolve(__dirname, paths.src, task.paths.src, 'modules/module.js'),
+      module: path.resolve(__dirname, paths.src, task.paths.src, 'core/module.js'),
+      core: path.resolve(__dirname, paths.src, task.paths.src, 'core')
     },
     modules: [
       path.resolve(__dirname, paths.src, task.paths.src),
