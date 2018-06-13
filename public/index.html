@@ -1,54 +1,41 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="zxx">
   <head>
+
     <meta charset="utf-8">
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Frontend Boilerplate</title>
-    <link rel="stylesheet" href="/assets/styles/main.css">
+
+    <link rel="stylesheet" href="/assets/styles/app.css">
+
   </head>
   <body>
 
     <main>
-      <div class="o-container">
-
-        <div data-medium="st--medium">
-          <div class="u-collapse">
-            <h1>Frontend Boilerplate</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br><br> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
-        </div>
-
-        <div data-base="s--medium">
-          <div class="u-overflow-hidden">
-            <div data-base="vr--medium">
-
-              <div class="c-component__grid">
-                <div>A</div>
-                <div>B</div>
-                <div>C</div>
-                <div>D</div>
-                <div>E</div>
-                <div>F</div>
-              </div>
-
-              <div class="c-component__grid c-component__grid--alternative">
-                <div>A</div>
-                <div>B</div>
-                <div>C</div>
-                <div>D</div>
-                <div>E</div>
-                <div>F</div>
-              </div>
-
+      <div class="container">
+        <div class="is-overflow-hidden">
+          <div class="[ columns has-separator has-gap-normal is-multiline ]">
+            <div class="column is-one-third">
+              <svg>
+                <use xlink:href="#done"></use>
+              </svg>
             </div>
+            <div class="column is-one-third">
+              <svg>
+                <use xlink:href="#subfolder.done_all"></use>
+              </svg>
+            </div>
+            <div class="column is-one-third"><div style="padding-bottom: 75%; background: #EFEFEF"></div></div>
+            <div class="column is-one-third"><div style="padding-bottom: 75%; background: #EFEFEF"></div></div>
+            <div class="column is-one-third"><div style="padding-bottom: 75%; background: #EFEFEF"></div></div>
+            <div class="column is-one-third"></div>
+            <div class="column is-one-third"></div>
           </div>
         </div>
-
       </div>
     </main>
 
-    <script src="/assets/scripts/commons.js"></script>
     <script src="/assets/scripts/app.js"></script>
 
   </body>

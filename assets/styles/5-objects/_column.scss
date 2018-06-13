@@ -1,0 +1,41 @@
+.column {
+  --column-width: auto;
+  --column-flex: 1 1 0;
+}
+
+.column {
+  box-sizing: border-box;
+  display: block;
+  width: var(--column-width);
+  flex: var(--column-flex);
+
+  $options: (
+    three-quarters: 3 / 4 * 100%,
+    two-thirds: 2 / 3 * 100%,
+    half: 1 / 2 * 100%,
+    one-third: 1 / 3 * 100%,
+    one-quarter: 1 / 4 * 100%,
+    four-fifths: 4 / 5 * 100%,
+    three-fifths: 3 / 5 * 100%,
+    two-fifths: 2 / 5 * 100%,
+    one-fifth: 1 / 5 * 100%,
+    fullwidth: 100%,
+  );
+
+  @for $i from 1 through 12 {
+    $options : map-merge($options, (
+      #{$i}: $i / 12 * 100%
+    ));
+  }
+
+  @each $key, $value in $options {
+    &.is-#{$key} {
+      --column-width: #{$value};
+      --column-flex: none;
+    }
+  }
+
+  &.is-narrow {
+    --column-flex: none;
+  }
+}

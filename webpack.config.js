@@ -1,40 +1,48 @@
-const roots   = require('./gulpfile').roots;
-const task    = require('./gulpfile').tasks['scripts'];
-const path    = require('path');
-const webpack = require('webpack');
-const plugins = [];
-
-plugins.push(new webpack.optimize.CommonsChunkPlugin({
-  name: 'commons',
-  filename: 'commons.js',
-  minChunks: 2,
-}));
+const paths   = require('./gulpfile').paths
+const task    = require('./gulpfile').tasks['scripts']
+const path    = require('path')
+const webpack = require('webpack')
 
 module.exports = {
-  context: path.resolve(__dirname, roots.src, task.roots.src),
+  context: path.resolve(__dirname, paths.src, task.paths.src),
+  mode: 'development',
   entry: {
-    'app': './app.js',
+    'app': './app.js'
   },
   module: {
-    rules: [{
-      test: /\.js$/,
-      use: ['babel-loader?presets=es2015'],
-      exclude: /node_modules/,
-    }],
+    rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['es2015', 'stage-2']
+        }
+      }
+    ]
   },
   resolve: {
     alias: {
-      component: path.resolve(__dirname, roots.src, task.roots.src, 'components/component.js'),
+      '@modules': path.resolve(__dirname, paths.src, task.paths.src, 'modules'),
+      '@core': path.resolve(__dirname, paths.src, task.paths.src, 'core'),
+      'module$': path.resolve(__dirname, paths.src, task.paths.src, 'core/module.js')
     },
     modules: [
-      path.resolve(__dirname, roots.src, task.roots.src),
-      path.resolve(__dirname, 'node_modules'),
-    ],
+      path.resolve(__dirname, paths.src, task.paths.src),
+      path.resolve(__dirname, 'node_modules')
+    ]
   },
-  plugins: plugins,
+  optimization: {
+    // splitChunks: {
+    //   name: 'commons',
+    //   chunks: 'all'
+    // }
+  },
+  plugins: [
+    //
+  ],
   output: {
-    path: path.resolve(__dirname, roots.dest, task.roots.dest),
+    path: path.resolve(__dirname, paths.dest, task.paths.dest),
     filename: '[name].js',
-    publicPath: '/assets/scripts',
-  },
-};
+    publicPath: '/' + path.relative(paths.public, path.resolve(paths.dest, task.paths.dest)).split(path.sep).join('/')
+  }
+}

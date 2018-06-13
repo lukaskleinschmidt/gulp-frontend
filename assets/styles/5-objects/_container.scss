@@ -1,7 +1,27 @@
-%container,
-.o-container {
+.container {
+  --container-padding: var(--gap-normal);
+  --container-width: var(--container-largest);
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
   box-sizing: border-box;
-  max-width: $breakpoint-largest;
-  padding: 0 $spacing-small;
-  margin: 0 auto;
+  max-width: var(--container-width);
+
+  &:not(.is-collapsed) {
+    padding-right: var(--container-padding);
+    padding-left: var(--container-padding);
+    max-width: calc(var(--container-width) + var(--container-padding) * 2);
+  }
+
+  @each $key, $value in get(container) {
+    &.is-#{$key} {
+      --container-width: var(--container-#{$key});
+    }
+  }
+
+  @include breakpoint(medium) {
+    --container-padding: var(--gap-medium);
+  }
 }

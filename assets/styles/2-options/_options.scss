@@ -1,0 +1,52 @@
+// breakpoints
+$breakpoint-small: 512px;
+$breakpoint-medium: 768px;
+$breakpoint-large: 1024px;
+$breakpoint-largest: 1280px;
+
+// register breakpoints
+@include set(breakpoint, (
+  small: $breakpoint-small,
+  medium: $breakpoint-medium,
+  large: $breakpoint-large,
+  largest: $breakpoint-largest
+))
+
+$text-h1: (
+  line-height: var(--line-height-1),
+  font-weight: var(--weight-medium),
+  font-size: (
+    normal: var(--size-2),
+    medium: var(--size-1)
+  )
+);
+
+$text-h2: (
+  line-height: var(--line-height-1),
+  font-weight: var(--weight-medium),
+  font-size: (
+    normal: var(--size-3),
+    medium: var(--size-2)
+  )
+);
+
+$text-h3: (
+  line-height: var(--line-height-1),
+  font-weight: var(--weight-medium),
+  font-size: (
+    normal: var(--size-4),
+    medium: var(--size-3)
+  )
+);
+
+$text-normal: (
+  line-height: var(--line-height-2),
+  font-weight: var(--weight-normal),
+  font-size: var(--size-5)
+);
+
+$text-small: (
+  line-height: var(--line-height-2),
+  font-weight: var(--weight-normal),
+  font-size: var(--size-6)
+);
