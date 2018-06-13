@@ -1,5 +1,5 @@
 # Gulp Frontend
-An biased frontend boilerplate using gulp v4 and webpack v4.
+A biased frontend boilerplate using gulp v4 and webpack v4.
 
 ```bash
 # install dependencies
