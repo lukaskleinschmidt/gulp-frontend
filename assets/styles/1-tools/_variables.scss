@@ -1,4 +1,4 @@
-/// Make custom properties also available in SCSS.
+/// Generate custom properties that are also available in SCSS.
 /// @param {Map} $values - Map of custom properties
 /// @param {String} $group (null) - Name of the group
 /// @example
@@ -47,13 +47,15 @@
     }
   }
 
-  @else {
-    :root {
-      @each $key, $value in $values {
-        #{$key}: #{$value};
-      }
-    }
-  }
+  // would probably be an unexpected behaviour
+  // therefore this section is commented out
+  // @else {
+  //   :root {
+  //     @each $key, $value in $values {
+  //       #{$key}: #{$value};
+  //     }
+  //   }
+  // }
 
   @each $key, $value in $values {
     @include set($key, $value);

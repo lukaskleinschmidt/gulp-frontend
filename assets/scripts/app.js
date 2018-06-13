@@ -1,4 +1,5 @@
-import Breakpoint from 'modules/breakpoint'
+import Breakpoint from '@modules/breakpoint'
+import Icons from '@modules/icons'
 
 const breakpoint = new Breakpoint('(min-width: 800px)')
 
@@ -11,3 +12,15 @@ breakpoint.on('unmatch', () => {
 })
 
 breakpoint.check()
+
+const url = '/assets/icons/sprite.svg'
+const ttl = process.env.NODE_ENV === 'production' ? 300000 : 0 // default: 300000 (5 minutes)
+const key = 'default-icons' // default: 'icons'
+
+const icons = new Icons(url, {
+  key: key,
+  ttl: ttl
+})
+
+// flush cache if necessary
+icons.flush()

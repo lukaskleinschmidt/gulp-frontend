@@ -2,6 +2,7 @@ const autoprefixer = require('gulp-autoprefixer')
 const sourcemaps   = require('gulp-sourcemaps')
 const exec         = require('child_process').exec;
 const browserSync  = require('browser-sync')
+const sprite       = require('gulp-svg-sprite')
 const cssnano      = require('gulp-cssnano')
 const sass         = require('gulp-sass')
 const gzip         = require('gulp-gzip')
@@ -44,8 +45,16 @@ const tasks = exports.tasks = {
     }
   },
 
+  icons: {
+    glob: '/**/*.svg',
+    paths: {
+      src:  'icons',
+      dest: 'icons'
+    }
+  },
+
   fonts: {
-    glob: '/**/*.{eot,svg,ttf,woff,woff2}',
+    glob: '/**/*.{eot,svg,ttf,woff,woff2,otf}',
     paths: {
       src:  'fonts',
       dest: 'fonts'
@@ -64,7 +73,7 @@ function clean() {
 }
 
 function scripts() {
-  return exec('webpack --color --config webpack.config.js', (error, stdout, stderr) => {
+  return exec('webpack --hide-modules --color --config webpack.config.js', (error, stdout, stderr) => {
     if(error) console.log(error);
     console.log(stdout);
   })
@@ -100,11 +109,6 @@ function styles() {
         .sync({ outputStyle: 'expanded' })
         .on('error', sass.logError)
     )
-    // .pipe(
-    //   postcss([
-    //     postCSSCustomProperties()
-    //   ])
-    // )
     .pipe(
       autoprefixer({ browsers: ['last 2 versions'] })
     )
@@ -136,22 +140,25 @@ function browsersync(done) {
     const webpackConfig = require('./webpack.config.hot')
     const bundler = webpack(webpackConfig)
 
-    // for other settings see
+    // For other settings see
     // http://webpack.github.io/docs/webpack-dev-middleware.html
     middleware.push(webpackDevMiddleware(bundler, {
       publicPath: webpackConfig.output.publicPath,
-      stats: { colors: true }
+      stats: {
+        colors: true,
+        modules: false
+      }
     }))
 
-    // bundler should be the same as above
+    // Bundler should be the same as above
     middleware.push(webpackHotMiddleware(bundler))
   }
 
   // Files browsersync should watch
   // to trigger a page realod
   const files = [
-    path.join(paths.public, '/**/*.php'),
-    path.join(paths.public, '/**/*.html')
+    path.join(paths.public, '/**/*.html'),
+    path.join(paths.public, '/**/*.php')
   ]
 
   Object.keys(tasks).forEach(task => {
@@ -162,16 +169,24 @@ function browsersync(done) {
     files.push(path.join(paths.dest, tasks[task].paths.dest, '/**/*'))
   })
 
-  const config = proxy ? {
-    middleware: middleware,
-    notify: false,
-    files: files,
-    proxy: proxy,
-    port: port
-  } : {
+  const config = Object.assign({
+    reloadOnRestart: true,
     notify: false,
     files: files,
     port: port,
+    ignore: [
+      //
+    ],
+    ghostMode: {
+      clicks: false,
+      scroll: false,
+      location: false,
+      forms: false,
+    }
+  }, proxy ? {
+    middleware: middleware,
+    proxy: proxy,
+  } : {
     server: {
       middleware: middleware,
       baseDir: paths.public,
@@ -179,7 +194,7 @@ function browsersync(done) {
         '/node_modules': 'node_modules'
       }
     }
-  }
+  })
 
   browserSync(config)
   done()
@@ -213,17 +228,66 @@ function images() {
   return copy('images')
 }
 
+function icons() {
+  const task = tasks.icons
+  const base = path.join(paths.src, task.paths.src)
+  const src  = path.join(base, task.glob)
+  const dest = path.join(paths.dest, task.paths.dest)
+
+  const config = {
+    plugins: [
+      { removeHiddenElems: true },
+      { convertShapeToPath: true },
+      {
+        removeUnknownsAndDefaults: {
+          keepAriaAttrs: false
+        }
+      }
+    ]
+  }
+
+  return gulp.src(src, { base: base })
+    .pipe(sprite({
+      shape: {
+        id: {
+          separator: '.'
+        },
+        transform : [
+          { svgo: config }
+        ],
+      },
+      svg: {
+        // namespaceIDs: false,
+        // namespaceClassnames: false,
+        // transform: [
+        //   (svg) => {
+        //     return svg.replace(/\<svg/g, '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"')
+        //   },
+        // ]
+      },
+      mode: {
+        symbol: {
+          inline: true,
+          sprite: 'sprite.svg',
+          dest: '.',
+        },
+      }
+    }))
+    .pipe(gulp.dest(dest))
+}
+
 function fonts() {
   return copy('fonts')
 }
 
 gulp.task('clean', clean)
 gulp.task('scripts', scripts)
-gulp.task('scripts.build', scriptsBuild)
+gulp.task('scripts:build', scriptsBuild)
 gulp.task('styles', styles)
-gulp.task('styles.build', stylesBuild)
+gulp.task('styles:build', stylesBuild)
 gulp.task('browsersync', browsersync)
 gulp.task('images', images)
+gulp.task('icons', icons)
 gulp.task('fonts', fonts)
 gulp.task('watch', watch)
 
@@ -233,9 +297,10 @@ const serve = gulp.parallel(
 )
 
 const build = gulp.series('clean', gulp.parallel(
-  'scripts.build',
-  'styles.build',
+  'scripts:build',
+  'styles:build',
   'images',
+  'icons',
   'fonts'
 ))
 

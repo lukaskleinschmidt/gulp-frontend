@@ -1,9 +1,9 @@
-.o-column {
+.column {
   --column-width: auto;
   --column-flex: 1 1 0;
 }
 
-.o-column {
+.column {
   box-sizing: border-box;
   display: block;
   width: var(--column-width);

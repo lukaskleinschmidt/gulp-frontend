@@ -10,19 +10,21 @@ module.exports = {
     'app': './app.js'
   },
   module: {
-    rules: [{
-      test: /\.js$/,
-      loader: 'babel-loader',
-      options: {
-        presets: ['es2015']
+    rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['es2015', 'stage-2']
+        }
       }
-    }]
+    ]
   },
   resolve: {
     alias: {
-      modules: path.resolve(__dirname, paths.src, task.paths.src, 'modules'),
-      module: path.resolve(__dirname, paths.src, task.paths.src, 'core/module.js'),
-      core: path.resolve(__dirname, paths.src, task.paths.src, 'core')
+      '@modules': path.resolve(__dirname, paths.src, task.paths.src, 'modules'),
+      '@core': path.resolve(__dirname, paths.src, task.paths.src, 'core'),
+      'module$': path.resolve(__dirname, paths.src, task.paths.src, 'core/module.js')
     },
     modules: [
       path.resolve(__dirname, paths.src, task.paths.src),
@@ -30,15 +32,17 @@ module.exports = {
     ]
   },
   optimization: {
-    splitChunks: {
-      name: 'commons',
-      chunks: 'all'
-    }
+    // splitChunks: {
+    //   name: 'commons',
+    //   chunks: 'all'
+    // }
   },
-  plugins: [],
+  plugins: [
+    //
+  ],
   output: {
     path: path.resolve(__dirname, paths.dest, task.paths.dest),
     filename: '[name].js',
-    publicPath: '/assets/scripts'
+    publicPath: '/' + path.relative(paths.public, path.resolve(paths.dest, task.paths.dest)).split(path.sep).join('/')
   }
 }

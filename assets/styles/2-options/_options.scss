@@ -2,7 +2,7 @@
 $breakpoint-small: 512px;
 $breakpoint-medium: 768px;
 $breakpoint-large: 1024px;
-$breakpoint-largest: 1200px;
+$breakpoint-largest: 1280px;
 
 // register breakpoints
 @include set(breakpoint, (
@@ -12,27 +12,41 @@ $breakpoint-largest: 1200px;
   largest: $breakpoint-largest
 ))
 
-
-// responsive font sizes
-$size-h1: (
-  normal: var(--size-2),
-  medium: var(--size-1)
+$text-h1: (
+  line-height: var(--line-height-1),
+  font-weight: var(--weight-medium),
+  font-size: (
+    normal: var(--size-2),
+    medium: var(--size-1)
+  )
 );
-$size-h2: (
-  normal: var(--size-3),
-  medium: var(--size-2)
-);
-$size-h3: (
-  normal: var(--size-4),
-  medium: var(--size-3)
-);
-$size-normal: var(--size-5);
-$size-small: var(--size-6);
 
+$text-h2: (
+  line-height: var(--line-height-1),
+  font-weight: var(--weight-medium),
+  font-size: (
+    normal: var(--size-3),
+    medium: var(--size-2)
+  )
+);
 
-// responsive line heights
-$line-height-h1: var(--line-height-1);
-$line-height-h2: var(--line-height-1);
-$line-height-h3: var(--line-height-1);
-$line-height-normal: var(--line-height-2);
-$line-height-small: var(--line-height-2);
+$text-h3: (
+  line-height: var(--line-height-1),
+  font-weight: var(--weight-medium),
+  font-size: (
+    normal: var(--size-4),
+    medium: var(--size-3)
+  )
+);
+
+$text-normal: (
+  line-height: var(--line-height-2),
+  font-weight: var(--weight-normal),
+  font-size: var(--size-5)
+);
+
+$text-small: (
+  line-height: var(--line-height-2),
+  font-weight: var(--weight-normal),
+  font-size: var(--size-6)
+);

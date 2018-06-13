@@ -9,9 +9,10 @@
 
 // Contain fonts, colors definitions, etc.
 @import '2-options/options';
-@import '2-options/root';
+@import '2-options/variables';
 
 // Reset and/or normalize styles, box-sizing definition, etc. This is the first layer which generates actual CSS.
+@import '3-generic/root';
 @import '3-generic/normalize';
 
 // Styling for bare HTML elements (like H1, A, etc.). These come with default styling from the browser so we can redefine them here.
