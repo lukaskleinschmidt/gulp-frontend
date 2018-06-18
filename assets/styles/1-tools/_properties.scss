@@ -11,9 +11,9 @@
 ///     )
 ///   ))
 ///
-/// alternatively you could use the mixin
-/// like this depending on your properties
-/// you actually need to set
+///   alternatively you could use the mixin
+///   like this depending on your properties
+///   you actually need to set
 ///
 ///   line-height: var(--line-height-1);
 ///
@@ -23,6 +23,9 @@
 ///     1500px: 120px
 ///   ))
 /// }
+///
+/// adding !important as a last parameter
+/// will add !important to each property
 ///
 /// .is-size-h1 {
 ///   line-height: var(--line-height-1);
@@ -43,10 +46,16 @@
 @mixin properties($args...) {
   $cache: ();
   $data: nth($args, 1);
+  $attr: null;
 
   // normalize data
   @if type-of($data) == 'string' {
     $data: ($data: nth($args, 2));
+  }
+
+  // check if the values should be important
+  @if (nth($args, length($args)) == !important) {
+    $attr: !important;
   }
 
   @each $property, $values in $data {
@@ -71,7 +80,7 @@
 
       // just print $property: $value
       @else {
-        #{$property}: $value;
+        #{$property}: ($value $attr);
       }
     }
   }
@@ -80,7 +89,7 @@
   @each $key, $values in $cache {
     @include breakpoint($key) {
       @each $property, $value in $values {
-        #{$property}: $value;
+        #{$property}: ($value $attr);
       }
     }
   }
