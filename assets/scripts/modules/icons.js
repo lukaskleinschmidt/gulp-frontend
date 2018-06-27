@@ -16,20 +16,14 @@ export default class Icons extends Module {
     }
 
     if (!icons) {
-      const request = new XMLHttpRequest()
-
-      request.onreadystatechange = () => {
-        if (request.readyState == 4 && request.status == 200) {
+      fetch(url)
+        .then(response => response.text())
+        .then(icons => {
           if (localStorage.available) {
-            localStorage.setItem(this.options.key, request.responseText, this.options.ttl)
+            localStorage.setItem(this.options.key, icons, this.options.ttl);
           }
-
-          this.insert(request.responseText)
-        }
-      }
-
-      request.open('GET', url, true)
-      request.send(null)
+          this.insert(icons);
+        });
     }
   }
 

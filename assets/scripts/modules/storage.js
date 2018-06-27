@@ -45,10 +45,8 @@ class Storage {
   set(key, value, ttl = false) {
     if (!this.available) return
 
-    const expires = Date.now() + ttl
-
     window[this.type].setItem(key, JSON.stringify({
-      expires: ttl ? expires : false,
+      expires: ttl === false ? false : Date.now() + ttl,
       value: value
     }));
   }
