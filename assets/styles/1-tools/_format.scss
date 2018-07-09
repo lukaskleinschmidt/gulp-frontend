@@ -1,0 +1,33 @@
+/// Pseudo element representing the chosen format.
+/// @param {Mixed} $args
+/// @example
+/// .media {
+///   @include format(4/3);
+///
+/// furthermore, it is also possible to specify
+/// the format via two separate parameters or
+/// to define further styles
+///
+///   @include format(400px, 300px) {
+///     background: deppink;
+///   };
+/// }
+@mixin format($args...) {
+  $ratio: nth($args, 1);
+
+  @if length($args) > 1 {
+    $ratio: $ratio / nth($args, 2);
+  }
+
+  // removes any units
+  $ratio: $ratio / ($ratio * 0 + 1);
+
+  &::before {
+    content: '';
+
+    padding-top: 100% / $ratio;
+    display: block;
+
+    @content;
+  }
+}

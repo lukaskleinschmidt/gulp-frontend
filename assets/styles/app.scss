@@ -3,6 +3,7 @@
 // Globally used mixins and functions. It’s important not to output any CSS in the first 2 layers.
 @import '1-tools/breakpoint';
 @import '1-tools/font-face';
+@import '1-tools/format';
 @import '1-tools/properties';
 @import '1-tools/registry';
 @import '1-tools/variables';
