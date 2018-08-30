@@ -1,10 +1,15 @@
 // TODO: add description
-@function parse-breakpoint-width($width) {
+@function parse-width($width) {
   @if type-of($width) == 'string' {
     $width: get(breakpoint, $width);
   }
 
   @return $width;
+}
+
+// TODO: add description
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
 }
 
 // TODO: add description
@@ -30,17 +35,17 @@
 
 // TODO: add description
 @mixin respond-to($min-width, $max-width, $media-type: 'all') {
-  $min-width: parse-breakpoint-width($min-width);
-  $max-width: parse-breakpoint-width($max-width);
+  $min-width: parse-width($min-width);
+  $max-width: parse-width($max-width);
   $media-query: '';
 
   // output rules inside @media queries
-  @if strip-unit($min-width) != 0 {
+  @if $min-width / ($min-width * 0 + 1) != 0 {
     $media-query: '#{$media-query} and (min-width: #{$min-width})';
   }
 
   @if strip-unit($max-width) != 0 {
-    // TEMP: ideally we would use media queries level 4 (width < #{$max-width}) here
+    // ideally we would use media queries level 4 (width < #{$max-width}) here
     $media-query: '#{$media-query} and (max-width: #{($max-width - 0.01px)})';
   }
 
@@ -54,10 +59,4 @@
   @media #{$media-type + $media-query} {
     @content;
   }
-}
-
-
-// TODO: add description
-@function strip-unit($value) {
-  @return $value / ($value * 0 + 1);
 }

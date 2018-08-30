@@ -13,24 +13,27 @@
     @if index($formats, 'eot') {
       src: url('#{$file}.eot');
     }
+
     @each $format in $formats {
       $src: append($src, url('#{$file}.#{map-get((
-        'eot': 'eot?#iefix',
-        'ttf': 'ttf',
-        'otf': 'otf',
-        'woff2': 'woff2',
-        'woff': 'woff',
-        'svg': 'svg#svgFontName',
+        eot: 'eot?#iefix',
+        ttf: 'ttf',
+        otf: 'otf',
+        woff2: 'woff2',
+        woff: 'woff',
+        svg: 'svg#svgFontName',
       ), $format)}') format('#{map-get((
-        'eot': 'embedded-opentype',
-        'ttf': 'truetype',
-        'otf': 'opentype',
-        'woff2': 'woff2',
-        'woff': 'woff',
-        'svg': 'svg',
+        eot: 'embedded-opentype',
+        ttf: 'truetype',
+        otf: 'opentype',
+        woff2: 'woff2',
+        woff: 'woff',
+        svg: 'svg',
       ), $format)}'), comma);
     }
+
     src: $src;
+
     @content;
   }
 };

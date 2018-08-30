@@ -1,6 +1,6 @@
 import Dispatcher from '@core/dispatcher'
 
-export default class Module {
+export default class {
   constructor() {
     this.dispatcher = new Dispatcher()
 

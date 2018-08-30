@@ -30,34 +30,20 @@
   text-align: justify;
 }
 
-.is-size-h1 {
-  @include properties($text-h1)
-}
-
-.is-size-h2 {
-  @include properties($text-h2)
-}
-
-.is-size-h2 {
-  @include properties($text-h3)
-}
-
-.is-size-normal {
-  @include properties($text-normal)
-}
-
-.is-size-small {
-  @include properties($text-small)
+@each $key, $value in get(text) {
+  .is-size-#{$key} {
+    @include properties($value, !important)
+  }
 }
 
 @each $key, $value in get(color) {
   .has-text-#{$key} {
-    color: $value;
+    color: $value !important;
   }
 }
 
 @each $key, $value in get(weight) {
   .has-text-#{$key} {
-    font-weight: $value;
+    font-weight: $value !important;
   }
 }

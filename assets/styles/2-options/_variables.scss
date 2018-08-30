@@ -10,14 +10,6 @@
   ), color)
 
 
-  // gaps
-  @include variables((
-    --gap-small: 10px,
-    --gap-normal: 20px,
-    --gap-medium: 40px
-  ), gap)
-
-
   // container widths
   @include variables((
     --container-small: 530px,
@@ -39,7 +31,7 @@
   ), size)
 
 
-  // font sizes
+  // line heights
   @include variables((
     --line-height-1: 1.1,
     --line-height-2: 1.5

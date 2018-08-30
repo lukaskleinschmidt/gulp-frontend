@@ -1,6 +1,16 @@
 .container {
-  --container-padding: var(--gap-normal);
+  --container-padding: 20px;
   --container-width: var(--container-largest);
+
+  @include breakpoint(medium) {
+    --container-padding: 40px;
+  }
+
+  @each $key, $value in get(container) {
+    &.is-#{$key} {
+      --container-width: var(--container-#{$key});
+    }
+  }
 }
 
 .container {
@@ -15,13 +25,11 @@
     max-width: calc(var(--container-width) + var(--container-padding) * 2);
   }
 
-  @each $key, $value in get(container) {
-    &.is-#{$key} {
-      --container-width: var(--container-#{$key});
-    }
+  &.is-left {
+    margin-left: 0;
   }
 
-  @include breakpoint(medium) {
-    --container-padding: var(--gap-medium);
+  &.is-right {
+    margin-right: 0;
   }
 }

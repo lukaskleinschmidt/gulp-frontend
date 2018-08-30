@@ -1,6 +1,6 @@
 import Module from 'module'
 
-export default class Breakpoint extends Module {
+export default class extends Module {
   init(mediaQueryString) {
     this.mql = window.matchMedia(mediaQueryString)
     this.listener = () => this.emit(this.mql.matches ? 'match' : 'unmatch', [this.mql])

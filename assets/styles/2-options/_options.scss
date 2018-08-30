@@ -12,6 +12,7 @@ $breakpoint-largest: 1280px;
   largest: $breakpoint-largest
 ))
 
+
 $text-h1: (
   line-height: var(--line-height-1),
   font-weight: var(--weight-medium),
@@ -50,3 +51,12 @@ $text-small: (
   font-weight: var(--weight-normal),
   font-size: var(--size-6)
 );
+
+// register text sizes
+@include set(text, (
+  h1: $text-h1,
+  h2: $text-h2,
+  h3: $text-h3,
+  normal: $text-normal,
+  small: $text-small
+))
