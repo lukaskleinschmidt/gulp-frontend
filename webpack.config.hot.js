@@ -1,5 +1,5 @@
 const webpackConfig = require('./webpack.config')
-const webpack       = require('webpack')
+const webpack = require('webpack')
 
 Object.keys(webpackConfig.entry).forEach(key => {
   var entry = webpackConfig.entry[key]

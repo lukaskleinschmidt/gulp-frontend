@@ -1,22 +1,22 @@
 const autoprefixer = require('gulp-autoprefixer')
-const sourcemaps   = require('gulp-sourcemaps')
-const exec         = require('child_process').exec;
-const browserSync  = require('browser-sync')
-const sprite       = require('gulp-svg-sprite')
-const cssnano      = require('gulp-cssnano')
-const sass         = require('gulp-sass')
-const gzip         = require('gulp-gzip')
-const gulp         = require('gulp')
-const path         = require('path')
-const del          = require('del');
+const sourcemaps = require('gulp-sourcemaps')
+const exec = require('child_process').exec;
+const browserSync = require('browser-sync')
+const sprite = require('gulp-svg-sprite')
+const cssnano = require('gulp-cssnano')
+const sass = require('gulp-sass')
+const gzip = require('gulp-gzip')
+const gulp = require('gulp')
+const path = require('path')
+const del = require('del');
 
 const proxy = false;
-const port = 3000;
-const hot = false;
+const port = process.env.npm_config_port || 3000;
+const hot = process.env.npm_config_hot || false;
 
 const paths = exports.paths = {
-  src:    'assets',
-  dest:   'public/assets',
+  src: 'assets',
+  dest: 'public/assets',
   public: 'public'
 }
 
@@ -24,7 +24,7 @@ const tasks = exports.tasks = {
   scripts: {
     glob: '/**/*.js',
     paths: {
-      src:  'scripts',
+      src: 'scripts',
       dest: 'scripts'
     }
   },
@@ -32,7 +32,7 @@ const tasks = exports.tasks = {
   styles: {
     glob: '/**/*.scss',
     paths: {
-      src:  'styles',
+      src: 'styles',
       dest: 'styles'
     }
   },
@@ -40,7 +40,7 @@ const tasks = exports.tasks = {
   images: {
     glob: '/**/*',
     paths: {
-      src:  'images',
+      src: 'images',
       dest: 'images'
     }
   },
@@ -48,7 +48,7 @@ const tasks = exports.tasks = {
   icons: {
     glob: '/**/*.svg',
     paths: {
-      src:  'icons',
+      src: 'icons',
       dest: 'icons'
     }
   },
@@ -56,7 +56,7 @@ const tasks = exports.tasks = {
   fonts: {
     glob: '/**/*.{eot,svg,ttf,woff,woff2,otf}',
     paths: {
-      src:  'fonts',
+      src: 'fonts',
       dest: 'fonts'
     }
   }
@@ -73,7 +73,7 @@ function clean() {
 }
 
 function scripts() {
-  return exec('webpack --hide-modules --color --config webpack.config.js', (error, stdout, stderr) => {
+  return exec('node node_modules/webpack/bin/webpack.js --hide-modules --color --config webpack.config.js', (error, stdout, stderr) => {
     if(error) console.log(error);
     console.log(stdout);
   })
@@ -84,7 +84,7 @@ function scriptsBuild() {
   const base = path.join(paths.dest, task.paths.dest)
   const src  = path.join(base, task.glob)
 
-  return exec('webpack --color --config webpack.config.js -p', (error, stdout, stderr) => {
+  return exec('node node_modules/webpack/bin/webpack.js --color --config webpack.config.js -p', (error, stdout, stderr) => {
     if(error) console.log(error)
     console.log(stdout)
 

@@ -1,6 +1,6 @@
-const paths   = require('./gulpfile').paths
-const task    = require('./gulpfile').tasks['scripts']
-const path    = require('path')
+const paths = require('./gulpfile').paths
+const task = require('./gulpfile').tasks.scripts
+const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
