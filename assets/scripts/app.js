@@ -14,10 +14,9 @@ breakpoint.on('unmatch', () => {
 breakpoint.check()
 
 const url = '/assets/icons/sprite.svg'
-const ttl = process.env.NODE_ENV === 'production' ? 300000 : 0 // default: 300000 (5 minutes)
-const key = 'default-icons' // default: 'icons'
+const ttl = process.env.NODE_ENV === 'production' ? 1000 * 60 * 60 * 24 : 0 // 24h
 
-const icons = new Icons(url, key, ttl)
+const icons = new Icons(url, ttl)
 
 // flush cache if necessary
 icons.flush()

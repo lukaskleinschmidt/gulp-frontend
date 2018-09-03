@@ -2,32 +2,32 @@ import Dispatcher from '@core/dispatcher'
 
 export default class {
   constructor() {
-    this.dispatcher = new Dispatcher()
+    this._dispatcher = new Dispatcher()
 
     this.init && this.init.apply(this, arguments)
   }
 
   on() {
-    this.dispatcher.on(...arguments)
+    this._dispatcher.on(...arguments)
     return this
   }
 
   once() {
-    this.dispatcher.once(...arguments)
+    this._dispatcher.once(...arguments)
     return this
   }
 
   off() {
-    this.dispatcher.off(...arguments)
+    this._dispatcher.off(...arguments)
     return this
   }
 
   emit() {
-    this.dispatcher.emit(...arguments)
+    this._dispatcher.emit(...arguments)
     return this
   }
 
   destroy() {
-    this.dispatcher.destroy()
+    this._dispatcher.destroy()
   }
 }

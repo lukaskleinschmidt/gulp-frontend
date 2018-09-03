@@ -253,7 +253,6 @@ function icons() {
       mode: {
         symbol: {
           inline: true,
-          prefix: 'test--%s',
           sprite: 'sprite.svg',
           dest: '.',
         },

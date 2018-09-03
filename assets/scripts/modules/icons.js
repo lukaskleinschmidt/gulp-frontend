@@ -1,9 +1,9 @@
 import Module from 'module'
 
 export default class extends Module {
-  init(url, key, ttl) {
-    this.key = key || 'icons'
+  init(url, ttl, key) {
     this.ttl = ttl || 1000 * 60 * 60 * 24 // 24 hours
+    this.key = key || 'icons'
 
     let icons = this.get()
 
@@ -12,9 +12,9 @@ export default class extends Module {
     return fetch(url)
       .then(response => response.text())
       .then(icons => {
-        this.set(icons, this.ttl);
-        this.insert(icons);
-      });
+        this.set(icons, this.ttl)
+        this.insert(icons)
+      })
   }
 
   get() {
