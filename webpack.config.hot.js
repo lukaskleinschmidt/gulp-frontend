@@ -8,7 +8,7 @@ Object.keys(webpackConfig.entry).forEach(key => {
     'webpack-hot-middleware/client?reload=true&quiet=true&overlay=false'
   ]
   webpackConfig.entry[key].push(entry)
-});
+})
 
 webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
 webpackConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin())

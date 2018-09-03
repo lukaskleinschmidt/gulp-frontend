@@ -1,6 +1,6 @@
 const autoprefixer = require('gulp-autoprefixer')
 const sourcemaps = require('gulp-sourcemaps')
-const exec = require('child_process').exec;
+const exec = require('child_process').exec
 const browserSync = require('browser-sync')
 const sprite = require('gulp-svg-sprite')
 const cssnano = require('gulp-cssnano')
@@ -8,11 +8,11 @@ const sass = require('gulp-sass')
 const gzip = require('gulp-gzip')
 const gulp = require('gulp')
 const path = require('path')
-const del = require('del');
+const del = require('del')
 
-const proxy = false;
-const port = process.env.npm_config_port || 3000;
-const hot = process.env.npm_config_hot || false;
+const proxy = false
+const port = process.env.npm_config_port || 3000
+const hot = process.env.npm_config_hot || false
 
 const paths = exports.paths = {
   src: 'assets',
@@ -66,7 +66,7 @@ function clean() {
   const globs = []
 
   Object.keys(tasks).forEach(task => {
-    globs.push(path.join(paths.dest, tasks[task].paths.dest));
+    globs.push(path.join(paths.dest, tasks[task].paths.dest))
   })
 
   return del(globs)
@@ -74,35 +74,34 @@ function clean() {
 
 function scripts() {
   return exec('node node_modules/webpack/bin/webpack.js --hide-modules --color --config webpack.config.js', (error, stdout, stderr) => {
-    if(error) console.log(error);
-    console.log(stdout);
+    if(error) console.log(error)
+    console.log(stdout)
   })
 }
 
 function scriptsBuild() {
   const task = tasks.scripts
-  const base = path.join(paths.dest, task.paths.dest)
-  const src  = path.join(base, task.glob)
+  const dest = path.join(paths.dest, task.paths.dest).split(path.sep).join('/')
+  const src = path.join(paths.dest, task.paths.dest, task.glob).split(path.sep).join('/')
 
   return exec('node node_modules/webpack/bin/webpack.js --color --config webpack.config.js -p', (error, stdout, stderr) => {
     if(error) console.log(error)
     console.log(stdout)
 
-    return gulp.src(src, { base: base })
+    return gulp.src(src)
       .pipe(
         gzip({ append: true })
       )
-      .pipe(gulp.dest(base))
+      .pipe(gulp.dest(dest))
   })
 }
 
 function styles() {
   const task = tasks.styles
-  const base = path.join(paths.src, task.paths.src)
-  const src  = path.join(base, task.glob)
-  const dest = path.join(paths.dest, task.paths.dest)
+  const dest = path.join(paths.dest, task.paths.dest).split(path.sep).join('/')
+  const src = path.join(paths.src, task.paths.src, task.glob).split(path.sep).join('/')
 
-  return gulp.src(src, { base: base })
+  return gulp.src(src)
     .pipe(sourcemaps.init())
     .pipe(
       sass
@@ -118,7 +117,7 @@ function styles() {
 
 function stylesBuild() {
   const task = tasks.styles
-  const dest = path.join(paths.dest, task.paths.dest)
+  const dest = path.join(paths.dest, task.paths.dest).split(path.sep).join('/')
 
   return styles()
     .pipe(cssnano())
@@ -130,7 +129,7 @@ function stylesBuild() {
 }
 
 function browsersync(done) {
-  const middleware = [];
+  const middleware = []
 
   if (hot) {
     const webpack = require('webpack')
@@ -157,8 +156,7 @@ function browsersync(done) {
   // Files browsersync should watch
   // to trigger a page realod
   const files = [
-    path.join(paths.public, '/**/*.html'),
-    path.join(paths.public, '/**/*.php')
+    path.join(paths.public, '/**/*.html')
   ]
 
   Object.keys(tasks).forEach(task => {
@@ -211,28 +209,13 @@ function watch() {
     const call = gulp.series(key)
 
     gulp.watch(glob.split(path.sep).join('/'), { ignoreInitial: false }, call)
-  });
-}
-
-function copy(key) {
-  const task = tasks[key]
-  const base = path.join(paths.src, task.paths.src)
-  const src  = path.join(base, task.glob)
-  const dest = path.join(paths.dest, task.paths.dest)
-
-  return gulp.src(src, { base: base })
-    .pipe(gulp.dest(dest))
-}
-
-function images() {
-  return copy('images')
+  })
 }
 
 function icons() {
   const task = tasks.icons
-  const base = path.join(paths.src, task.paths.src)
-  const src  = path.join(base, task.glob)
-  const dest = path.join(paths.dest, task.paths.dest)
+  const dest = path.join(paths.dest, task.paths.dest).split(path.sep).join('/')
+  const src = path.join(paths.src, task.paths.src, task.glob).split(path.sep).join('/')
 
   const config = {
     plugins: [
@@ -246,11 +229,13 @@ function icons() {
     ]
   }
 
-  return gulp.src(src, { base: base })
+  return gulp.src(src)
     .pipe(sprite({
       shape: {
         id: {
-          separator: '.'
+          whitespace: '_',
+          separator: '.',
+          generator: 'icon-%s'
         },
         transform : [
           { svgo: config }
@@ -268,12 +253,26 @@ function icons() {
       mode: {
         symbol: {
           inline: true,
+          prefix: 'test--%s',
           sprite: 'sprite.svg',
           dest: '.',
         },
       }
     }))
     .pipe(gulp.dest(dest))
+}
+
+function copy(key) {
+  const task = tasks[key]
+  const dest = path.join(paths.dest, task.paths.dest).split(path.sep).join('/')
+  const src = path.join(paths.src, task.paths.src, task.glob).split(path.sep).join('/')
+
+  return gulp.src(src)
+    .pipe(gulp.dest(dest))
+}
+
+function images() {
+  return copy('images')
 }
 
 function fonts() {
