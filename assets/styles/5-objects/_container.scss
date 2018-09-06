@@ -1,4 +1,6 @@
 .container {
+  --container-margin-right: auto;
+  --container-margin-left: auto;
   --container-padding: 20px;
   --container-width: var(--container-largest);
 
@@ -7,29 +9,31 @@
   }
 
   @each $key, $value in get(container) {
-    &.is-#{$key} {
-      --container-width: var(--container-#{$key});
+    @if not($key == largest) {
+      &.is-#{$key} {
+        --container-width: var(--container-#{$key});
+      }
     }
+  }
+
+  &.is-left {
+    --container-margin-left: 0px;
+  }
+
+  &.is-right {
+    --container-margin-right: 0px;
   }
 }
 
 .container {
-  margin-right: auto;
-  margin-left: auto;
+  margin-right: var(--container-margin-right);
+  margin-left: var(--container-margin-left);
   box-sizing: border-box;
   max-width: var(--container-width);
 
   &:not(.is-collapsed) {
     padding-right: var(--container-padding);
     padding-left: var(--container-padding);
-    max-width: calc(var(--container-width) + var(--container-padding) * 2);
-  }
-
-  &.is-left {
-    margin-left: 0;
-  }
-
-  &.is-right {
-    margin-right: 0;
+    box-sizing: content-box;
   }
 }

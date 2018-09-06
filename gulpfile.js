@@ -109,7 +109,7 @@ function styles() {
         .on('error', sass.logError)
     )
     .pipe(
-      autoprefixer({ browsers: ['last 2 versions'] })
+      autoprefixer()
     )
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(dest))
