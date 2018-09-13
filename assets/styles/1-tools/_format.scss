@@ -1,5 +1,7 @@
 /// Pseudo element representing the chosen format.
-/// @param {Mixed} $args
+///
+/// @param {ArgList} $args
+///
 /// @example
 /// .media {
 ///   @include format(4/3);
@@ -12,6 +14,7 @@
 ///     background: deppink;
 ///   };
 /// }
+
 @mixin format($args...) {
   $ratio: nth($args, 1);
 

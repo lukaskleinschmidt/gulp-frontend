@@ -1,16 +1,19 @@
-/// Create @font-face declaration
-/// @param {String} $file - Path without file extension
+/// Create @font-face declaration.
+///
+/// @param {String} $file - Path without file extension.
 /// @param {List} $formats
 /// @param {List} $src
+///
 /// @example
 /// @include font-face('../path/to/font', otf eot woff) {
 ///   font-family: Font;
 ///   font-weight: 300;
 ///   font-style: normal;
 /// }
+
 @mixin font-face($file, $formats, $src: ()) {
   @font-face {
-    @if index($formats, 'eot') {
+    @if index($formats, eot) {
       src: url('#{$file}.eot');
     }
 

@@ -1,91 +1,84 @@
 /// Generate responsive properties.
-/// @param {Mixed} $args
+///
+/// @param {ArgList} $args - Either a map of properties or a key value pair.
+/// @param {Mixed} $attr - Adds the $attr to every property (e.g. !important).
+///
 /// @example
 /// .is-size-h1 {
 ///   @include properties((
-///     line-height: var(--line-height-1),
+///     line-height: 1.25,
 ///     font-size: (
-///       normal: var(--size-2),
-///       medium: var(--size-1),
-///       1500px: 120px
+///       normal: 20px,
+///       medium: 32px,
+///       1500px: 60px
 ///     )
 ///   ))
 ///
-///   alternatively you could use the mixin
-///   like this depending on your properties
-///   you actually need to set
-///
-///   line-height: var(--line-height-1);
+/// alternatively you could use the mixin
+/// like this depending on your properties
+/// you actually need to set
 ///
 ///   @include properties(font-size, (
-///     normal: var(--size-2),
-///     medium: var(--size-1),
-///     1500px: 120px
+///     normal: 20px,
+///     medium: 32px,
+///     1500px: 60px
 ///   ))
 /// }
 ///
-/// adding !important as a last parameter
-/// will add !important to each property
-///
 /// .is-size-h1 {
-///   line-height: var(--line-height-1);
-///   font-size: var(--size-2);
+///   line-height: 1.25;
+///   font-size: 20px;
 /// }
 ///
 /// @media (min-width: 768px) {
 ///   .is-size-h1 {
-///     font-size: var(--size-1);
+///     font-size: 32px;
 ///   }
 /// }
 ///
 /// @media (min-width: 1500px) {
 ///   .is-size-h1 {
-///     font-size: 120px;
+///     font-size: 60px;
 ///   }
 /// }
-@mixin properties($args...) {
+
+@mixin properties($args.../*, $attr */) {
   $cache: ();
+  $attr: ();
   $data: nth($args, 1);
-  $attr: null;
 
   // normalize data
-  @if type-of($data) == 'string' {
+  @if type-of($data) == string {
     $data: ($data: nth($args, 2));
   }
 
   // check if the values should be important
-  @if (nth($args, length($args)) == !important) {
-    $attr: !important;
+  @if (nth($args, -1) == !important) {
+    $attr: append($attr, !important);
   }
 
   @each $property, $values in $data {
 
     // normalize values
-    @if not(type-of($values) == 'map') {
-      $values: ('normal': $values);
+    @if not(type-of($values) == map) {
+      $values: (normal: $values);
     }
 
     @each $key, $value in $values {
 
-      // cache $property: $value
-      @if not($key == 'normal') {
-        $value: ($property: $value);
-
-        @if map-has-key($cache, $key) {
-          $value: map-merge(map-get($cache, $key), $value);
-        }
-
-        $cache: map-merge($cache, ($key: $value));
+      // group $property: $value by breakpoint
+      @if not($key == normal) {
+        $cache: map-extend($cache, ($key: ($property: $value)), true);
       }
 
-      // just print $property: $value
+      // just output the $property: $value
       @else {
         #{$property}: ($value $attr);
       }
     }
   }
 
-  // print all properties grouped by breakpoint
+  // output all properties grouped by breakpoint
   @each $key, $values in $cache {
     @include breakpoint($key) {
       @each $property, $value in $values {

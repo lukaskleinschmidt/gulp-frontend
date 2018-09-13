@@ -1,56 +1,77 @@
-// TODO: add description
-@function parse-width($width) {
-  @if type-of($width) == 'string' {
-    $width: get(breakpoint, $width);
+/// Parse the value.
+///
+/// @param {Mixed} $value - Either a number or registered breakpoint.
+/// @return {Number} The parsed input.
+
+@function parse-breakpoint($value) {
+  @if type-of($value) == string {
+    $value: get(breakpoint, $value);
   }
 
-  @return $width;
+  @return em($value);
 }
 
-// TODO: add description
-@function strip-unit($value) {
-  @return $value / ($value * 0 + 1);
-}
 
-// TODO: add description
-@mixin breakpoint($min-width, $media-type: 'all') {
+/// Media query from this breakpoint.
+///
+/// @param {Mixed} $min-width - Starting breakpoint.
+/// @param {String} $media-type - Chosen media type.
+
+@mixin breakpoint($min-width, $media-type: all) {
   @include respond-to($min-width, 0px, $media-type) {
     @content;
   }
 }
 
-// TODO: add description
-@mixin breakpoint-until($max-width, $media-type: 'all') {
+
+/// Media query until this breakpoint.
+///
+/// @param {Mixed} $max-width - Ending breakpoint.
+/// @param {String} $media-type - Chosen media type.
+
+@mixin breakpoint-until($max-width, $media-type: all) {
   @include respond-to(0px, $max-width, $media-type) {
     @content;
   }
 }
 
-// TODO: add description
-@mixin breakpoint-between($min-width, $max-width, $media-type: 'all') {
+
+/// Media query between two breakpoints.
+///
+/// @param {Mixed} $min-width - Starting breakpoint.
+/// @param {Mixed} $max-width - Ending breakpoint.
+/// @param {String} $media-type - Chosen media type.
+
+@mixin breakpoint-between($min-width, $max-width, $media-type: all) {
   @include respond-to($min-width, $max-width, $media-type) {
     @content;
   }
 }
 
-// TODO: add description
-@mixin respond-to($min-width, $max-width, $media-type: 'all') {
-  $min-width: parse-width($min-width);
-  $max-width: parse-width($max-width);
+
+/// Media query helper.
+///
+/// @param {Mixed} $min-width - Starting breakpoint.
+/// @param {Mixed} $max-width - Ending breakpoint.
+/// @param {String} $media-type - Chosen media type.
+
+@mixin respond-to($min-width, $max-width, $media-type: all) {
+  $min-width: parse-breakpoint($min-width);
+  $max-width: parse-breakpoint($max-width);
   $media-query: '';
 
   // output rules inside @media queries
-  @if $min-width / ($min-width * 0 + 1) != 0 {
+  @if strip-unit($min-width) != 0 {
     $media-query: '#{$media-query} and (min-width: #{$min-width})';
   }
 
   @if strip-unit($max-width) != 0 {
     // ideally we would use media queries level 4 (width < #{$max-width}) here
-    $media-query: '#{$media-query} and (max-width: #{($max-width - 0.01px)})';
+    $media-query: '#{$media-query} and (max-width: #{($max-width - 0.01em)})';
   }
 
   // remove unnecessary media query prefix 'all and '
-  @if ($media-type == 'all' and $media-query != '') {
+  @if ($media-type == all and $media-query != '') {
     $media-query: str-slice(unquote($media-query), 6);
     $media-type: '';
   }

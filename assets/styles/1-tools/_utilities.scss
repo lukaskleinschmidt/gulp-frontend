@@ -1,0 +1,164 @@
+$browser-font-size: 16px;
+$base-font-size: 10px;
+
+
+/// Get float value of a number.
+///
+/// @param {Number} $value - Value to be stripped.
+/// @return {Number} - The stripped value.
+
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+
+/// Map deep get.
+///
+/// @param {Map} $map - Map.
+/// @param {Arglist} $keys - Keys to fetch.
+/// @return {*} - Desired value.
+
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+  @return $map;
+}
+
+
+/// Strip whitespace (or an other character) from the beginning and end of a string.
+///
+/// @param {String} $string - The string that will be trimmed.
+/// @param {String} $character - Character that you want to be stripped.
+/// @return {String} The trimmed string.
+
+@function trim($string, $character: ' ') {
+
+  // remove $character from the beginning of the $string
+  @while str-index($string, $character) == 1 {
+    $string: str-slice($string, 2);
+  }
+
+  // current $string length
+  $length: str_length($string);
+
+  // remove $character from the end of the $string
+  @while str-slice($string, $length) == $character {
+    $length: $length - 1;
+    $string: str-slice($string, 0, $length);
+  }
+
+  @return $string;
+}
+
+
+/// Returns the value in rem for a given pixel value.
+///
+/// @param {Number} $value - The pixel value to be converted.
+/// @return {Number} The converted value in rem.
+
+@function rem($value) {
+  $unit: unit($value);
+
+  @if $value == 0 {
+    @return 0;
+  } @else if $unit == rem {
+    @return $value;
+  } @else if $unit == px {
+    @return $value / $base-font-size * 1rem;
+  } @else if $unit == em {
+    @return $unit / 1em * 1rem;
+  } @else {
+    @error 'Value must be in px, em, or rem.';
+  }
+}
+
+
+/// Returns the value in pixels for a given rem value.
+///
+/// @param {Number} $value - The rem value to be converted.
+/// @return {Number} The converted value in pixels.
+
+@function px($value) {
+  $unit: unit($value);
+
+  @if $value == 0 {
+    @return 0;
+  } @else if $unit == px {
+    @return $value;
+  } @else if $unit == em {
+    @return ($value / 1em) * $base-font-size;
+  } @else if $unit == rem {
+    @return ($value / 1rem) * $base-font-size;
+  } @else {
+    @error 'Value must be in rem, em, or px.';
+  }
+}
+
+
+/// Returns the value in ems for a given pixel value. Note that this
+/// only works for elements that have had no font-size changes.
+///
+/// @param {Number} $value - The pixel value to be converted.
+/// @return {Number} The converted value in ems.
+
+@function em($value) {
+  $unit: unit($value);
+
+  @if $value == 0 {
+    @return 0;
+  } @else if $unit == 'em' {
+    @return $value;
+  } @else if $unit == 'rem' {
+    @return $value / 1rem * 1em * ($base-font-size / $browser-font-size);
+  } @else if $unit == 'px' {
+    @return $value / $browser-font-size * 1em;
+  } @else {
+    @error 'Value must be in px, rem, or em.';
+  }
+}
+
+
+/// Merge multiple maps into one.
+///
+/// @param {Map} $map - Initial default map.
+/// @param {ArgList} $maps - Other maps to merge.
+/// @param {Bool} $deep - Recursive mode.
+/// @return {Map} The final merged map.
+
+@function map-extend($map, $maps.../*, $deep */) {
+  $deep: nth($maps, -1) == true;
+  $max: if($deep, length($maps) - 1, length($maps));
+
+  // loop through all maps in $maps...
+  @for $i from 1 through $max {
+
+    // Store current map
+    $current: nth($maps, $i);
+
+    // if not in deep mode, simply
+    // merge current map with map
+    @if not $deep {
+      $map: map-merge($map, $current);
+    } @else {
+
+      // if in deep mode, loop through
+      // all tuples in current map
+      @each $key, $value in $current {
+
+        // if value is a nested map and same key
+        // from map is a nested map as well
+        @if type-of($value) == map and type-of(map-get($map, $key)) == map {
+
+          // recursive extend
+          $value: map-extend(map-get($map, $key), $value, true);
+        }
+
+        // merge current tuple with map
+        $map: map-merge($map, ($key: $value));
+      }
+    }
+  }
+
+  @return $map;
+}

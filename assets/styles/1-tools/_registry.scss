@@ -1,43 +1,24 @@
-/// Store values in the global $__REGISTRY map
+$registry-data: ();
+
+
+/// Store values in the global $registry-data map
+///
 /// @param {String} $key
 /// @param {Mixed} $value
-@mixin set($key, $value) {
 
-  // make sure that the global variable to
-  // keep track of all variables exists
-  @if not(global-variable-exists(__REGISTRY)) {
-    $__REGISTRY: () !global;
-  }
+@mixin store($key, $value) {
 
   // merge a already stored value with the new
   // one if both values are of the type map
-  @if map-has-key($__REGISTRY, $key) {
-    $_value: map-get($__REGISTRY, $key);
-    $_type: type-of($_value);
-    $type: type-of($value);
-
-    @if $type == 'map' and $type == $_type {
-      $value: map-merge($_value, $value);
-    }
-  }
-
-  // Update the global variable
-  $__REGISTRY: map-merge($__REGISTRY, ($key: $value)) !global;
+  $registry-data: map-extend($registry-data, ( $key: $value ), true) !global;
 }
 
-/// Get values from the global $__REGISTRY map.
-/// @param {String} $keys...
-/// @return {Mixed}
+
+/// Get values from the $registry-data map.
+///
+/// @param {Arglist} $keys - Keys to fetch.
+/// @return {*} - Desired value.
+
 @function get($keys...) {
-  $map: $__REGISTRY;
-
-  @each $key in $keys {
-    $map: map-get($map, $key);
-  }
-
-  @if type-of($map) == 'string' {
-    @return unquote($map);
-  }
-
-  @return $map;
+  @return map-deep-get($registry-data, $keys...);
 }

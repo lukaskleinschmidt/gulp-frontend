@@ -1,7 +1,9 @@
 /// Generate custom properties that are also available in SCSS.
+///
 /// @param {Map} $values - Map of custom properties
-/// @param {String} $group (null) - Name of the group
+/// @param {String} $group - Name of the group
 /// @example
+///
 /// :root {
 ///   @include variables((
 ///     --sizing: border-box,
@@ -12,81 +14,70 @@
 ///   ), color);
 ///
 ///   @include variables((
-///     --breakpoint-medium: 768px,
-///     --breakpoint-large: 960px,
-///   ), breakpoint);
+///     --container-small: 710px,
+///     --container-medium: 890px,
+///   ), container);
 /// }
 ///
-/// $__REGISTRY: (
+/// $registry-data: (
 ///   --sizing: border-box,
 ///   --primary: steelblue,
-///   --breakpoint-medium: 720px,
-///   --breakpoint-large: 960px,
+///   --container-small: 710px,
+///   --container-medium: 890px,
 ///   color: (
 ///     primary: steelblue
 ///   ),
-///   breakpoint: (
-///     medium: 720px,
-///     large: 960px
+///   container: (
+///     small: 710px,
+///     medium: 890px
 ///   ),
 /// );
 ///
 /// :root {
 ///   --sizing: border-box;
 ///   --primary: steelblue;
-///   --breakpoint-medium: 720px
-///   --breakpoint-large: 960px;
+///   --container-small: 710px
+///   --container-medium: 890px;
 /// }
+
 @mixin variables($values, $group: null) {
 
   // check if a selector is present
-  // otherwise use the :root selector
+  // and output the custom properties
   @if & {
     @each $key, $value in $values {
       #{$key}: #{$value};
     }
   }
 
-  // would probably be an unexpected behaviour
-  // therefore this section is commented out
-  // @else {
-  //   :root {
-  //     @each $key, $value in $values {
-  //       #{$key}: #{$value};
-  //     }
-  //   }
-  // }
-
   @each $key, $value in $values {
-    @include set($key, $value);
 
-    // remove the dashes at the front
-    $key: remove-leading-dashes($key);
+    // register the custom property itself
+    @include store($key, $value);
+
+    $key: trim($key, '-');
 
     // when a group is supplied the mixin will try
     // to group the variables with the given group
     @if $group {
       $index: str-index($key, $group);
-      $key: if($index, str-slice($key, str-length($group) + 1), $key);
-      $key: remove-leading-dashes($key);
+
+      @if $index {
+        $key: str-slice($key, str-length($group) + 1);
+      }
+
+      $key: trim($key, '-');
+
+      // make the first character of $key lowercase
       $key: to-lower-case(str-slice($key, 1, 1)) + str-slice($key, 2);
-      @include set($group, ($key: $value));
+
+      @include store($group, ($key: $value));
     }
 
-    // otherwise just set the $value with the
-    // sliced $key
+    // otherwise just set the $value
+    // with the sliced $key
     @else {
-      @include set($key, $value);
+      @include store($key, $value);
     }
   }
-}
-
-/// Remove any leading dashes.
-/// @param  {String} $string
-/// @return {String}
-@function remove-leading-dashes($string) {
-  @while str-index($string, '-') == 1 {
-    $string: str-slice($string, 2);
-  }
-  @return $string;
 }

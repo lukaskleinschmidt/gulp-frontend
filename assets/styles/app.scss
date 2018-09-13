@@ -7,6 +7,7 @@
 @import '1-tools/properties';
 @import '1-tools/registry';
 @import '1-tools/variables';
+@import '1-tools/utilities';
 
 // Contain fonts, colors definitions, etc.
 @import '2-options/options';
@@ -16,8 +17,7 @@
 @import '3-generic/normalize';
 
 // Styling for bare HTML elements (like H1, A, etc.). These come with default styling from the browser so we can redefine them here.
-@import '4-elements/body';
-@import '4-elements/generic';
+@import '4-elements/elements';
 
 // Class-based selectors which define undecorated design patterns, for example media object known from OOCSS.
 @import '5-objects/column';

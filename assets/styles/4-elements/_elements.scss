@@ -1,3 +1,25 @@
+html,
+body {
+  font-family: var(--family-normal);
+  font-weight: var(--weight-normal);
+  line-height: var(--line-height-2);
+  font-size: var(--size-5);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; // This needs to come after -webkit-font-smoothing
+  text-rendering: optimizeLegibility;
+  position: relative;
+  font-size: ($base-font-size / $browser-font-size) * 100%;
+}
+
+// *,
+// *::before,
+// *::after {
+//   box-sizing: border-box;
+// }
+
 h1,
 h2,
 h3,

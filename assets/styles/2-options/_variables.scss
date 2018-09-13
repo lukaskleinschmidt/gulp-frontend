@@ -22,12 +22,12 @@
 
   // font sizes
   @include variables((
-    --size-1: 3rem,    // 48px
-    --size-2: 2.25rem, // 36px
-    --size-3: 1.75rem, // 28px
-    --size-4: 1.25rem, // 20px
-    --size-5: 1rem,    // 16px
-    --size-6: .875rem  // 14px
+    --size-1: rem(48px),
+    --size-2: rem(36px),
+    --size-3: rem(28px),
+    --size-4: rem(20px),
+    --size-5: rem(16px),
+    --size-6: rem(14px)
   ), size)
 
 
