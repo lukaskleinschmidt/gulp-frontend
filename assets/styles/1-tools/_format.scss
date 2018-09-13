@@ -22,13 +22,10 @@
     $ratio: $ratio / nth($args, 2);
   }
 
-  // removes any units
-  $ratio: $ratio / ($ratio * 0 + 1);
-
   &::before {
     content: '';
 
-    padding-top: 100% / $ratio;
+    padding-top: 100% / strip-unit($ratio);
     display: block;
 
     @content;

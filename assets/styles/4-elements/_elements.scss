@@ -1,9 +1,8 @@
 html,
 body {
   font-family: var(--family-normal);
-  font-weight: var(--weight-normal);
-  line-height: var(--line-height-2);
-  font-size: var(--size-5);
+
+  @include properties($text-normal)
 }
 
 html {
@@ -27,17 +26,8 @@ h4,
 h5,
 h6 {
   font-family: var(--family-heading);
-  font-weight: var(--weight-medium);
+  font-weight: 400;
   margin: 3rem 0 1.125rem;
-}
-
-small {
-  font-size: var(--size-6);
-}
-
-strong,
-b {
-  font-weight: var(--weight-bold);
 }
 
 blockquote,
@@ -48,23 +38,7 @@ p {
   margin: 1.125rem 0;
 }
 
-hr {
-  background: currentColor;
-  margin: 1.75rem 0;
-  height: 1px;
-  border: none;
-}
-
 ::selection {
   background: var(--primary);
   color: var(--primary-invert);
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-blockquote {
-  padding: 0;
 }

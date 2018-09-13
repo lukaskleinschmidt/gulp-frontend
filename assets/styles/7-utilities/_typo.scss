@@ -41,9 +41,3 @@
     color: $value !important;
   }
 }
-
-@each $key, $value in get(weight) {
-  .has-text-#{$key} {
-    font-weight: $value !important;
-  }
-}

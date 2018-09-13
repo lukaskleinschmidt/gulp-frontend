@@ -20,33 +20,6 @@
   ), container)
 
 
-  // font sizes
-  @include variables((
-    --size-1: rem(48px),
-    --size-2: rem(36px),
-    --size-3: rem(28px),
-    --size-4: rem(20px),
-    --size-5: rem(16px),
-    --size-6: rem(14px)
-  ), size)
-
-
-  // line heights
-  @include variables((
-    --line-height-1: 1.1,
-    --line-height-2: 1.5
-  ), line-height)
-
-
-  // font weights
-  @include variables((
-    --weight-thin: 300,
-    --weight-normal: 400,
-    --weight-medium: 500,
-    --weight-bold: 700
-  ), weight)
-
-
   // font families
   @include variables((
     --family-heading: (Arial, Helvetica, sans-serif),
@@ -55,8 +28,6 @@
   ), family)
 
 
-  --radius: 5px;
-  --radius-rounded: 290486px;
   --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
   --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
   --ease-in: cubic-bezier(0.55, 0.055, 0.675, 0.19);

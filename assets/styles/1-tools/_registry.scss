@@ -10,7 +10,7 @@ $registry-data: ();
 
   // merge a already stored value with the new
   // one if both values are of the type map
-  $registry-data: map-extend($registry-data, ( $key: $value ), true) !global;
+  $registry-data: map-extend($registry-data, ($key: $value), true) !global;
 }
 
 

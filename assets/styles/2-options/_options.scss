@@ -1,3 +1,6 @@
+$radius-rounded: 290486px;
+
+
 // breakpoints
 $breakpoint-small: 512px;
 $breakpoint-medium: 768px;
@@ -14,42 +17,42 @@ $breakpoint-largest: 1280px;
 
 
 $text-h1: (
-  line-height: var(--line-height-1),
-  font-weight: var(--weight-medium),
+  line-height: 1.125,
+  font-weight: 400,
   font-size: (
-    normal: var(--size-2),
-    medium: var(--size-1)
+    normal: rem(36px),
+    medium: rem(48px)
   )
 );
 
 $text-h2: (
-  line-height: var(--line-height-1),
-  font-weight: var(--weight-medium),
+  line-height: 1.125,
+  font-weight: 400,
   font-size: (
-    normal: var(--size-3),
-    medium: var(--size-2)
+    normal: rem(28px),
+    medium: rem(36px)
   )
 );
 
 $text-h3: (
-  line-height: var(--line-height-1),
-  font-weight: var(--weight-medium),
+  line-height: 1.125,
+  font-weight: 400,
   font-size: (
-    normal: var(--size-4),
-    medium: var(--size-3)
+    normal: rem(20px),
+    medium: rem(28px)
   )
 );
 
 $text-normal: (
-  line-height: var(--line-height-2),
-  font-weight: var(--weight-normal),
-  font-size: var(--size-5)
+  line-height: 1.35,
+  font-weight: 400,
+  font-size: rem(16px)
 );
 
 $text-small: (
-  line-height: var(--line-height-2),
-  font-weight: var(--weight-normal),
-  font-size: var(--size-6)
+  line-height: 1.35,
+  font-weight: 400,
+  font-size: rem(14px)
 );
 
 // register text sizes
