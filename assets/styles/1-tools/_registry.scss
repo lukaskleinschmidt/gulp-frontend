@@ -1,7 +1,7 @@
-$registry-data: ();
+$registry-data: () !default;
 
 
-/// Store values in the global $registry-data map
+/// Store values in the global $registry-data map.
 ///
 /// @param {String} $key
 /// @param {Mixed} $value

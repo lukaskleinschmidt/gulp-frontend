@@ -1,4 +1,5 @@
-$radius-rounded: 290486px;
+// default font-size
+$default-font-size: 10px;
 
 
 // breakpoints
@@ -7,7 +8,7 @@ $breakpoint-medium: 768px;
 $breakpoint-large: 1024px;
 $breakpoint-largest: 1280px;
 
-// register breakpoints
+// store breakpoints
 @include store(breakpoint, (
   small: $breakpoint-small,
   medium: $breakpoint-medium,
@@ -20,7 +21,7 @@ $text-h1: (
   line-height: 1.125,
   font-weight: 400,
   font-size: (
-    normal: rem(36px),
+    default: rem(36px),
     medium: rem(48px)
   )
 );
@@ -29,7 +30,7 @@ $text-h2: (
   line-height: 1.125,
   font-weight: 400,
   font-size: (
-    normal: rem(28px),
+    default: rem(28px),
     medium: rem(36px)
   )
 );
@@ -38,12 +39,12 @@ $text-h3: (
   line-height: 1.125,
   font-weight: 400,
   font-size: (
-    normal: rem(20px),
+    default: rem(20px),
     medium: rem(28px)
   )
 );
 
-$text-normal: (
+$text-default: (
   line-height: 1.35,
   font-weight: 400,
   font-size: rem(16px)
@@ -55,11 +56,11 @@ $text-small: (
   font-size: rem(14px)
 );
 
-// register text sizes
+// store text formats
 @include store(text, (
   h1: $text-h1,
   h2: $text-h2,
   h3: $text-h3,
-  normal: $text-normal,
+  default: $text-default,
   small: $text-small
 ))

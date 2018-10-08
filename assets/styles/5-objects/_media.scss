@@ -2,7 +2,7 @@
   --media-position: center;
   --media-height: auto;
   --media-width: 100%;
-  --media-size: fill;
+  --media-fit: fill;
 
   &.is-vertical {
     --media-height: 100%;
@@ -10,11 +10,11 @@
   }
 
   &.is-contain {
-    --media-size: contain;
+    --media-fit: contain;
   }
 
   &.is-cover {
-    --media-size: cover;
+    --media-fit: cover;
   }
 
   &.is-contain,
@@ -28,7 +28,7 @@
   // background-position: var(--media-position);
   // background-repeat: no-repeat;
   // background-image: var(--media-source);
-  // background-size: var(--media-size);
+  // background-size: var(--media-fit);
 
   height: var(--media-height);
   width: var(--media-width);
@@ -37,7 +37,7 @@
   video,
   img {
     object-position: var(--media-position);
-    object-fit: var(--media-size);
+    object-fit: var(--media-fit);
     max-height: 100%;
 	  max-width: 100%;
     display: block;

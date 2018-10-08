@@ -1,8 +1,8 @@
 html,
 body {
-  font-family: var(--family-normal);
+  font-family: var(--family-default);
 
-  @include properties($text-normal)
+  @include properties($text-default)
 }
 
 html {
@@ -10,14 +10,14 @@ html {
   -moz-osx-font-smoothing: grayscale; // This needs to come after -webkit-font-smoothing
   text-rendering: optimizeLegibility;
   position: relative;
-  font-size: ($base-font-size / $browser-font-size) * 100%;
+  font-size: ($default-font-size / $browser-font-size) * 100%;
 }
 
-// *,
-// *::before,
-// *::after {
-//   box-sizing: border-box;
-// }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 h1,
 h2,

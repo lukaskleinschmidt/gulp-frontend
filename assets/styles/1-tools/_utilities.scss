@@ -1,5 +1,5 @@
-$browser-font-size: 16px;
-$base-font-size: 10px;
+$browser-font-size: 16px !default;
+$default-font-size: 10px !default;
 
 
 /// Get float value of a number.
@@ -9,20 +9,6 @@ $base-font-size: 10px;
 
 @function strip-unit($value) {
   @return $value / ($value * 0 + 1);
-}
-
-
-/// Map deep get.
-///
-/// @param {Map} $map - Map.
-/// @param {Arglist} $keys - Keys to fetch.
-/// @return {*} - Desired value.
-
-@function map-deep-get($map, $keys...) {
-  @each $key in $keys {
-    $map: map-get($map, $key);
-  }
-  @return $map;
 }
 
 
@@ -65,7 +51,7 @@ $base-font-size: 10px;
   } @else if $unit == rem {
     @return $value;
   } @else if $unit == px {
-    @return $value / $base-font-size * 1rem;
+    @return $value / $default-font-size * 1rem;
   } @else if $unit == em {
     @return $unit / 1em * 1rem;
   } @else {
@@ -87,9 +73,9 @@ $base-font-size: 10px;
   } @else if $unit == px {
     @return $value;
   } @else if $unit == em {
-    @return ($value / 1em) * $base-font-size;
+    @return ($value / 1em) * $default-font-size;
   } @else if $unit == rem {
-    @return ($value / 1rem) * $base-font-size;
+    @return ($value / 1rem) * $default-font-size;
   } @else {
     @error 'Value must be in rem, em, or px.';
   }
@@ -110,12 +96,26 @@ $base-font-size: 10px;
   } @else if $unit == 'em' {
     @return $value;
   } @else if $unit == 'rem' {
-    @return $value / 1rem * 1em * ($base-font-size / $browser-font-size);
+    @return $value / 1rem * 1em * ($default-font-size / $browser-font-size);
   } @else if $unit == 'px' {
     @return $value / $browser-font-size * 1em;
   } @else {
     @error 'Value must be in px, rem, or em.';
   }
+}
+
+
+/// Map deep get.
+///
+/// @param {Map} $map - Map.
+/// @param {Arglist} $keys - Keys to fetch.
+/// @return {*} - Desired value.
+
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+  @return $map;
 }
 
 

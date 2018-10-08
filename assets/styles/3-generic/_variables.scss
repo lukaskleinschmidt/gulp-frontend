@@ -1,0 +1,8 @@
+// output stored variables starting with two dashes
+:root {
+  @each $key, $value in get() {
+    @if str-index($key, '--') == 1 {
+      #{$key}: $value;
+    }
+  }
+}

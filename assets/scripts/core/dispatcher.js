@@ -22,7 +22,10 @@ export default class {
 
   emit(event, data) {
     let i, value
-    for (value = this._observers[event], i = 0; value && i < value.length;) {
+    for (
+      value = this._observers[event], i = 0;
+      value && i < value.length;
+    ) {
       const o = value[i++]
       o.listener.apply(this, data)
       o.once && this.off(event, o.listener)
@@ -31,7 +34,10 @@ export default class {
 
   off(event, listener) {
     let i, value
-    for (value = this._observers[event] || []; listener && (i = value.findIndex(o => o.listener === listener)) > -1;) {
+    for (
+      value = this._observers[event] || [];
+      listener && (i = value.findIndex(o => o.listener === listener)) > -1;
+    ) {
       value.splice(i, 1)
     }
     this._observers[event] = listener ? value : []

@@ -67,6 +67,7 @@
 
   @if strip-unit($max-width) != 0 {
     // ideally we would use media queries level 4 (width < #{$max-width}) here
+    // https://www.w3.org/TR/mediaqueries-4/
     $media-query: '#{$media-query} and (max-width: #{($max-width - 0.01em)})';
   }
 
