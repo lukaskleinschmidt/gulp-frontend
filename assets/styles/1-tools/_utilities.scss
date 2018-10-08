@@ -26,7 +26,7 @@ $default-font-size: 10px !default;
   }
 
   // current $string length
-  $length: str_length($string);
+  $length: str-length($string);
 
   // remove $character from the end of the $string
   @while str-slice($string, $length) == $character {
