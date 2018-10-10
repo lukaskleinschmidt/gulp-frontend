@@ -1,0 +1,61 @@
+$options: (
+  3 4 portrait,
+  1 1 square,
+  4 3,
+  3 4,
+  16 10 landscape,
+  16 9,
+);
+
+.format {
+  --format-height: 1;
+  --format-width: 1;
+  --format-ratio: calc(var(--format-width) / var(--format-height));
+
+  &.is-horizontal {
+    --format-ratio: calc(var(--format-height) / var(--format-width));
+  }
+
+  @each $value in $options {
+    $format: null;
+    $height: nth($value, 2);
+    $width: nth($value, 1);
+
+    &.is-#{$width}\/#{$height} {
+      --format-height: #{$height};
+      --format-width: #{$width};
+
+      // current format selector
+      $format: &;
+    }
+
+    // extend the current format with additional names
+    @if length($value) > 2 {
+      @for $i from 3 through length($value) {
+        &.is-#{nth($value, $i)} {
+          @extend #{$format};
+        }
+      }
+    }
+  }
+
+  // a media object should cover the format always
+  .media {
+    --media-height: 100%;
+    --media-width: 100%;
+    --media-fit: cover;
+  }
+}
+
+.format {
+  position: relative;
+  overflow: hidden;
+
+  @include format(--format-ratio)
+
+  .media {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}

@@ -1,6 +1,37 @@
+/// Parse the value.
+///
+/// @param {Mixed} $value - Either a number or a string (e.g. --value, var(…), calc(…)).
+/// @return {Mixed} The parsed input.
+
+@function parse-format($value) {
+  $type: type-of($value);
+
+  // if the value is number
+  // simply remove the unit
+  @if $type == number {
+    @return strip-unit($value);
+  }
+
+  // throw an error if the value is
+  // neither a number nor a string
+  @if $type != string {
+    @error 'Value must be a number or string.';
+  }
+
+  // if the value starts with two dashes
+  // it is probably a custom property
+  @if str-index($value, '--') {
+    @return #{var($value)};
+  }
+
+  @return $value;
+}
+
+
 /// Pseudo element representing the chosen format.
 ///
-/// @param {ArgList} $args
+/// @param {ArgList} $ratio
+/// @param {Mixed} $height
 ///
 /// @example
 /// .media {
@@ -15,17 +46,27 @@
 ///   };
 /// }
 
-@mixin format($args...) {
-  $ratio: nth($args, 1);
+@mixin format($ratio.../*, $height */) {
 
-  @if length($args) > 1 {
-    $ratio: $ratio / nth($args, 2);
+  // calculate the ratio using a width and a
+  // height if a second parameter is present
+  @if length($ratio) > 1 {
+    $ratio: calc(
+      #{parse-format(nth($ratio, 1))} /
+      #{parse-format(nth($ratio, 2))}
+    );
+  }
+
+  // if there is no second parameter present we
+  // assume that the given value is a ratio
+  @else {
+    $ratio: parse-format(nth($ratio, 1));
   }
 
   &::before {
     content: '';
 
-    padding-top: 100% / strip-unit($ratio);
+    padding-top: calc(100% / #{$ratio});
     display: block;
 
     @content;

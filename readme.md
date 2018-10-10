@@ -3,7 +3,7 @@ Frontend boilerplate using gulp v4 and webpack v4.
 
 ```bash
 # install dependencies
-npm install
+npm install --silent
 
 # start to just watch files
 npm run watch
