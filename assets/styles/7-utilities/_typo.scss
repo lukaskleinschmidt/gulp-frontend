@@ -30,13 +30,13 @@
   text-align: justify;
 }
 
-@each $key, $value in get(text) {
+@each $key, $value in get('text') {
   .is-size-#{$key} {
     @include properties($value, !important)
   }
 }
 
-@each $key, $value in get(color) {
+@each $key, $value in get('color') {
   .has-text-#{$key} {
     color: $value !important;
   }

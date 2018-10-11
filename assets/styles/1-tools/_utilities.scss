@@ -12,32 +12,6 @@ $default-font-size: 10px !default;
 }
 
 
-/// Strip whitespace (or an other character) from the beginning and end of a string.
-///
-/// @param {String} $string - The string that will be trimmed.
-/// @param {String} $character - Character that you want to be stripped.
-/// @return {String} The trimmed string.
-
-@function trim($string, $character: ' ') {
-
-  // remove $character from the beginning of the $string
-  @while str-index($string, $character) == 1 {
-    $string: str-slice($string, 2);
-  }
-
-  // current $string length
-  $length: str-length($string);
-
-  // remove $character from the end of the $string
-  @while str-slice($string, $length) == $character {
-    $length: $length - 1;
-    $string: str-slice($string, 0, $length);
-  }
-
-  @return $string;
-}
-
-
 /// Returns the value in rem for a given pixel value.
 ///
 /// @param {Number} $value - The pixel value to be converted.
@@ -48,11 +22,11 @@ $default-font-size: 10px !default;
 
   @if $value == 0 {
     @return 0;
-  } @else if $unit == rem {
+  } @else if $unit == 'rem' {
     @return $value;
-  } @else if $unit == px {
+  } @else if $unit == 'px' {
     @return $value / $default-font-size * 1rem;
-  } @else if $unit == em {
+  } @else if $unit == 'em' {
     @return $unit / 1em * 1rem;
   } @else {
     @error 'Value must be in px, em, or rem.';
@@ -70,11 +44,11 @@ $default-font-size: 10px !default;
 
   @if $value == 0 {
     @return 0;
-  } @else if $unit == px {
+  } @else if $unit == 'px' {
     @return $value;
-  } @else if $unit == em {
+  } @else if $unit == 'em' {
     @return ($value / 1em) * $default-font-size;
-  } @else if $unit == rem {
+  } @else if $unit == 'rem' {
     @return ($value / 1rem) * $default-font-size;
   } @else {
     @error 'Value must be in rem, em, or px.';
@@ -101,6 +75,46 @@ $default-font-size: 10px !default;
     @return $value / $browser-font-size * 1em;
   } @else {
     @error 'Value must be in px, rem, or em.';
+  }
+}
+
+
+/// Returns the value in ms for a given duration.
+///
+/// @param {Number} $value - The duration to be converted.
+/// @return {Number} The converted value in ms.
+
+@function ms($value) {
+  $unit: unit($value);
+
+  @if unitless($value) {
+    @return $value * 1ms;
+  } @else if $unit == 'ms' {
+    @return $value;
+  } @else if $unit == 's' {
+    @return $value / 1s * 1000ms;
+  } @else {
+    @error 'Value must be in ms or s.';
+  }
+}
+
+
+/// Returns the value in s for a given duration.
+///
+/// @param {Number} $value - The duration to be converted.
+/// @return {Number} The converted value in s.
+
+@function s($value) {
+  $unit: unit($value);
+
+  @if unitless($value) {
+    @return $value * 1s;
+  } @else if $unit == 's' {
+    @return $value;
+  } @else if $unit == 'ms' {
+    @return $value / 1000ms * 1s;
+  } @else {
+    @error 'Value must be in s or ms.';
   }
 }
 
@@ -148,7 +162,7 @@ $default-font-size: 10px !default;
 
         // if value is a nested map and same key
         // from map is a nested map as well
-        @if type-of($value) == map and type-of(map-get($map, $key)) == map {
+        @if type-of($value) == 'map' and type-of(map-get($map, $key)) == 'map' {
 
           // recursive extend
           $value: map-extend(map-get($map, $key), $value, true);

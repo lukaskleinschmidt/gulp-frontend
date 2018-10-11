@@ -1,0 +1,132 @@
+// Many thanks to Hugo Giraudel and https://github.com/HugoGiraudel/SassyJSON
+
+
+/// Encode a bool to JSON.
+///
+/// @param {Bool} $bool - Bool to be encoded.
+/// @return {Bool} - Encoded bool.
+
+@function __json-encode-bool($bool) {
+  @return $bool;
+}
+
+
+/// Encode a color to JSON.
+///
+/// @param {Color} $color - Color to be encoded.
+/// @return {String} - Encoded color.
+
+@function __json-encode-color($color) {
+  @return __quote($color);
+}
+
+
+/// Encode a list to JSON.
+///
+/// @param {List} $list - List to be encoded.
+/// @return {String} - Encoded list.
+
+@function __json-encode-list($list) {
+  $str: '';
+
+  @each $item in $list {
+    $str: $str + ', ' + json-encode($item);
+  }
+
+  @return '[' + str-slice($str, 3) + ']';
+}
+
+
+/// Encode a map to JSON.
+///
+/// @param {Map} $map - Map to be encoded.
+/// @return {String} - Encoded map.
+
+@function __json-encode-map($map) {
+  $str: '';
+
+  @each $key, $value in $map {
+    $str: $str + ', ' + __quote($key) + ': ' + json-encode($value);
+  }
+
+  @return '{' + str-slice($str, 3) + '}';
+}
+
+
+/// Encode null to JSON.
+///
+/// @param {Null} $null
+/// @return {String}
+
+@function __json-encode-null($null) {
+  @return 'null';
+}
+
+
+/// Encode a number to JSON.
+///
+/// @param {Number} $number - Number to be encoded.
+/// @return {String} - Encoded number.
+
+@function __json-encode-number($number) {
+  @return if(unitless($number), $number, __quote($number));
+}
+
+
+/// Encode a string to JSON.
+///
+/// @param {String} $string - String to be encoded.
+/// @return {String} - Encoded string.
+
+@function __json-encode-string($string) {
+  @return __quote($string);
+}
+
+
+/// Join list elements with a string.
+///
+/// @param {List} $list - List to cast.
+/// @param {String} $glue - Value to use as a join string.
+/// @return {String} - Quoted value.
+
+@function __to-string($list, $glue: '', $nested: false, $recursive: false) {
+  $result: '';
+
+  @for $i from 1 through length($list) {
+    $e: nth($list, $i);
+
+    @if type-of($e) == list and $recursive {
+      $result: $result + __to-string($e, $glue, $nested: true, $recursive: true);
+    } @else {
+      $result: if($i != length($list) or $nested, $result + $e + $glue, $result + $e);
+    }
+  }
+
+  @return $result;
+}
+
+
+/// Quote a value.
+///
+/// @param {*} $value - Value to be quoted.
+/// @return {string} - Quoted value.
+
+@function __quote($value) {
+  @return '"' + __to-string($value) + '"';
+}
+
+
+/// Delay the encoding of a literal to JSON to a type-specific method.
+///
+/// @param {Mixed} $value - Value to be stringified.
+/// @return {String} - JSON encoded string.
+
+@function json-encode($value) {
+  $type: type-of($value);
+
+  @if function-exists('__json-encode-#{$type}') {
+    @return call(get-function('__json-encode-#{$type}'), $value);
+  }
+
+  @error 'Unknown type for #{$value} (#{$type}).';
+}

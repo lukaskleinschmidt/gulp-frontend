@@ -51,7 +51,7 @@ $properties-default-key: default !default;
   $data: nth($args, 1);
 
   // normalize data
-  @if type-of($data) == string {
+  @if type-of($data) == 'string' {
     $data: ($data: nth($args, 2));
   }
 
@@ -63,7 +63,7 @@ $properties-default-key: default !default;
   @each $property, $values in $data {
 
     // normalize values
-    @if not(type-of($values) == map) {
+    @if not(type-of($values) == 'map') {
       $values: (#{$properties-default-key}: $values);
     }
 

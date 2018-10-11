@@ -9,7 +9,7 @@ $breakpoint-large: 1024px;
 $breakpoint-largest: 1280px;
 
 // store breakpoints
-@include store(breakpoint, (
+@include store('breakpoint', (
   small: $breakpoint-small,
   medium: $breakpoint-medium,
   large: $breakpoint-large,
@@ -57,7 +57,7 @@ $text-small: (
 );
 
 // store text formats
-@include store(text, (
+@include store('text', (
   h1: $text-h1,
   h2: $text-h2,
   h3: $text-h3,

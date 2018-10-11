@@ -3,18 +3,18 @@
 /// @param {Mixed} $value - Either a number or a string (e.g. --value, var(…), calc(…)).
 /// @return {Mixed} The parsed input.
 
-@function parse-format($value) {
+@function __parse-format($value) {
   $type: type-of($value);
 
   // if the value is number
   // simply remove the unit
-  @if $type == number {
+  @if $type == 'number' {
     @return strip-unit($value);
   }
 
   // throw an error if the value is
   // neither a number nor a string
-  @if $type != string {
+  @if $type != 'string' {
     @error 'Value must be a number or string.';
   }
 
@@ -52,15 +52,15 @@
   // height if a second parameter is present
   @if length($ratio) > 1 {
     $ratio: calc(
-      #{parse-format(nth($ratio, 1))} /
-      #{parse-format(nth($ratio, 2))}
+      #{__parse-format(nth($ratio, 1))} /
+      #{__parse-format(nth($ratio, 2))}
     );
   }
 
   // if there is no second parameter present we
   // assume that the given value is a ratio
   @else {
-    $ratio: parse-format(nth($ratio, 1));
+    $ratio: __parse-format(nth($ratio, 1));
   }
 
   &::before {

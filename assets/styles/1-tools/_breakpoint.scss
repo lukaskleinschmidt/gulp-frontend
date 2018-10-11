@@ -3,8 +3,8 @@
 /// @param {Mixed} $value - Either a number or registered breakpoint.
 /// @return {Number} The parsed input.
 
-@function parse-breakpoint($value) {
-  @if type-of($value) == string {
+@function __parse-breakpoint($value) {
+  @if type-of($value) == 'string' {
     $value: get(breakpoint, $value);
   }
 
@@ -17,7 +17,7 @@
 /// @param {Mixed} $min-width - Starting breakpoint.
 /// @param {String} $media-type - Chosen media type.
 
-@mixin breakpoint($min-width, $media-type: all) {
+@mixin breakpoint($min-width, $media-type: 'all') {
   @include respond-to($min-width, 0px, $media-type) {
     @content;
   }
@@ -29,7 +29,7 @@
 /// @param {Mixed} $max-width - Ending breakpoint.
 /// @param {String} $media-type - Chosen media type.
 
-@mixin breakpoint-until($max-width, $media-type: all) {
+@mixin breakpoint-until($max-width, $media-type: 'all') {
   @include respond-to(0px, $max-width, $media-type) {
     @content;
   }
@@ -42,7 +42,7 @@
 /// @param {Mixed} $max-width - Ending breakpoint.
 /// @param {String} $media-type - Chosen media type.
 
-@mixin breakpoint-between($min-width, $max-width, $media-type: all) {
+@mixin breakpoint-between($min-width, $max-width, $media-type: 'all') {
   @include respond-to($min-width, $max-width, $media-type) {
     @content;
   }
@@ -55,9 +55,9 @@
 /// @param {Mixed} $max-width - Ending breakpoint.
 /// @param {String} $media-type - Chosen media type.
 
-@mixin respond-to($min-width, $max-width, $media-type: all) {
-  $min-width: parse-breakpoint($min-width);
-  $max-width: parse-breakpoint($max-width);
+@mixin respond-to($min-width, $max-width, $media-type: 'all') {
+  $min-width: __parse-breakpoint($min-width);
+  $max-width: __parse-breakpoint($max-width);
   $media-query: '';
 
   // output rules inside @media queries
@@ -72,7 +72,7 @@
   }
 
   // remove unnecessary media query prefix 'all and '
-  @if ($media-type == all and $media-query != '') {
+  @if ($media-type == 'all' and $media-query != '') {
     $media-query: str-slice(unquote($media-query), 6);
     $media-type: '';
   }
