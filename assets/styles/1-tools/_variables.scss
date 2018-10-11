@@ -66,7 +66,7 @@
 ///   --container-medium: 890px;
 /// }
 
-@mixin variables($values, $group: null) {
+@mixin variables($values, $group: '') {
 
   // check if a selector is present
   // and output the custom properties
@@ -85,7 +85,7 @@
 
     // when a group is supplied the mixin will try
     // to group the variables with the given group
-    @if $group {
+    @if $group != '' {
       $index: str-index($key, $group);
 
       @if $index {
