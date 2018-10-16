@@ -1,4 +1,4 @@
-$options: (
+$format-options: (
   3 4 portrait,
   1 1 square,
   4 3,
@@ -16,30 +16,28 @@ $options: (
     --format-ratio: calc(var(--format-height) / var(--format-width));
   }
 
-  @each $value in $options {
-    $format: null;
+  @each $value in $format-options {
+    $selector: null;
     $height: nth($value, 2);
     $width: nth($value, 1);
 
     &.is-#{$width}\/#{$height} {
       --format-height: #{$height};
       --format-width: #{$width};
-
-      // current format selector
-      $format: &;
+      $selector: &;
     }
 
     // extend the current format with additional names
     @if length($value) > 2 {
       @for $i from 3 through length($value) {
         &.is-#{nth($value, $i)} {
-          @extend #{$format};
+          @extend #{$selector};
         }
       }
     }
   }
 
-  // a media object should always cover the format
+  // media objects should always cover the format
   .media {
     --media-height: 100%;
     --media-width: 100%;

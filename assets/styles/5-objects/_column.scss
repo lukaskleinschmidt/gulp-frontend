@@ -1,4 +1,4 @@
-$options: (
+$column-options: (
   three-quarters: 3 / 4 * 100%,
   two-thirds: 2 / 3 * 100%,
   half: 1 / 2 * 100%,
@@ -12,7 +12,7 @@ $options: (
 );
 
 // @for $i from 1 through 12 {
-//   $options : map-merge($options, (
+//   $column-options : map-merge($column-options, (
 //     #{$i}: $i / 12 * 100%
 //   ));
 // }
@@ -25,7 +25,7 @@ $options: (
     --column-flex: none;
   }
 
-  @each $key, $value in $options {
+  @each $key, $value in $column-options {
     &.is-#{$key} {
       --column-width: #{$value};
       --column-flex: none;
