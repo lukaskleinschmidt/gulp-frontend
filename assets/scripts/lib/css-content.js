@@ -65,7 +65,6 @@ export const makeCreateContentWatcher = (createContentParser, createEvents) => (
     on,
     once,
     off,
-    emit,
     check,
     destroy
   }
