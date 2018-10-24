@@ -57,7 +57,7 @@ export const makeCreateContentWatcher = (createContentParser, createEvents) => (
   }
 
   function destroy() {
-    removeEventListener('resize', onResize)
+    removeEventListener('resize', listener)
   }
 
   return {
