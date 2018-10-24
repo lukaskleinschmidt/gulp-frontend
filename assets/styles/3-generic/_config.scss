@@ -1,0 +1,33 @@
+// expose options and variables to javascript
+// import cssContent from '@/lib/css-content'
+// const config = cssContent.parse('body')
+
+// convert the values to em and remove the unit
+$breakpoint: get('breakpoint');
+@each $key, $value in $breakpoint {
+  $value: em($value);
+  $value: strip-unit($value);
+  $breakpoint: map-merge($breakpoint, ($key: $value));
+}
+
+// convert the duration to ms and remove the unit
+$duration: get('duration');
+$duration: ms($duration);
+$duration: strip-unit($duration);
+
+body {
+  &::after {
+    content: json-encode((
+      'breakpoint': $breakpoint,
+      'duration': $duration,
+      'easeInOut': 'easeInOutQuad',
+      'easeOut': 'easeOutQuad',
+      'easeIn': 'easeInQuad',
+    ));
+
+    overflow: hidden;
+    display: block;
+    height: 0;
+    width: 0;
+  }
+}

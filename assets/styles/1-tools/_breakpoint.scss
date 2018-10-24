@@ -12,50 +12,13 @@
 }
 
 
-/// Media query from this breakpoint.
-///
-/// @param {Mixed} $min-width - Starting breakpoint.
-/// @param {String} $media-type - Chosen media type.
-
-@mixin breakpoint($min-width, $media-type: 'all') {
-  @include respond-to($min-width, 0px, $media-type) {
-    @content;
-  }
-}
-
-
-/// Media query until this breakpoint.
-///
-/// @param {Mixed} $max-width - Ending breakpoint.
-/// @param {String} $media-type - Chosen media type.
-
-@mixin breakpoint-until($max-width, $media-type: 'all') {
-  @include respond-to(0px, $max-width, $media-type) {
-    @content;
-  }
-}
-
-
-/// Media query between two breakpoints.
-///
-/// @param {Mixed} $min-width - Starting breakpoint.
-/// @param {Mixed} $max-width - Ending breakpoint.
-/// @param {String} $media-type - Chosen media type.
-
-@mixin breakpoint-between($min-width, $max-width, $media-type: 'all') {
-  @include respond-to($min-width, $max-width, $media-type) {
-    @content;
-  }
-}
-
-
 /// Media query helper.
 ///
 /// @param {Mixed} $min-width - Starting breakpoint.
 /// @param {Mixed} $max-width - Ending breakpoint.
 /// @param {String} $media-type - Chosen media type.
 
-@mixin respond-to($min-width, $max-width, $media-type: 'all') {
+@mixin __respond-to($min-width, $max-width, $media-type: 'all') {
   $min-width: __parse-breakpoint($min-width);
   $max-width: __parse-breakpoint($max-width);
   $media-query: '';
@@ -79,6 +42,43 @@
 
   // output @media query
   @media #{$media-type + $media-query} {
+    @content;
+  }
+}
+
+
+/// Media query from this breakpoint.
+///
+/// @param {Mixed} $min-width - Starting breakpoint.
+/// @param {String} $media-type - Chosen media type.
+
+@mixin breakpoint($min-width, $media-type: 'all') {
+  @include __respond-to($min-width, 0px, $media-type) {
+    @content;
+  }
+}
+
+
+/// Media query until this breakpoint.
+///
+/// @param {Mixed} $max-width - Ending breakpoint.
+/// @param {String} $media-type - Chosen media type.
+
+@mixin breakpoint-until($max-width, $media-type: 'all') {
+  @include __respond-to(0px, $max-width, $media-type) {
+    @content;
+  }
+}
+
+
+/// Media query between two breakpoints.
+///
+/// @param {Mixed} $min-width - Starting breakpoint.
+/// @param {Mixed} $max-width - Ending breakpoint.
+/// @param {String} $media-type - Chosen media type.
+
+@mixin breakpoint-between($min-width, $max-width, $media-type: 'all') {
+  @include __respond-to($min-width, $max-width, $media-type) {
     @content;
   }
 }

@@ -12,28 +12,45 @@
   </head>
   <body>
 
+    <style media="screen">
+      /*
+       * #css-content {
+       *   &::after {
+       *     overflow: hidden;
+       *     display: block;
+       *     height: 0;
+       *     width: 0;
+       *
+       *     content: '';
+       *
+       *     @include breakpoint(medium) {
+       *       content: json-encode((
+       *         'visibility': 'visible',
+       *         'opacity': 1,
+       *         'active': true,
+       *       ));
+       *     }
+       *   }
+       * }
+       */
+
+      #css-content::after {
+        overflow: hidden;
+        display: block;
+        height: 0;
+        width: 0;
+        content: '';
+      }
+
+      @media (min-width: 48em) {
+        #css-content::after {
+          content: '{"visibility": "visible", "opacity": 1, "active": true}';
+        }
+      }
+    </style>
+    <div id="css-content"></div>
+
     <main>
-
-      <div class="container">
-        <div style="background: orange; height: 20px;"></div>
-      </div>
-
-      <br>
-
-      <div class="container">
-        <div style="background: orange; height: 20px;"></div>
-
-        <div class="container is-medium is-collapsed is-right">
-          <div style="background: blue; height: 20px;"></div>
-        </div>
-        <div class="container is-medium is-collapsed is-left">
-          <div style="background: deeppink; height: 20px;"></div>
-        </div>
-      </div>
-
-
-      <div style="background: deeppink; height: 20px; width: 10rem;"></div>
-
       <div class="container">
         <div class="is-overflow-hidden">
           <div class="[ columns is-multiline ]">

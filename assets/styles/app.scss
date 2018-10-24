@@ -17,9 +17,9 @@
 
 // Reset or normalize styles, box-sizing definition, etc. This is the
 // first layer which generates actual CSS.
+@import '3-generic/config';
 @import '3-generic/normalize';
 @import '3-generic/root';
-@import '3-generic/json';
 
 // Styling for bare HTML elements (like H1, A …). These come with default
 // styling from the browser so we can redefine them here.

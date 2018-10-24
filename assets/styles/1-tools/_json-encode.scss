@@ -116,7 +116,7 @@
 }
 
 
-/// Delay the encoding of a literal to JSON to a type-specific method.
+/// Delegate the encoding of a literal to JSON to a type-specific function.
 ///
 /// @param {Mixed} $value - Value to be stringified.
 /// @return {String} - JSON encoded string.

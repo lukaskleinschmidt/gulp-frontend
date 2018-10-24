@@ -1,29 +1,3 @@
-/// Strip whitespace (or an other character) from the beginning and end of a string.
-///
-/// @param {String} $string - The string that will be trimmed.
-/// @param {String} $character - Character that you want to be stripped.
-/// @return {String} The trimmed string.
-
-@function __trim($string, $character: ' ') {
-
-  // remove $character from the beginning of the $string
-  @while str-index($string, $character) == 1 {
-    $string: str-slice($string, 2);
-  }
-
-  // current $string length
-  $length: str-length($string);
-
-  // remove $character from the end of the $string
-  @while str-slice($string, $length) == $character {
-    $length: $length - 1;
-    $string: str-slice($string, 0, $length);
-  }
-
-  @return $string;
-}
-
-
 /// Generate custom properties that are also available in SCSS.
 ///
 /// @param {Map} $values - Map of custom properties.
@@ -81,7 +55,7 @@
     // register the custom property itself
     @include store($key, $value);
 
-    $key: __trim($key, '-');
+    $key: trim($key, '-');
 
     // when a group is supplied the mixin will try
     // to group the variables with the given group
@@ -92,7 +66,7 @@
         $key: str-slice($key, str-length($group) + 1);
       }
 
-      $key: __trim($key, '-');
+      $key: trim($key, '-');
 
       // make the first character of $key lowercase
       $key: to-lower-case(str-slice($key, 1, 1)) + str-slice($key, 2);

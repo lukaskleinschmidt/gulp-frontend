@@ -33,9 +33,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@modules': path.resolve(__dirname, paths.src, task.paths.src, 'modules'),
-      '@core': path.resolve(__dirname, paths.src, task.paths.src, 'core'),
-      'module$': path.resolve(__dirname, paths.src, task.paths.src, 'core/module.js')
+      '@': path.resolve(__dirname, paths.src, task.paths.src)
     },
     modules: [
       path.resolve(__dirname, paths.src, task.paths.src),
