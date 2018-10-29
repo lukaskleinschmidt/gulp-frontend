@@ -1,6 +1,6 @@
 {
   "name": "gulp-frontend",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "serve": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js serve",
     "watch": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js watch",
@@ -27,7 +27,7 @@
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-svg-sprite": "^1.5.0",
-    "webpack": "^4.22.0",
+    "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-middleware": "^3.4.0",
     "webpack-hot-middleware": "^2.24.3"
