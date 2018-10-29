@@ -1,53 +1,82 @@
-$properties-default-key: default !default;
+/// Define the key for the default value.
+///
+/// @type String
+///
+/// @example scss
+///   $properties-default-key: 'my-default-key';
+///
+///   .is-size-h1 {
+///     @include properties((
+///       line-height: 1.25,
+///       font-size: (
+///         'my-default-key': 20px,
+///         'medium': 32px,
+///       )
+///     ))
+///   }
+///
+///   // .is-size-h1 {
+///   //   line-height: 1.25;
+///   //   font-size: 20px;
+///   // }
+///   //
+///   // @media (min-width: 768px) {
+///   //   .is-size-h1 {
+///   //     font-size: 32px;
+///   //   }
+///   // }
+
+$properties-default-key: 'default' !default;
 
 
 /// Generate responsive properties.
 ///
 /// @param {ArgList} $args - Either a map of properties or a key value pair.
-/// @param {Mixed} $attr - Adds the $attr to every property (e.g. !important).
+/// @param {Boolean | String} $important [false] - Add `!important`.
 ///
-/// @example
-/// .is-size-h1 {
-///   @include properties((
-///     line-height: 1.25,
-///     font-size: (
-///       default: 20px,
-///       medium: 32px,
+/// @example scss
+///   .is-size-h1 {
+///     // Using a map of properties.
+///     @include properties((
+///       line-height: 1.25,
+///       font-size: (
+///         'default': 20px,
+///         'medium': 32px,
+///         1500px: 60px
+///       )
+///     ))
+///   }
+///
+///   // .is-size-h1 {
+///   //   line-height: 1.25;
+///   //   font-size: 20px;
+///   // }
+///   //
+///   // @media (min-width: 768px) {
+///   //   .is-size-h1 {
+///   //     font-size: 32px;
+///   //   }
+///   // }
+///   //
+///   // @media (min-width: 1500px) {
+///   //   .is-size-h1 {
+///   //     font-size: 60px;
+///   //   }
+///   // }
+///
+///   .is-size-h1 {
+///     line-height: 1.25;
+///
+///     // Using a key and value pair.
+///     @include properties(font-size, (
+///       'default': 20px,
+///       'medium': 32px,
 ///       1500px: 60px
-///     )
-///   ))
-///
-/// alternatively you could use the mixin
-/// like this depending on your properties
-/// you actually need to set
-///
-///   @include properties(font-size, (
-///     default: 20px,
-///     medium: 32px,
-///     1500px: 60px
-///   ))
-/// }
-///
-/// .is-size-h1 {
-///   line-height: 1.25;
-///   font-size: 20px;
-/// }
-///
-/// @media (min-width: 768px) {
-///   .is-size-h1 {
-///     font-size: 32px;
+///     ))
 ///   }
-/// }
-///
-/// @media (min-width: 1500px) {
-///   .is-size-h1 {
-///     font-size: 60px;
-///   }
-/// }
 
-@mixin properties($args.../*, $attr */) {
+@mixin properties($args.../*, $important */) {
   $cache: ();
-  $attr: ();
   $data: nth($args, 1);
 
   // normalize data
@@ -55,10 +84,12 @@ $properties-default-key: default !default;
     $data: ($data: nth($args, 2));
   }
 
-  // check if the values should be important
-  @if (nth($args, -1) == !important) {
-    $attr: append($attr, !important);
-  }
+  // check if the last argument is !important or true
+  $important: if(
+    index((!important, true), nth($args, -1)),
+    !important,
+    null
+  );
 
   @each $property, $values in $data {
 
@@ -76,7 +107,7 @@ $properties-default-key: default !default;
 
       // just output the $property: $value
       @else {
-        #{$property}: ($value $attr);
+        #{$property}: $value $important;
       }
     }
   }
@@ -85,7 +116,7 @@ $properties-default-key: default !default;
   @each $key, $values in $cache {
     @include breakpoint($key) {
       @each $property, $value in $values {
-        #{$property}: ($value $attr);
+        #{$property}: $value $important;
       }
     }
   }

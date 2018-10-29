@@ -1,15 +1,25 @@
-/// Create @font-face declaration.
+/// Create @font-face declarations.
 ///
 /// @param {String} $file - Path without file extension.
-/// @param {List} $formats
-/// @param {List} $src
+/// @param {List} $formats - File formats.
+/// @param {List} $src [()] - Prepend custom src.
 ///
-/// @example
-/// @include font-face('../path/to/font', otf eot woff) {
-///   font-family: Font;
-///   font-weight: 300;
-///   font-style: normal;
-/// }
+/// @example scss
+///   @include font-face('../path/to/file', eot otf woff) {
+///     font-family: Font;
+///     font-weight: 300;
+///     font-style: normal;
+///   }
+///
+///   // @font-face {
+///   //   src: url("../path/to/file.eot");
+///   //   src: url("../path/to/file.eot?#iefix") format("embedded-opentype"),
+///   //        url("../path/to/file.otf") format("opentype"),
+///   //        url("../path/to/file.woff") format("woff");
+///   //   font-family: Font;
+///   //   font-weight: 300;
+///   //   font-style: normal;
+///   // }
 
 @mixin font-face($file, $formats, $src: ()) {
   @font-face {

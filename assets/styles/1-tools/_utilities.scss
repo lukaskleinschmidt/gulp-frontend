@@ -1,8 +1,17 @@
+/// The default browser font-size.
+///
+/// @type Number
+
 $browser-font-size: 16px !default;
+
+/// The desired default font-size.
+///
+/// @type Number
+
 $default-font-size: 10px !default;
 
 
-/// Get float value of a number.
+/// Remove the unit of a number.
 ///
 /// @param {Number} $value - Value to be stripped.
 /// @return {Number} - The stripped value.
@@ -15,7 +24,7 @@ $default-font-size: 10px !default;
 /// Strip whitespace (or an other character) from the beginning and end of a string.
 ///
 /// @param {String} $string - The string that will be trimmed.
-/// @param {String} $character - Character that you want to be stripped.
+/// @param {String} $character [' '] - Character that you want to be stripped.
 /// @return {String} The trimmed string.
 
 @function trim($string, $character: ' ') {
@@ -82,11 +91,11 @@ $default-font-size: 10px !default;
 }
 
 
-/// Returns the value in ems for a given pixel value. Note that this
+/// Returns the value in em for a given pixel value. Note that this
 /// only works for elements that have had no font-size changes.
 ///
 /// @param {Number} $value - The pixel value to be converted.
-/// @return {Number} The converted value in ems.
+/// @return {Number} The converted value in em.
 
 @function em($value) {
   $unit: unit($value);
@@ -105,10 +114,10 @@ $default-font-size: 10px !default;
 }
 
 
-/// Returns the value in ms for a given duration.
+/// Returns the value in milliseconds for a given duration.
 ///
 /// @param {Number} $value - The duration to be converted.
-/// @return {Number} The converted value in ms.
+/// @return {Number} The converted value in milliseconds.
 
 @function ms($value) {
   $unit: unit($value);
@@ -125,10 +134,10 @@ $default-font-size: 10px !default;
 }
 
 
-/// Returns the value in s for a given duration.
+/// Returns the value in seconds for a given duration.
 ///
 /// @param {Number} $value - The duration to be converted.
-/// @return {Number} The converted value in s.
+/// @return {Number} The converted value in seconds.
 
 @function s($value) {
   $unit: unit($value);
@@ -163,7 +172,7 @@ $default-font-size: 10px !default;
 ///
 /// @param {Map} $map - Initial default map.
 /// @param {ArgList} $maps - Other maps to merge.
-/// @param {Bool} $deep - Recursive mode.
+/// @param {Bool} $deep [false] - Recursive mode.
 /// @return {Map} The final merged map.
 
 @function map-extend($map, $maps.../*, $deep */) {

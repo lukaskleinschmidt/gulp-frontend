@@ -1,24 +1,25 @@
-$registry-data: () !default;
+/// Variable holding registry data.
+///
+/// @type Number
+
+$__registry-data: () !default;
 
 
-/// Store values in the global $registry-data map.
+/// Store values in the registry.
 ///
 /// @param {String} $key
 /// @param {Mixed} $value
 
 @mixin store($key, $value) {
-
-  // merge a already stored value with the new
-  // one if both values are of the type map
-  $registry-data: map-extend($registry-data, ($key: $value), true) !global;
+  $__registry-data: map-extend($__registry-data, ($key: $value), true) !global;
 }
 
 
-/// Get values from the $registry-data map.
+/// Get a value from the registry.
 ///
 /// @param {Arglist} $keys - Keys to fetch.
 /// @return {*} - Desired value.
 
 @function get($keys...) {
-  @return map-deep-get($registry-data, $keys...);
+  @return map-deep-get($__registry-data, $keys...);
 }

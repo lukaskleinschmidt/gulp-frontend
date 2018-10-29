@@ -1,44 +1,46 @@
-/// Generate custom properties that are also available in SCSS.
+/// Store custom properties in the registry.
 ///
 /// @param {Map} $values - Map of custom properties.
-/// @param {String} $group - Name of the group.
+/// @param {String} $group [''] - Group properties.
+///
 /// @example
+///   :root {
+///     @include variables((
+///       --sizing: border-box,
+///     ));
 ///
-/// :root {
-///   @include variables((
-///     --sizing: border-box,
-///   ));
+///     @include variables((
+///       --primary: steelblue,
+///     ), 'color');
 ///
-///   @include variables((
-///     --primary: steelblue,
-///   ), color);
+///     @include variables((
+///       --container-small: 710px,
+///       --container-medium: 890px,
+///     ), 'container');
+///   }
 ///
-///   @include variables((
-///     --container-small: 710px,
-///     --container-medium: 890px,
-///   ), container);
-/// }
-///
-/// $registry-data: (
-///   --sizing: border-box,
-///   --primary: steelblue,
-///   --container-small: 710px,
-///   --container-medium: 890px,
-///   color: (
-///     primary: steelblue
-///   ),
-///   container: (
-///     small: 710px,
-///     medium: 890px
-///   ),
-/// );
-///
-/// :root {
-///   --sizing: border-box;
-///   --primary: steelblue;
-///   --container-small: 710px
-///   --container-medium: 890px;
-/// }
+///   // $__registry-data: (
+///   //   --sizing: border-box,
+///   //   --primary: steelblue,
+///   //   --container-small: 710px,
+///   //   --container-medium: 890px,
+///   //
+///   //   color: (
+///   //     primary: steelblue
+///   //   ),
+///   //
+///   //   container: (
+///   //     small: 710px,
+///   //     medium: 890px
+///   //   ),
+///   // );
+///   //
+///   // :root {
+///   //   --sizing: border-box;
+///   //   --primary: steelblue;
+///   //   --container-small: 710px
+///   //   --container-medium: 890px;
+///   // }
 
 @mixin variables($values, $group: '') {
 

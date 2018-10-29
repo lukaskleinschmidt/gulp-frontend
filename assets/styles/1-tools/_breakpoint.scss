@@ -1,6 +1,6 @@
 /// Parse the value.
 ///
-/// @param {Mixed} $value - Either a number or registered breakpoint.
+/// @param {String | Number} $value - Either a number or registered breakpoint.
 /// @return {Number} The parsed input.
 
 @function __parse-breakpoint($value) {
@@ -14,9 +14,10 @@
 
 /// Media query helper.
 ///
-/// @param {Mixed} $min-width - Starting breakpoint.
-/// @param {Mixed} $max-width - Ending breakpoint.
-/// @param {String} $media-type - Chosen media type.
+/// @param {String | Number} $min-width - Starting breakpoint.
+/// @param {String | Number} $max-width - Ending breakpoint.
+/// @param {String} $media-type ['all'] - Chosen media type.
+/// @see {mixin} __respond-to
 
 @mixin __respond-to($min-width, $max-width, $media-type: 'all') {
   $min-width: __parse-breakpoint($min-width);
@@ -34,7 +35,7 @@
     $media-query: '#{$media-query} and (max-width: #{($max-width - 0.01em)})';
   }
 
-  // remove unnecessary media query prefix 'all and '
+  // remove unnecessary media query prefix ' and '
   @if ($media-type == 'all' and $media-query != '') {
     $media-query: str-slice(unquote($media-query), 6);
     $media-type: '';
@@ -49,8 +50,8 @@
 
 /// Media query from this breakpoint.
 ///
-/// @param {Mixed} $min-width - Starting breakpoint.
-/// @param {String} $media-type - Chosen media type.
+/// @param {String | Number} $min-width - Starting breakpoint.
+/// @param {String} $media-type ['all'] - Chosen media type.
 
 @mixin breakpoint($min-width, $media-type: 'all') {
   @include __respond-to($min-width, 0px, $media-type) {
@@ -61,8 +62,8 @@
 
 /// Media query until this breakpoint.
 ///
-/// @param {Mixed} $max-width - Ending breakpoint.
-/// @param {String} $media-type - Chosen media type.
+/// @param {String | Number} $max-width - Ending breakpoint.
+/// @param {String} $media-type ['all'] - Chosen media type.
 
 @mixin breakpoint-until($max-width, $media-type: 'all') {
   @include __respond-to(0px, $max-width, $media-type) {
@@ -73,9 +74,9 @@
 
 /// Media query between two breakpoints.
 ///
-/// @param {Mixed} $min-width - Starting breakpoint.
-/// @param {Mixed} $max-width - Ending breakpoint.
-/// @param {String} $media-type - Chosen media type.
+/// @param {String | Number} $min-width - Starting breakpoint.
+/// @param {String | Number} $max-width - Ending breakpoint.
+/// @param {String} $media-type ['all'] - Chosen media type.
 
 @mixin breakpoint-between($min-width, $max-width, $media-type: 'all') {
   @include __respond-to($min-width, $max-width, $media-type) {

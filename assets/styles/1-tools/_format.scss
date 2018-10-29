@@ -1,25 +1,22 @@
 /// Parse the value.
 ///
-/// @param {Mixed} $value - Either a number or a string (e.g. --value, var(…), calc(…)).
-/// @return {Mixed} The parsed input.
+/// @param {Number | String} $value - Either a number or a string.
+/// @return {Number | String} The parsed input.
 
 @function __parse-format($value) {
   $type: type-of($value);
 
-  // if the value is number
-  // simply remove the unit
+  // if the value is a number simply remove the unit
   @if $type == 'number' {
     @return strip-unit($value);
   }
 
-  // throw an error if the value is
-  // neither a number nor a string
+  // throw an error if the value is neither a number nor a string
   @if $type != 'string' {
     @error 'Value must be a number or string.';
   }
 
-  // if the value starts with two dashes
-  // it is probably a custom property
+  // if the value starts with two dashes it is probably a custom property
   @if str-index($value, '--') {
     @return #{var($value)};
   }
@@ -30,21 +27,20 @@
 
 /// Pseudo element representing the chosen format.
 ///
-/// @param {ArgList} $ratio
-/// @param {Mixed} $height
+/// @param {Number | String} $ratio - Either a ratio or a width.
+/// @param {Number | String} $height [null] - Use width and height to calculate the ratio.
 ///
 /// @example
-/// .media {
-///   @include format(4/3);
+///   .media {
+///     // Using a ratio.
+///     @include format(4/3);
 ///
-/// furthermore, it is also possible to specify
-/// the format via two separate parameters or
-/// to define further styles
+///     // Using a width and a height.
+///     @include format(400px, 300px);
 ///
-///   @include format(400px, 300px) {
-///     background: deppink;
-///   };
-/// }
+///     // Using custom properties.
+///     @include format(--format-width, --format-height);
+///   }
 
 @mixin format($ratio.../*, $height */) {
 

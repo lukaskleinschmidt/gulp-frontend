@@ -86,7 +86,9 @@
 /// Join list elements with a string.
 ///
 /// @param {List} $list - List to cast.
-/// @param {String} $glue - Value to use as a join string.
+/// @param {String} $glue [''] - Value to use as a join string.
+/// @param {Boolean} $nested [false]
+/// @param {Boolean} $recursive [false]
 /// @return {String} - Quoted value.
 
 @function __to-string($list, $glue: '', $nested: false, $recursive: false) {
@@ -95,7 +97,7 @@
   @for $i from 1 through length($list) {
     $e: nth($list, $i);
 
-    @if type-of($e) == list and $recursive {
+    @if type-of($e) == 'list' and $recursive {
       $result: $result + __to-string($e, $glue, $nested: true, $recursive: true);
     } @else {
       $result: if($i != length($list) or $nested, $result + $e + $glue, $result + $e);
