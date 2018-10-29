@@ -70,9 +70,6 @@
 
       $key: trim($key, '-');
 
-      // make the first character of $key lowercase
-      $key: to-lower-case(str-slice($key, 1, 1)) + str-slice($key, 2);
-
       @include store($group, ($key: $value));
     }
 
