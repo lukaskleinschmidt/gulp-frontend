@@ -196,7 +196,7 @@ $default-font-size: 10px !default;
     } @else {
 
       // if in deep mode, loop through
-      // all tuples in current map
+      // all tuples in the current map
       @each $key, $value in $current {
 
         // if value is a nested map and same key
