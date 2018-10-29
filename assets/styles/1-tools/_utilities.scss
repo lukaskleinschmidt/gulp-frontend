@@ -28,18 +28,22 @@ $default-font-size: 10px !default;
 /// @return {String} The trimmed string.
 
 @function trim($string, $character: ' ') {
+  $character-length: str-length($character);
 
   // remove $character from the beginning of the $string
   @while str-index($string, $character) == 1 {
-    $string: str-slice($string, 2);
+    $string: str-slice($string, $character-length + 1);
   }
 
   // current $string length
   $length: str-length($string);
 
   // remove $character from the end of the $string
-  @while str-slice($string, $length) == $character {
-    $length: $length - 1;
+  @while
+    $length > $character-length and
+    str-slice($string, $length - $character-length + 1) == $character
+  {
+    $length: $length - $character-length;
     $string: str-slice($string, 0, $length);
   }
 

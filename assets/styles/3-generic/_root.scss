@@ -1,7 +1,15 @@
-:root {
-  @each $key, $value in get() {
-    @if str-index($key, '--') == 1 {
+@mixin variables($data) {
+  @each $key, $value in $data {
+    @if type-of($value) == 'map' {
+      @include variables($value)
+    } @else if str-index($key, '--') == 1 {
       #{$key}: $value;
     }
   }
+}
+
+$data: get();
+
+:root {
+  @include variables($data)
 }

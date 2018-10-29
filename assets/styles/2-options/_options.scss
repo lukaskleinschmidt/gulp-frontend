@@ -17,6 +17,25 @@ $breakpoint-largest: 1280px;
 ))
 
 
+// container widths
+$container-smaller: 530px;
+$container-small: 620px;
+$container-medium: 710px;
+$container-large: 890px;
+$container-larger: 960px;
+$container-largest: 1200px;
+
+// store container widths
+@include store('container', (
+  'smaller': $container-smaller,
+  'small': $container-small,
+  'medium': $container-medium,
+  'large': $container-large,
+  'larger': $container-larger,
+  'largest': $container-largest
+))
+
+
 // text formats
 $text-h1: (
   line-height: 1.125,

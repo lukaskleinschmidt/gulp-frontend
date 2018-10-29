@@ -11,7 +11,7 @@ $breakpoint: get('breakpoint');
 }
 
 // convert the duration to ms and remove the unit
-$duration: get('duration');
+$duration: get('--duration');
 $duration: ms($duration);
 $duration: strip-unit($duration);
 

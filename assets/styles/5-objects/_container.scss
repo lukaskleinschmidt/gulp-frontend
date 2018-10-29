@@ -2,7 +2,7 @@
   --container-margin-right: auto;
   --container-margin-left: auto;
   --container-padding: 20px;
-  --container-width: var(--container-largest);
+  --container-width: #{$container-largest};
 
   @include breakpoint(medium) {
     --container-padding: 40px;
@@ -11,7 +11,7 @@
   @each $key, $value in get('container') {
     @if not($key == largest) {
       &.is-#{$key} {
-        --container-width: var(--container-#{$key});
+        --container-width: #{$value};
       }
     }
   }

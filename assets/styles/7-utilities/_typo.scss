@@ -37,7 +37,7 @@
 }
 
 @each $key, $value in get('color') {
-  .has-text-#{$key} {
+  .has-text-#{trim($key, '--')} {
     color: $value !important;
   }
 }
