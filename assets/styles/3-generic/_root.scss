@@ -17,4 +17,11 @@
 
 :root {
   @include variables
+
+  --config: '#{json-encode(get('breakpoint'))}';
+  --test: 1;
+
+  @include breakpoint('medium') {
+    --test: 2;
+  }
 }

@@ -1,4 +1,5 @@
 import { breakpoint, breakpointUntil, breakpointBetween } from '@/app/breakpoints'
+import cssVariables from '@/lib/css-variables'
 import cssContent from '@/lib/css-content'
 import icons from '@/lib/icons'
 
@@ -37,3 +38,25 @@ const watcher = cssContent.watch('#css-content', 'after')
 watcher.onChange(data => {
   console.log('watcher', data)
 })
+
+
+// custom properties
+const value = cssVariables.get('--test')
+const variablesWatcher = cssVariables.watch('--test')
+
+variablesWatcher.onChange(value => {
+  console.log('variablesWatcher', value)
+})
+
+
+// scoped custom properties
+const scope = cssVariables.scope('main')
+const scopeWatcher = scope.watch('--test')
+
+scopeWatcher.onChange(value => {
+  console.log('scopeWatcher', value)
+})
+
+setTimeout(() => {
+  scope.set('--test', 'value')
+}, 5000);

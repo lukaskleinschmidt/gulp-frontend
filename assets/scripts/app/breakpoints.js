@@ -1,9 +1,14 @@
 import createBreakpoint from '@/lib/breakpoint'
-import { cssConfig } from '@/app/config'
+import config from '@/app/config'
+
+const breakpoints = {
+  ...config.breakpoints
+  // define further css independent breakpoints here
+}
 
 function respondTo(min, max, fn, mediaType = 'all') {
-  min = cssConfig.breakpoint[min] || null
-  max = cssConfig.breakpoint[max] || null
+  min = breakpoints[min] || null
+  max = breakpoints[max] || null
 
   let mediaQuery = ''
 

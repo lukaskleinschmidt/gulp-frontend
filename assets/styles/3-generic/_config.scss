@@ -3,22 +3,22 @@
 // const config = cssContent.parse('body')
 
 // convert the values to em and remove the unit
-$breakpoint: get('breakpoint');
-@each $key, $value in $breakpoint {
+$breakpoints: get('breakpoints');
+@each $key, $value in $breakpoints {
   $value: em($value);
   $value: strip-unit($value);
-  $breakpoint: map-merge($breakpoint, ($key: $value));
+  $breakpoints: map-merge($breakpoints, ($key: $value));
 }
 
 // convert the duration to ms and remove the unit
-$duration: get('--duration');
+$duration: get(--duration);
 $duration: ms($duration);
 $duration: strip-unit($duration);
 
 body {
   &::after {
     content: json-encode((
-      'breakpoint': $breakpoint,
+      'breakpoints': $breakpoints,
       'duration': $duration,
       'easeInOut': 'easeInOutQuad',
       'easeOut': 'easeOutQuad',

@@ -1,4 +1,4 @@
-export const createIcons = (url, ttl = 86400000, key = url) => {
+export default function createIcons(url, ttl = 86400000, key = url) {
   load().then(insert)
 
   function load() {
@@ -41,5 +41,3 @@ export const createIcons = (url, ttl = 86400000, key = url) => {
     flush
   }
 }
-
-export default createIcons

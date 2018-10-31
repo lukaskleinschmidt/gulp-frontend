@@ -1,4 +1,4 @@
-export const createEvents = () => {
+export default function createEvents() {
   let events = Object.create(null)
 
   function on(event, fn) {
@@ -76,5 +76,3 @@ export const createEvents = () => {
     off
   }
 }
-
-export default createEvents

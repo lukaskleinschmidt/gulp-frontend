@@ -1,7 +1,7 @@
 import createEvents from '@/lib/events'
 
-export const makeCreateBreakpoint = eventEmitter => (mediaQuery, fn) => {
-  const { on, once, off, emit } = eventEmitter()
+export default function createBreakpoint(mediaQuery, fn) {
+  const { on, once, off, emit } = createEvents()
   const mql = window.matchMedia(mediaQuery)
 
   mql.addListener(listener)
@@ -54,5 +54,3 @@ export const makeCreateBreakpoint = eventEmitter => (mediaQuery, fn) => {
     destroy
   }
 }
-
-export default makeCreateBreakpoint(createEvents)

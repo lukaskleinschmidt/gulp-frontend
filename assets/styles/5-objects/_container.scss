@@ -8,7 +8,7 @@
     --container-padding: 40px;
   }
 
-  @each $key, $value in get('container') {
+  @each $key, $value in get('container-widths') {
     @if not($key == largest) {
       &.is-#{$key} {
         --container-width: #{$value};
