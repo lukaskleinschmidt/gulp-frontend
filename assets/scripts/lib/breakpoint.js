@@ -16,7 +16,7 @@ export default function createBreakpoint(mediaQuery, fn) {
   }
 
   function call(fn, ...args) {
-    fn.apply(this, args)
+    fn.apply(null, args)
   }
 
   function onChange(fn) {

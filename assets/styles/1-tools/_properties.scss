@@ -31,7 +31,7 @@ $properties-default-key: 'default' !default;
 
 /// Generate responsive properties.
 ///
-/// @param {ArgList} $args - Either a map of properties or a key value pair.
+/// @param {Arglist} $args - Either a map of properties or a key value pair.
 /// @param {Boolean | String} $important [false] - Add `!important`.
 ///
 /// @example scss

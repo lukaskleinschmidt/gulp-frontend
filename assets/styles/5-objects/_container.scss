@@ -9,7 +9,7 @@
   }
 
   @each $key, $value in get('container-widths') {
-    @if not($key == largest) {
+    @if not($key == 'largest') {
       &.is-#{$key} {
         --container-width: #{$value};
       }

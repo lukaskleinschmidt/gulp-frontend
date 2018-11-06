@@ -7,7 +7,7 @@ export function createCssContentParser(element, pseudoElement = 'after') {
     element = document.querySelector(element)
   }
 
-  function plain() {
+  function text() {
     try {
       const content = getComputedStyle(element, ':' + pseudoElement).content
       return JSON.parse(content)
@@ -18,14 +18,14 @@ export function createCssContentParser(element, pseudoElement = 'after') {
 
   function json() {
     try {
-      return JSON.parse(plain())
+      return JSON.parse(text())
     } catch (e) {
       return null
     }
   }
 
   return {
-    plain,
+    text,
     json
   }
 }
@@ -44,7 +44,7 @@ export function createCssContentWatcher(element, pseudoElement = 'after') {
   }
 
   function call(fn, ...args) {
-    fn.apply(this, args)
+    fn.apply(null, args)
   }
 
   function onChange(fn) {

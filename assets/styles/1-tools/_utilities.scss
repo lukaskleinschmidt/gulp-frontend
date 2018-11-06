@@ -175,7 +175,7 @@ $default-font-size: 10px !default;
 /// Merge multiple maps into one.
 ///
 /// @param {Map} $map - Initial default map.
-/// @param {ArgList} $maps - Other maps to merge.
+/// @param {Arglist} $maps - Other maps to merge.
 /// @param {Bool} $deep [false] - Recursive mode.
 /// @return {Map} The final merged map.
 
@@ -186,7 +186,7 @@ $default-font-size: 10px !default;
   // loop through all maps in $maps...
   @for $i from 1 through $max {
 
-    // Store current map
+    // store current map
     $current: nth($maps, $i);
 
     // if not in deep mode, simply

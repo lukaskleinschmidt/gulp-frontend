@@ -14,7 +14,7 @@ export function createCssVariables(element) {
 
   function set(key, value) {
     element.style.setProperty(key, value)
-    appEvents.emit('css-variables.set' + key, value)
+    appEvents.emit('css-variables.set.' + key, value)
   }
 
   function watch(key) {
@@ -22,7 +22,7 @@ export function createCssVariables(element) {
 
     let value = get(key)
 
-    appEvents.on('css-variables.set' + key, listener)
+    appEvents.on('css-variables.set.' + key, listener)
     appEvents.on('resize', listener)
 
     function listener() {
@@ -31,7 +31,7 @@ export function createCssVariables(element) {
     }
 
     function call(fn, ...args) {
-      fn.apply(this, args)
+      fn.apply(null, args)
     }
 
     function onChange(fn) {
@@ -44,7 +44,7 @@ export function createCssVariables(element) {
     }
 
     function destroy() {
-      appEvents.off('css-variables.set' + key, listener)
+      appEvents.off('css-variables.set.' + key, listener)
       appEvents.off('resize', listener)
     }
 

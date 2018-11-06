@@ -1,3 +1,41 @@
+// example using a third-party event emitter
+// import EventEmitter from 'eventemitter3'
+//
+// export default function createEvents() {
+//   const events = new EventEmitter()
+//   const { on, once, emit, off, removeAllListeners } = events
+//
+//   return {
+//     events: events,
+//     on: on.bind(events),
+//     once: once.bind(events),
+//     emit: emit.bind(events),
+//     off: function () {
+//       if (arguments.length) return off.apply(events, arguments)
+//       return removeAllListeners.apply(events, arguments)
+//     }
+//   }
+// }
+
+// example using a third-party event emitter and proxy
+// import EventEmitter from 'eventemitter3'
+//
+// export default function createEvents() {
+//   const events = new EventEmitter()
+//
+//   function off() {
+//     if (arguments.length) return events.off.apply(events, arguments)
+//     return events.removeAllListeners.apply(events, arguments)
+//   }
+//
+//   return new Proxy(events, {
+//     get: function (target, prop) {
+//       if (prop == 'off') return off
+//       return target[prop].bind(events)
+//     }
+//   })
+// }
+
 export default function createEvents() {
   let events = Object.create(null)
 
@@ -13,7 +51,7 @@ export default function createEvents() {
 
   function once(event, fn) {
     function once() {
-      fn.apply(this, arguments)
+      fn.apply(null, arguments)
       off(event, once)
     }
     once.fn = fn
@@ -26,7 +64,7 @@ export default function createEvents() {
     if (cbs) {
       cbs = cbs.length > 1 ? [...cbs] : cbs
       for (let i = 0, l = cbs.length; i < l; i++) {
-        cbs[i].apply(this, args)
+        cbs[i].apply(null, args)
       }
     }
   }

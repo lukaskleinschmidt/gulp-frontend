@@ -3,7 +3,7 @@ import config from '@/app/config'
 
 const breakpoints = {
   ...config.breakpoints
-  // define further css independent breakpoints here
+  // define additional breakpoints here
 }
 
 function respondTo(min, max, fn, mediaType = 'all') {
