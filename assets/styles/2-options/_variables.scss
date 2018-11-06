@@ -1,34 +1,23 @@
 // colors
-@include variables((
+@include store('colors', (
   --primary: #34f2d6,
   --primary-invert: #000000,
   --black: #000000,
   --gray: #666666,
   --white: #ffffff
-), 'color')
-
-
-// container widths
-@include variables((
-  --container-smaller: 530px,
-  --container-small: 620px,
-  --container-medium: 710px,
-  --container-large: 890px,
-  --container-larger: 960px,
-  --container-largest: 1200px
-), 'container')
+))
 
 
 // font families
-@include variables((
+@include store('family', (
   --family-default: (Arial, Helvetica, sans-serif),
   --family-heading: (Arial, Helvetica, sans-serif),
   --family-mono: monospace
-), 'family')
+))
 
 
 // transitions
-@include variables((
+@include store((
   --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1),
   --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1),
   --ease-in: cubic-bezier(0.55, 0.055, 0.675, 0.19),

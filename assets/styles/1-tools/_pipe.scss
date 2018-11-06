@@ -1,0 +1,85 @@
+/// Pipe a value through transformations.
+///
+/// @param {Mixed} $value - Value to be transformed.
+/// @param {Arglist} $args - List of transformations.
+/// @return {Mixed} - Transformed value.
+
+@function __pipe($value, $args...) {
+  @each $trans in $args {
+    $length: length($trans);
+    $args: $value;
+    $fn: nth($trans, 1);
+
+    // append arguments
+    @if $length > 1 {
+      @for $i from 2 through $length {
+        $args: append($args, nth($trans, $i));
+      }
+    }
+
+    // call the function with arguments
+    @if function-exists($fn) {
+      $value: call(get-function($fn), $args...);
+    }
+  }
+
+  @return $value;
+}
+
+
+/// Pipe a list through transformations.
+///
+/// @param {List} $list - List to be transformed.
+/// @param {Arglist} $args - List of transformations.
+/// @return {List} - Transformed list.
+
+@function __pipe-list($list, $args...) {
+  $result: ();
+  $sep: list-separator($list);
+
+  @each $value in $list {
+    $value: pipe($value, $args...);
+    $result: append($result, $value, $sep);
+  }
+
+  @return $result;
+}
+
+
+/// Pipe a map through transformations.
+///
+/// @param {Map} $map - Map to be transformed.
+/// @param {Arglist} $args - List of transformations.
+/// @return {Map} - Transformed map.
+
+@function __pipe-map($map, $args...) {
+  @each $key, $value in $map {
+    $value: pipe($value, $args...);
+    $map: map-merge($map, ($key: $value));
+  }
+
+  @return $map;
+}
+
+
+/// Delegate the value to a type-specific function.
+///
+/// @param {Mixed} $value - Value to be transformed.
+/// @param {Arglist} $args - List of transformations.
+/// @return {Mixed} - Transformed value.
+///
+/// @example scss
+///   $value: 10px, 20px 30px, ('value': 40px);
+///   $value: pipe($value, em, strip-unit);
+///
+///   // 0.625, 1.25 1.875, ('value': 2.5)
+
+@function pipe($value, $args...) {
+  $type: type-of($value);
+
+  @if function-exists('__pipe-#{$type}') {
+    @return call(get-function('__pipe-#{$type}'), $value, $args...);
+  } @else {
+    @return __pipe($value, $args...);
+  }
+}

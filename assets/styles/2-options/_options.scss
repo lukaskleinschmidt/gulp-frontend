@@ -9,11 +9,30 @@ $breakpoint-large: 1024px;
 $breakpoint-largest: 1280px;
 
 // store breakpoints
-@include store('breakpoint', (
+@include store('breakpoints', (
   'small': $breakpoint-small,
   'medium': $breakpoint-medium,
   'large': $breakpoint-large,
   'largest': $breakpoint-largest
+))
+
+
+// container widths
+$container-smaller: 530px;
+$container-small: 620px;
+$container-medium: 710px;
+$container-large: 890px;
+$container-larger: 960px;
+$container-largest: 1200px;
+
+// store container widths
+@include store('container-widths', (
+  'smaller': $container-smaller,
+  'small': $container-small,
+  'medium': $container-medium,
+  'large': $container-large,
+  'larger': $container-larger,
+  'largest': $container-largest
 ))
 
 
@@ -58,7 +77,7 @@ $text-small: (
 );
 
 // store text formats
-@include store('text', (
+@include store('text-formats', (
   'h1': $text-h1,
   'h2': $text-h2,
   'h3': $text-h3,

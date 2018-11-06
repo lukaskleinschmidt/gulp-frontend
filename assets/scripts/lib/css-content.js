@@ -1,13 +1,13 @@
-import { on as addEventListener, off as removeEventListener } from '@/app/events'
+import * as appEvents from '@/app/events'
 import createEvents from '@/lib/events'
 import isEqual from 'lodash/isEqual'
 
-export const createContentParser = (element, pseudoElement = 'after') => {
+export function createCssContentParser(element, pseudoElement = 'after') {
   if (typeof element === 'string') {
     element = document.querySelector(element)
   }
 
-  function plain() {
+  function text() {
     try {
       const content = getComputedStyle(element, ':' + pseudoElement).content
       return JSON.parse(content)
@@ -18,25 +18,25 @@ export const createContentParser = (element, pseudoElement = 'after') => {
 
   function json() {
     try {
-      return JSON.parse(plain())
+      return JSON.parse(text())
     } catch (e) {
       return null
     }
   }
 
   return {
-    plain,
+    text,
     json
   }
 }
 
-export const makeCreateContentWatcher = (createContentParser, createEvents) => (element, pseudoElement = 'after') => {
-  const { json } = createContentParser(element, pseudoElement)
+export function createCssContentWatcher(element, pseudoElement = 'after') {
+  const { json } = createCssContentParser(element, pseudoElement)
   const { on, once, off, emit } = createEvents()
 
   let data = json()
 
-  addEventListener('resize', listener)
+  appEvents.on('resize', listener)
 
   function listener() {
     if (isEqual(data, json())) return
@@ -44,7 +44,7 @@ export const makeCreateContentWatcher = (createContentParser, createEvents) => (
   }
 
   function call(fn, ...args) {
-    fn.apply(this, args)
+    fn.apply(null, args)
   }
 
   function onChange(fn) {
@@ -57,7 +57,7 @@ export const makeCreateContentWatcher = (createContentParser, createEvents) => (
   }
 
   function destroy() {
-    removeEventListener('resize', listener)
+    appEvents.off('resize', listener)
   }
 
   return {
@@ -71,6 +71,6 @@ export const makeCreateContentWatcher = (createContentParser, createEvents) => (
 }
 
 export default {
-  parse: createContentParser,
-  watch: makeCreateContentWatcher(createContentParser, createEvents)
+  parse: createCssContentParser,
+  watch: createCssContentWatcher
 }

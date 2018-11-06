@@ -5,109 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Frontend Boilerplate</title>
+    <title>gulp-frontend</title>
 
     <link rel="stylesheet" href="/assets/styles/app.css">
 
   </head>
   <body>
-
-    <style media="screen">
-      /*
-       * #css-content {
-       *   &::after {
-       *     overflow: hidden;
-       *     display: block;
-       *     height: 0;
-       *     width: 0;
-       *
-       *     content: '';
-       *
-       *     @include breakpoint(medium) {
-       *       content: json-encode((
-       *         'visibility': 'visible',
-       *         'opacity': 1,
-       *         'active': true,
-       *       ));
-       *     }
-       *   }
-       * }
-       */
-
-      #css-content::after {
-        overflow: hidden;
-        display: block;
-        height: 0;
-        width: 0;
-        content: '';
-      }
-
-      @media (min-width: 48em) {
-        #css-content::after {
-          content: '{"visibility": "visible", "opacity": 1, "active": true}';
-        }
-      }
-    </style>
-    <div id="css-content"></div>
-
-    <main>
-      <div class="container">
-        <div class="is-overflow-hidden">
-          <div class="[ columns is-multiline ]">
-            <div class="column is-one-third">
-              <svg>
-                <use xlink:href="#icon-done"></use>
-              </svg>
-            </div>
-            <div class="column is-one-third">
-              <svg>
-                <use xlink:href="#icon-subfolder.done_all"></use>
-              </svg>
-            </div>
-            <div class="column is-one-third">
-              <div class="media" style="--media-sizes: 240px">
-                <!-- sadly not working -->
-                <img src="https://picsum.photos/800/500" srcset="https://picsum.photos/800/500 800w, https://picsum.photos/500/500 500w" sizes="var(--media-sizes)" alt="#">
-              </div>
-            </div>
-            <div class="column is-one-third">
-              <div class="media">
-                <img src="https://picsum.photos/800/500" alt="#">
-              </div>
-            </div>
-            <div class="column is-one-third">
-                <div class="media">
-                <img src="https://picsum.photos/500/500" alt="#">
-              </div>
-            </div>
-            <div class="column is-one-third" style="max-height: 200px;">
-              <div class="media is-contain" style="--media-source: url(https://picsum.photos/800/500)">
-                <img src="https://picsum.photos/800/500" alt="#">
-              </div>
-            </div>
-            <div class="column is-one-third" style="max-height: 300px;">
-              <div class="media is-contain" style="--media-position: top left">
-                <img src="https://picsum.photos/500/800" alt="#">
-              </div>
-            </div>
-            <div class="column is-one-third">
-
-              <div class="format is-landscape">
-                <div class="media is-cover">
-                  <picture>
-                    <source srcset="https://picsum.photos/500/800" media="(min-width: 600px)">
-                    <img src="https://picsum.photos/800/500" alt="#">
-                  </picture>
-                </div>
-              </div>
-
-            </div>
-            <div class="column is-one-third"></div>
-            <div class="column is-one-third"></div>
-          </div>
-        </div>
-      </div>
-    </main>
 
     <script src="/assets/scripts/app.js"></script>
 

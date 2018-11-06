@@ -1,7 +1,20 @@
-:root {
-  @each $key, $value in get() {
+// recursively output custom properties stored in the registry
+@mixin variables($data: get()) {
+  @each $key, $value in $data {
+
+    // loop through all tuples in the current map
+    @if type-of($value) == 'map' {
+      @include variables($value)
+    }
+
+    // if the key starts with two dashes
+    // it is most likely a custom property
     @if str-index($key, '--') == 1 {
       #{$key}: $value;
     }
   }
+}
+
+:root {
+  @include variables
 }

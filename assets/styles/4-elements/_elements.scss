@@ -1,8 +1,6 @@
 html,
 body {
   font-family: var(--family-default);
-
-  @include properties($text-default)
 }
 
 html {
@@ -11,6 +9,10 @@ html {
   text-rendering: optimizeLegibility;
   position: relative;
   font-size: ($default-font-size / $browser-font-size) * 100%;
+}
+
+body {
+  @include properties($text-default)
 }
 
 *,
