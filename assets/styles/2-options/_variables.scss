@@ -1,10 +1,9 @@
 // colors
 @include store('colors', (
-  --primary: #34f2d6,
-  --primary-invert: #000000,
+  --primary: #328dc1,
   --black: #000000,
   --gray: #666666,
-  --white: #ffffff
+  --white: #ffffff,
 ))
 
 
@@ -12,7 +11,7 @@
 @include store('family', (
   --family-default: (Arial, Helvetica, sans-serif),
   --family-heading: (Arial, Helvetica, sans-serif),
-  --family-mono: monospace
+  --family-mono: monospace,
 ))
 
 
@@ -21,5 +20,5 @@
   --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1),
   --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1),
   --ease-in: cubic-bezier(0.55, 0.055, 0.675, 0.19),
-  --duration: 100ms
+  --duration: 100ms,
 ))

@@ -1,4 +1,4 @@
-/// Pipe a value through transformations.
+/// Transform a value.
 ///
 /// @param {Mixed} $value - Value to be transformed.
 /// @param {Arglist} $args - List of transformations.
@@ -27,26 +27,23 @@
 }
 
 
-/// Pipe a list through transformations.
+/// Transform a list.
 ///
 /// @param {List} $list - List to be transformed.
 /// @param {Arglist} $args - List of transformations.
 /// @return {List} - Transformed list.
 
 @function __pipe-list($list, $args...) {
-  $result: ();
-  $sep: list-separator($list);
-
-  @each $value in $list {
-    $value: pipe($value, $args...);
-    $result: append($result, $value, $sep);
+  @for $i from 1 through length($list) {
+    $value: pipe(nth($list, $i), $args...);
+    $list: set-nth($list, $i, $value);
   }
 
-  @return $result;
+  @return $list;
 }
 
 
-/// Pipe a map through transformations.
+/// Transform a map.
 ///
 /// @param {Map} $map - Map to be transformed.
 /// @param {Arglist} $args - List of transformations.

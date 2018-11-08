@@ -12,8 +12,9 @@ npm run watch
 npm run serve [flags]
 
 # available flags
+--proxy # default false
+--port # default 3000
 --hot # default false
---port 8080 # default 3000
 
 # build assests
 npm run build

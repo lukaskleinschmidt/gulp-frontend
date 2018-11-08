@@ -1,5 +1,5 @@
-// default font-size
-$default-font-size: 10px;
+// root font-size
+$root-font-size: 10px;
 
 
 // breakpoints
@@ -13,7 +13,7 @@ $breakpoint-largest: 1280px;
   'small': $breakpoint-small,
   'medium': $breakpoint-medium,
   'large': $breakpoint-large,
-  'largest': $breakpoint-largest
+  'largest': $breakpoint-largest,
 ))
 
 
@@ -32,7 +32,7 @@ $container-largest: 1200px;
   'medium': $container-medium,
   'large': $container-large,
   'larger': $container-larger,
-  'largest': $container-largest
+  'largest': $container-largest,
 ))
 
 
@@ -41,8 +41,8 @@ $text-h1: (
   line-height: 1.125,
   font-weight: 400,
   font-size: (
-    'default': rem(36px),
-    'medium': rem(48px)
+    'default': rem(28px),
+    'medium': rem(32px),
   )
 );
 
@@ -50,8 +50,8 @@ $text-h2: (
   line-height: 1.125,
   font-weight: 400,
   font-size: (
-    'default': rem(28px),
-    'medium': rem(36px)
+    'default': rem(20px),
+    'medium': rem(24px),
   )
 );
 
@@ -59,21 +59,21 @@ $text-h3: (
   line-height: 1.125,
   font-weight: 400,
   font-size: (
-    'default': rem(20px),
-    'medium': rem(28px)
+    'default': rem(18px),
+    'medium': rem(20px),
   )
 );
 
 $text-default: (
   line-height: 1.35,
   font-weight: 400,
-  font-size: rem(16px)
+  font-size: rem(16px),
 );
 
 $text-small: (
   line-height: 1.35,
   font-weight: 400,
-  font-size: rem(14px)
+  font-size: rem(14px),
 );
 
 // store text formats
@@ -82,5 +82,5 @@ $text-small: (
   'h2': $text-h2,
   'h3': $text-h3,
   'default': $text-default,
-  'small': $text-small
+  'small': $text-small,
 ))

@@ -1,0 +1,63 @@
+$content-elements: (
+  h1: var(--content-margin-heading),
+  h2: var(--content-margin-heading),
+  h3: var(--content-margin-heading),
+  h4: var(--content-margin-heading),
+  h5: var(--content-margin-heading),
+  h6: var(--content-margin-heading),
+  blockquote: var(--content-margin-default),
+  figure: var(--content-margin-default),
+  table: var(--content-margin-default),
+  dl: var(--content-margin-default),
+  hr: var(--content-margin-default),
+  ol: var(--content-margin-default),
+  ul: var(--content-margin-default),
+  p: var(--content-margin-default),
+);
+
+.content {
+  --content-margin-heading: 3rem 0 1.125rem;
+  --content-margin-default: 1.125rem 0;
+}
+
+.content {
+  &:not(.is-inline) {
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &.is-responsive {
+    @include properties($text-default)
+
+    h1 {
+      @include properties($text-h1)
+    }
+
+    h2 {
+      @include properties($text-h2)
+    }
+
+    h3 {
+      @include properties($text-h3)
+    }
+
+    small {
+      @include properties($text-small)
+    }
+  }
+
+  small {
+    display: inline-block;
+  }
+
+  @each $element, $default in $content-elements {
+    #{$element} {
+      margin: var(--content-margin-#{$element}, #{$default});
+    }
+  }
+}

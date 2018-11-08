@@ -1,14 +1,14 @@
-/// The default browser font-size.
+/// The browser font-size.
 ///
 /// @type Number
 
 $browser-font-size: 16px !default;
 
-/// The desired default font-size.
+/// The desired root font-size.
 ///
 /// @type Number
 
-$default-font-size: 10px !default;
+$root-font-size: 10px !default;
 
 
 /// Remove the unit of a number.
@@ -64,7 +64,7 @@ $default-font-size: 10px !default;
   } @else if $unit == 'rem' {
     @return $value;
   } @else if $unit == 'px' {
-    @return $value / $default-font-size * 1rem;
+    @return $value / $root-font-size * 1rem;
   } @else if $unit == 'em' {
     @return $unit / 1em * 1rem;
   } @else {
@@ -86,9 +86,9 @@ $default-font-size: 10px !default;
   } @else if $unit == 'px' {
     @return $value;
   } @else if $unit == 'em' {
-    @return ($value / 1em) * $default-font-size;
+    @return ($value / 1em) * $root-font-size;
   } @else if $unit == 'rem' {
-    @return ($value / 1rem) * $default-font-size;
+    @return ($value / 1rem) * $root-font-size;
   } @else {
     @error 'Value must be in rem, em, or px.';
   }
@@ -109,7 +109,7 @@ $default-font-size: 10px !default;
   } @else if $unit == 'em' {
     @return $value;
   } @else if $unit == 'rem' {
-    @return $value / 1rem * 1em * ($default-font-size / $browser-font-size);
+    @return $value / 1rem * 1em * ($root-font-size / $browser-font-size);
   } @else if $unit == 'px' {
     @return $value / $browser-font-size * 1em;
   } @else {

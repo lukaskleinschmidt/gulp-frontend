@@ -5,7 +5,7 @@ export default function createIcons(url, ttl = 86400000, key = url) {
     const value = get()
     if (value) return Promise.resolve(value)
     return fetch(url)
-      .then(response => response.text())
+      .then(parse)
       .then(store)
   }
 
@@ -20,6 +20,7 @@ export default function createIcons(url, ttl = 86400000, key = url) {
   }
 
   function store(value) {
+    if (!value) return value
     const data = { expires: Date.now() + ttl, value }
     const string = JSON.stringify(data)
     localStorage.setItem(key, string)
@@ -27,9 +28,14 @@ export default function createIcons(url, ttl = 86400000, key = url) {
   }
 
   function insert(value) {
+    if (!value) return value
     document.body.insertAdjacentHTML('beforeend', value)
     document.body.lastElementChild
     return value
+  }
+
+  function parse({ text, status }) {
+    return status === 200 ? text() : null
   }
 
   function flush() {

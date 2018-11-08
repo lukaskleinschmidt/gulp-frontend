@@ -1,0 +1,71 @@
+$breakpoints: get('breakpoints');
+$length: length($breakpoints);
+$keys: map-keys($breakpoints);
+
+// $options: (
+//   inline-block,
+//   inline-flex,
+//   inline-grid,
+//   inline,
+//   block,
+//   flex,
+//   grid,
+//   none,
+// );
+
+.display {
+  --display-default: none;
+  --display-value: block;
+  --display-state: var(--display-default);
+
+  // @each $value in $options {
+  //   @if not($value == 'none') {
+  //     &.is-default-#{$value} {
+  //       --display-default: #{$value};
+  //     }
+  //   }
+  //
+  //   @if not($value == 'block') {
+  //     &.is-#{$value} {
+  //       --display-value: #{$value};
+  //     }
+  //   }
+  // }
+
+  @each $key in $keys {
+    &.at-#{$key} {
+      @include breakpoint($key) {
+        --display-state: var(--display-value);
+      }
+    }
+  }
+
+  @each $key in $keys {
+    &.until-#{$key} {
+      @include breakpoint-until($key) {
+        --display-state: var(--display-value);
+      }
+    }
+  }
+
+  @for $i from 1 through $length {
+    $min: nth($keys, $i);
+
+    @if $i < $length {
+      @for $n from $i + 1 through $length {
+        $max: nth($keys, $n);
+
+        &.between-#{$min}-#{$max},
+        &.between-#{$min}-and-#{$max} {
+          @include breakpoint-between($min, $max) {
+            --display-state: var(--display-value);
+          }
+        }
+      }
+    }
+  }
+}
+
+.display {
+  display: var(--display-state);
+}

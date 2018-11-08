@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "serve": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js serve",
+    "hot": "npm run serve --hot",
     "watch": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js watch",
     "build": "cross-env NODE_ENV=production node_modules/gulp/bin/gulp.js build"
   },
