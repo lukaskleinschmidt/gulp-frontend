@@ -110,7 +110,7 @@
 
 /// Quote a value.
 ///
-/// @param {*} $value - Value to be quoted.
+/// @param {Mixed} $value - Value to be quoted.
 /// @return {string} - Quoted value.
 
 @function __quote($value) {
