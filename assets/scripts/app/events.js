@@ -3,6 +3,6 @@ import debounce from 'lodash/debounce'
 
 export const { on, once, off, emit } = createEvents()
 
-window.addEventListener('resize', debounce(() => {
-  emit('resize')
+window.addEventListener('resize', debounce((evt) => {
+  emit('resize', evt)
 }, 150))

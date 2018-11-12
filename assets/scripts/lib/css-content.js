@@ -26,7 +26,7 @@ export function createCssContentParser(element, pseudoElement = 'after') {
 
   return {
     text,
-    json
+    json,
   }
 }
 
@@ -66,11 +66,11 @@ export function createCssContentWatcher(element, pseudoElement = 'after') {
     once,
     off,
     check,
-    destroy
+    destroy,
   }
 }
 
 export default {
   parse: createCssContentParser,
-  watch: createCssContentWatcher
+  watch: createCssContentWatcher,
 }

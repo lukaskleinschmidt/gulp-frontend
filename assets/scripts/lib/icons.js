@@ -44,6 +44,6 @@ export default function createIcons(url, ttl = 86400000, key = url) {
   }
 
   return {
-    flush
+    flush,
   }
 }

@@ -51,6 +51,6 @@ export default function createBreakpoint(mediaQuery, fn) {
     once,
     off,
     check,
-    destroy
+    destroy,
   }
 }

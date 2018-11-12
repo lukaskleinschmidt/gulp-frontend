@@ -7,7 +7,7 @@ module.exports = {
   context: path.resolve(__dirname, paths.src, task.paths.src),
   mode: 'development',
   entry: {
-    'app': './app.js'
+    'app': './app.js',
   },
   module: {
     rules: [
@@ -22,7 +22,7 @@ module.exports = {
                 '@babel/preset-env',
                 {
                   useBuiltIns: 'usage',
-                  modules: false
+                  modules: false,
                 }
               ]
             ]
@@ -33,11 +33,11 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, paths.src, task.paths.src)
+      '@': path.resolve(__dirname, paths.src, task.paths.src),
     },
     modules: [
       path.resolve(__dirname, paths.src, task.paths.src),
-      path.resolve(__dirname, 'node_modules')
+      path.resolve(__dirname, 'node_modules'),
     ]
   },
   optimization: {
@@ -52,6 +52,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, paths.dest, task.paths.dest),
     filename: '[name].js',
-    publicPath: '/' + path.relative(paths.public, path.resolve(paths.dest, task.paths.dest)).split(path.sep).join('/')
+    publicPath: '/' + path.relative(paths.public, path.resolve(paths.dest, task.paths.dest)).split(path.sep).join('/'),
   }
 }

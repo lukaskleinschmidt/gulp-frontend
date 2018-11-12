@@ -13,7 +13,7 @@
 //     off: function () {
 //       if (arguments.length) return off.apply(events, arguments)
 //       return removeAllListeners.apply(events, arguments)
-//     }
+//     },
 //   }
 // }
 
@@ -111,6 +111,6 @@ export default function createEvents() {
     on,
     once,
     emit,
-    off
+    off,
   }
 }

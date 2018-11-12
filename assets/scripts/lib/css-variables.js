@@ -54,18 +54,18 @@ export function createCssVariables(element) {
       once,
       off,
       check,
-      destroy
+      destroy,
     }
   }
 
   return {
     watch,
     get,
-    set
+    set,
   }
 }
 
 export default {
   scope: createCssVariables,
-  ...createCssVariables(document.body)
+  ...createCssVariables(document.body),
 }
