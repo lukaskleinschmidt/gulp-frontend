@@ -37,11 +37,11 @@ const tasks = exports.tasks = {
     }
   },
 
-  images: {
+  media: {
     glob: '/**/*',
     paths: {
-      src: 'images',
-      dest: 'images'
+      src: 'media',
+      dest: 'media'
     }
   },
 
@@ -269,8 +269,8 @@ function copy(key) {
     .pipe(gulp.dest(dest))
 }
 
-function images() {
-  return copy('images')
+function media() {
+  return copy('media')
 }
 
 function fonts() {
@@ -283,7 +283,7 @@ gulp.task('scripts:build', scriptsBuild)
 gulp.task('styles', styles)
 gulp.task('styles:build', stylesBuild)
 gulp.task('browsersync', browsersync)
-gulp.task('images', images)
+gulp.task('media', media)
 gulp.task('icons', icons)
 gulp.task('fonts', fonts)
 gulp.task('watch', watch)
@@ -296,7 +296,7 @@ const serve = gulp.parallel(
 const build = gulp.series('clean', gulp.parallel(
   'scripts:build',
   'styles:build',
-  'images',
+  'media',
   'icons',
   'fonts'
 ))
