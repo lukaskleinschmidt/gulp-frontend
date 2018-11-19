@@ -1,4 +1,4 @@
-// recursively output custom properties stored in the registry
+// recursively output custom properties stored in the config map
 @mixin variables($map: config()) {
   @each $key, $value in $map {
 

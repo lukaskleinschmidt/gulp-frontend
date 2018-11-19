@@ -1,6 +1,6 @@
 /// Parse the value.
 ///
-/// @param {String | Number} $value - Either a number or registered breakpoint.
+/// @param {String | Number} $value - Either a number or valid breakpoint.
 /// @return {Number} The parsed input.
 
 @function __parse-breakpoint($value) {
