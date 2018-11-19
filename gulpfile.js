@@ -17,7 +17,7 @@ const hot = process.env.npm_config_hot || false
 const paths = exports.paths = {
   src: 'assets',
   dest: 'public/assets',
-  public: 'public'
+  public: 'public',
 }
 
 const tasks = exports.tasks = {
@@ -25,7 +25,7 @@ const tasks = exports.tasks = {
     glob: '/**/*.js',
     paths: {
       src: 'scripts',
-      dest: 'scripts'
+      dest: 'scripts',
     }
   },
 
@@ -33,7 +33,7 @@ const tasks = exports.tasks = {
     glob: '/**/*.scss',
     paths: {
       src: 'styles',
-      dest: 'styles'
+      dest: 'styles',
     }
   },
 
@@ -41,7 +41,7 @@ const tasks = exports.tasks = {
     glob: '/**/*',
     paths: {
       src: 'media',
-      dest: 'media'
+      dest: 'media',
     }
   },
 
@@ -49,7 +49,7 @@ const tasks = exports.tasks = {
     glob: '/**/*.svg',
     paths: {
       src: 'icons',
-      dest: 'icons'
+      dest: 'icons',
     }
   },
 
@@ -57,7 +57,7 @@ const tasks = exports.tasks = {
     glob: '/**/*.{eot,svg,ttf,woff,woff2,otf}',
     paths: {
       src: 'fonts',
-      dest: 'fonts'
+      dest: 'fonts',
     }
   }
 }
@@ -79,7 +79,7 @@ function clean() {
 }
 
 function scripts() {
-  return exec('node node_modules/webpack/bin/webpack.js --hide-modules --color --config webpack.config.js', (error, stdout, stderr) => {
+  return exec('node node_modules/webpack/bin/webpack.js --hide-modules --color --config webpack.config.js', (error, stdout) => {
     if (error) console.log(error)
     console.log(stdout)
   })
@@ -90,7 +90,7 @@ function scriptsBuild() {
   const dest = join(paths.dest, task.paths.dest)
   const src = join(paths.dest, task.paths.dest, task.glob)
 
-  return exec('node node_modules/webpack/bin/webpack.js --color --config webpack.config.js -p', (error, stdout, stderr) => {
+  return exec('node node_modules/webpack/bin/webpack.js --color --config webpack.config.js -p', (error, stdout) => {
     if (error) console.log(error)
     console.log(stdout)
 
@@ -144,7 +144,7 @@ function browsersync(done) {
       publicPath: webpackConfig.output.publicPath,
       stats: {
         colors: true,
-        modules: false
+        modules: false,
       }
     }))
 
@@ -290,7 +290,7 @@ gulp.task('watch', watch)
 
 const serve = gulp.parallel(
   'browsersync',
-  'watch'
+  'watch',
 )
 
 const build = gulp.series('clean', gulp.parallel(
@@ -298,7 +298,7 @@ const build = gulp.series('clean', gulp.parallel(
   'styles:build',
   'media',
   'icons',
-  'fonts'
+  'fonts',
 ))
 
 gulp.task('default', build)
