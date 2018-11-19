@@ -5,7 +5,7 @@
 
 // convert the breakpoints to em and remove the unit
 $breakpoints: get('breakpoints');
-$breakpoints: pipe-map($breakpoints, em, strip-unit);
+$breakpoints: pipe-each($breakpoints, em, strip-unit);
 
 // convert the duration to ms and remove the unit
 $duration: get(--duration);

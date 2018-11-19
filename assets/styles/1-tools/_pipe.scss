@@ -1,3 +1,52 @@
+/// Transform each value in a list.
+///
+/// @param {List} $list - List to be transformed.
+/// @param {Arglist} $pipes - List of functions.
+/// @return {List} - Transformed list.
+
+@function __pipe-list($list, $pipes...) {
+  @for $i from 1 through length($list) {
+    $value: pipe(nth($list, $i), $pipes...);
+    $list: set-nth($list, $i, $value);
+  }
+
+  @return $list;
+}
+
+
+/// Transform each value in a map.
+///
+/// @param {Map} $map - Map to be transformed.
+/// @param {Arglist} $pipes - List of functions.
+/// @return {Map} - Transformed map.
+
+@function __pipe-map($map, $pipes...) {
+  @each $key, $value in $map {
+    $value: pipe($value, $pipes...);
+    $map: map-merge($map, ($key: $value));
+  }
+
+  @return $map;
+}
+
+
+/// Transform each value in a list or map.
+///
+/// @param {Mixed} $value - List or map to be transformed.
+/// @param {Arglist} $pipes - List of functions.
+/// @return {Mixed} - Transformed list or map.
+
+@function pipe-each($value, $pipes...) {
+  $type: type-of($value);
+
+  @if function-exists('__pipe-#{$type}') {
+    @return call(get-function('__pipe-#{$type}'), $value, $pipes...);
+  }
+
+  @error 'Unknown type for #{$value} (#{$type}).';
+}
+
+
 /// Transform a value.
 ///
 /// @param {Mixed} $value - Value to be transformed.
@@ -24,36 +73,4 @@
   }
 
   @return $value;
-}
-
-
-/// Transform each value in a list.
-///
-/// @param {List} $list - List to be transformed.
-/// @param {Arglist} $pipes - List of functions.
-/// @return {List} - Transformed list.
-
-@function pipe-list($list, $pipes...) {
-  @for $i from 1 through length($list) {
-    $value: pipe(nth($list, $i), $pipes...);
-    $list: set-nth($list, $i, $value);
-  }
-
-  @return $list;
-}
-
-
-/// Transform each value in a map.
-///
-/// @param {Map} $map - Map to be transformed.
-/// @param {Arglist} $pipes - List of functions.
-/// @return {Map} - Transformed map.
-
-@function pipe-map($map, $pipes...) {
-  @each $key, $value in $map {
-    $value: pipe($value, $pipes...);
-    $map: map-merge($map, ($key: $value));
-  }
-
-  @return $map;
 }
