@@ -4,11 +4,11 @@
 
 
 // convert the breakpoints to em and remove the unit
-$breakpoints: get('breakpoints');
+$breakpoints: config('breakpoints');
 $breakpoints: pipe-each($breakpoints, em, strip-unit);
 
 // convert the duration to ms and remove the unit
-$duration: get(--duration);
+$duration: config(--duration);
 $duration: pipe($duration, ms, strip-unit);
 
 body {

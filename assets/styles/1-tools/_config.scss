@@ -1,0 +1,40 @@
+/// Variable holding config data.
+///
+/// @type Number
+
+$__config-data: () !default;
+
+
+/// Store values in the config map.
+///
+/// @param {Arglist} $args - Either a map of values or a key value pair.
+///
+/// @example scss
+///   // Using a map.
+///   @include config((
+///     'key': 'value'
+///   ))
+///
+///   // Using a key value pair.
+///   @include config('key', 'value')
+
+@mixin config($args...) {
+  $data: nth($args, 1);
+
+  // normalize data
+  @if not(type-of($data) == 'map') {
+    $data: ($data: nth($args, 2));
+  }
+
+  $__config-data: map-extend($__config-data, $data, true) !global;
+}
+
+
+/// Get a value from the config map.
+///
+/// @param {Arglist} $keys - Keys to fetch.
+/// @return {Mixed} - Desired value.
+
+@function config($keys...) {
+  @return map-deep-get($__config-data, $keys...);
+}

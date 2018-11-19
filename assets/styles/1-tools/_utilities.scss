@@ -4,6 +4,7 @@
 
 $browser-font-size: 16px !default;
 
+
 /// The desired root font-size.
 ///
 /// @type Number
@@ -162,7 +163,7 @@ $root-font-size: 10px !default;
 ///
 /// @param {Map} $map - Map.
 /// @param {Arglist} $keys - Keys to fetch.
-/// @return {*} - Desired value.
+/// @return {Mixed} - Desired value.
 
 @function map-deep-get($map, $keys...) {
   @each $key in $keys {
@@ -214,4 +215,33 @@ $root-font-size: 10px !default;
   }
 
   @return $map;
+}
+
+
+/// Programmatically add !important to a single value or a map of values.
+///
+/// @param {Mixed} $value - A single value or a map of values.
+/// @return {Mixed} - Edited input.
+
+@function important($value) {
+
+  // recursively handle maps
+  @if type-of($value) == 'map' {
+    $map: $value;
+
+    @each $key, $value in $map {
+      $value: important($value);
+      $map: map-merge($map, ($key: $value));
+    }
+
+    @return $map;
+  }
+
+  // check if the value is already !important
+  @if index($value, !important) {
+    @return $value;
+  }
+
+  // make the value important
+  @return $value !important;
 }

@@ -5,7 +5,7 @@
 
 @function __parse-breakpoint($value) {
   @if type-of($value) == 'string' {
-    $value: get('breakpoints', $value);
+    $value: config('breakpoints', $value);
   }
 
   @return em($value);

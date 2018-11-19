@@ -9,7 +9,7 @@ $breakpoint-large: 1024px;
 $breakpoint-largest: 1280px;
 
 // store breakpoints
-@include store('breakpoints', (
+@include config('breakpoints', (
   'small': $breakpoint-small,
   'medium': $breakpoint-medium,
   'large': $breakpoint-large,
@@ -26,7 +26,7 @@ $container-larger: 960px;
 $container-largest: 1200px;
 
 // store container widths
-@include store('container-widths', (
+@include config('container-widths', (
   'smaller': $container-smaller,
   'small': $container-small,
   'medium': $container-medium,
@@ -77,7 +77,7 @@ $text-small: (
 );
 
 // store text formats
-@include store('text-formats', (
+@include config('text-formats', (
   'h1': $text-h1,
   'h2': $text-h2,
   'h3': $text-h3,

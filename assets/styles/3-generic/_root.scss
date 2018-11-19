@@ -1,6 +1,6 @@
 // recursively output custom properties stored in the registry
-@mixin variables($data: get()) {
-  @each $key, $value in $data {
+@mixin variables($map: config()) {
+  @each $key, $value in $map {
 
     // loop through all tuples in the current map
     @if type-of($value) == 'map' {

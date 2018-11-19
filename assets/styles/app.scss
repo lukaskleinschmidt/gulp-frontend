@@ -3,12 +3,12 @@
 // Globally used mixins and functions. It’s important not to output any
 // CSS in the first 2 layers.
 @import '1-tools/breakpoint';
+@import '1-tools/config';
 @import '1-tools/font-face';
 @import '1-tools/format';
 @import '1-tools/json-encode';
 @import '1-tools/pipe';
 @import '1-tools/properties';
-@import '1-tools/registry';
 @import '1-tools/utilities';
 
 // Contains configurations, color definitions, etc.

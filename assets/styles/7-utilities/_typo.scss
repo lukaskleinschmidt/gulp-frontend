@@ -30,13 +30,15 @@
   text-align: justify;
 }
 
-@each $key, $value in get('text-formats') {
+@each $key, $value in config('text-formats') {
+  $value: important($value);
+
   .has-text-format-#{$key} {
-    @include properties($value, !important)
+    @include properties($value)
   }
 }
 
-@each $key, $value in get('colors') {
+@each $key, $value in config('colors') {
   .has-text-#{trim($key, '--')} {
     color: $value !important;
   }
