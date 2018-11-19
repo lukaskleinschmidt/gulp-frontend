@@ -188,7 +188,7 @@ function browsersync(done) {
       middleware: middleware,
       baseDir: paths.public,
       routes: {
-        '/node_modules': 'node_modules'
+        '/node_modules': 'node_modules',
       }
     }
   })
@@ -222,7 +222,7 @@ function icons() {
       { convertShapeToPath: true },
       {
         removeUnknownsAndDefaults: {
-          keepAriaAttrs: false
+          keepAriaAttrs: false,
         }
       }
     ]
@@ -234,10 +234,10 @@ function icons() {
         id: {
           whitespace: '_',
           separator: '.',
-          generator: 'icons.%s'
+          generator: 'icons.%s',
         },
         transform : [
-          { svgo: config }
+          { svgo: config },
         ],
       },
       svg: {

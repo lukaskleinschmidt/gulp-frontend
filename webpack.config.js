@@ -43,7 +43,7 @@ module.exports = {
   optimization: {
     // splitChunks: {
     //   name: 'commons',
-    //   chunks: 'all'
+    //   chunks: 'all',
     // }
   },
   plugins: [
