@@ -2,44 +2,51 @@
 
 // Globally used mixins and functions. It’s important not to output any
 // CSS in the first 2 layers.
-@import '1-tools/breakpoint';
-@import '1-tools/config';
-@import '1-tools/font-face';
-@import '1-tools/format';
-@import '1-tools/json-encode';
-@import '1-tools/pipe';
-@import '1-tools/properties';
-@import '1-tools/utilities';
+@import
+  '1-tools/breakpoint',
+  '1-tools/config',
+  '1-tools/font-face',
+  '1-tools/format',
+  '1-tools/json-encode',
+  '1-tools/pipe',
+  '1-tools/properties',
+  '1-tools/utilities';
 
 // Contains configurations, color definitions, etc.
-@import '2-options/options';
-@import '2-options/variables';
+@import
+  '2-options/options',
+  '2-options/variables';
 
 // Reset or normalize styles, box-sizing definition, etc. This is the
 // first layer which generates actual CSS.
-@import '3-generic/config';
-@import '3-generic/normalize';
-@import '3-generic/root';
+@import
+  '3-generic/config',
+  '3-generic/normalize',
+  '3-generic/root';
 
 // Styling for bare HTML elements (like H1, A …). These come with default
 // styling from the browser so we can redefine them here.
-@import '4-elements/elements';
+@import
+  '4-elements/elements';
 
 // Class-based selectors which define undecorated design patterns, for
 // example media object known from OOCSS.
-@import '5-objects/column';
-@import '5-objects/columns';
-@import '5-objects/container';
-@import '5-objects/content';
-@import '5-objects/display';
-@import '5-objects/format';
-@import '5-objects/media';
+@import
+  '5-objects/column',
+  '5-objects/columns',
+  '5-objects/container',
+  '5-objects/content',
+  '5-objects/display',
+  '5-objects/format',
+  '5-objects/media';
 
 // Specific UI components. This is where majority of our work takes place
 // and our UI components are often composed of Objects and Components.
-// @import '6-components/';
+// @import
+//   '6-components/';
 
 // Utilities and helper classes with ability to override anything which
 // goes before in the triangle, eg. hide helper class.
-@import '7-utilities/helpers';
-@import '7-utilities/typo';
+@import
+  '7-utilities/helpers',
+  '7-utilities/typo';

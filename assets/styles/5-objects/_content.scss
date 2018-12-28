@@ -21,7 +21,7 @@ $content-elements: (
 }
 
 .content {
-  &:not(.is-inline) {
+  &:not(.is-scope) {
     > :first-child {
       margin-top: 0;
     }
@@ -30,6 +30,30 @@ $content-elements: (
       margin-bottom: 0;
     }
   }
+
+  small {
+    display: inline-block;
+  }
+
+  @each $element, $default in $content-elements {
+    #{$element} {
+      margin: var(--content-margin-#{$element}, #{$default});
+    }
+  }
+
+  //  ██████╗ ██████╗ ███╗   ██╗████████╗███████╗███╗   ██╗████████╗
+  // ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔════╝████╗  ██║╚══██╔══╝
+  // ██║     ██║   ██║██╔██╗ ██║   ██║   █████╗  ██╔██╗ ██║   ██║
+  // ██║     ██║   ██║██║╚██╗██║   ██║   ██╔══╝  ██║╚██╗██║   ██║
+  // ╚██████╗╚██████╔╝██║ ╚████║   ██║   ███████╗██║ ╚████║   ██║
+  //  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚═╝  ╚═══╝   ╚═╝
+  //
+  // ███████╗████████╗██╗   ██╗██╗     ███████╗███████╗
+  // ██╔════╝╚══██╔══╝╚██╗ ██╔╝██║     ██╔════╝██╔════╝
+  // ███████╗   ██║    ╚████╔╝ ██║     █████╗  ███████╗
+  // ╚════██║   ██║     ╚██╔╝  ██║     ██╔══╝  ╚════██║
+  // ███████║   ██║      ██║   ███████╗███████╗███████║
+  // ╚══════╝   ╚═╝      ╚═╝   ╚══════╝╚══════╝╚══════╝
 
   &.is-responsive {
     @include properties($text-default)
@@ -48,16 +72,6 @@ $content-elements: (
 
     small {
       @include properties($text-small)
-    }
-  }
-
-  small {
-    display: inline-block;
-  }
-
-  @each $element, $default in $content-elements {
-    #{$element} {
-      margin: var(--content-margin-#{$element}, #{$default});
     }
   }
 }

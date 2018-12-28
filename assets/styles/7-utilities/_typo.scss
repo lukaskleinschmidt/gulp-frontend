@@ -30,10 +30,14 @@
   text-align: justify;
 }
 
+.has-text-nowrap {
+  white-space: nowrap;
+}
+
 @each $key, $value in config('text-formats') {
   $value: important($value);
 
-  .has-text-format-#{$key} {
+  .has-text-#{$key} {
     @include properties($value)
   }
 }
