@@ -5,3 +5,9 @@
 .is-marginless {
   margin: 0;
 }
+
+@each $key, $value in config('colors') {
+  .has-background-#{trim($key, '--')} {
+    background-color: var(#{$key});
+  }
+}

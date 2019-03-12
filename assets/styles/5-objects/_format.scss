@@ -37,8 +37,8 @@ $format-options: (
     }
   }
 
-  // media objects should always cover the format
-  .media {
+  // force media objects to always cover the format
+  > .media {
     --media-height: 100%;
     --media-width: 100%;
     --media-fit: cover;
@@ -51,7 +51,8 @@ $format-options: (
 
   @include format(--format-ratio)
 
-  .media {
+  // force media objects to always cover the format
+  > .media {
     position: absolute;
     left: 0;
     top: 0;

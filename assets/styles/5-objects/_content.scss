@@ -5,23 +5,23 @@ $content-elements: (
   h4: var(--content-margin-heading),
   h5: var(--content-margin-heading),
   h6: var(--content-margin-heading),
-  blockquote: var(--content-margin-default),
-  figure: var(--content-margin-default),
-  table: var(--content-margin-default),
-  dl: var(--content-margin-default),
-  hr: var(--content-margin-default),
-  ol: var(--content-margin-default),
-  ul: var(--content-margin-default),
-  p: var(--content-margin-default),
+  blockquote: var(--content-margin),
+  figure: var(--content-margin),
+  table: var(--content-margin),
+  dl: var(--content-margin),
+  hr: var(--content-margin),
+  ol: var(--content-margin),
+  ul: var(--content-margin),
+  p: var(--content-margin),
 );
 
 .content {
-  --content-margin-heading: 3rem 0 1.125rem;
-  --content-margin-default: 1.125rem 0;
+  --content-margin-heading: 3em 0 1.125em;
+  --content-margin: 1.125em 0;
 }
 
 .content {
-  &:not(.is-inline) {
+  &:not(.is-scope) {
     > :first-child {
       margin-top: 0;
     }
@@ -31,7 +31,31 @@ $content-elements: (
     }
   }
 
-  &.is-responsive {
+  small {
+    display: inline-block;
+  }
+
+  @each $element, $default in $content-elements {
+    #{$element} {
+      margin: var(--content-#{$element}-margin, #{$default});
+    }
+  }
+
+  //  ██████╗ ██████╗ ███╗   ██╗████████╗███████╗███╗   ██╗████████╗
+  // ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔════╝████╗  ██║╚══██╔══╝
+  // ██║     ██║   ██║██╔██╗ ██║   ██║   █████╗  ██╔██╗ ██║   ██║
+  // ██║     ██║   ██║██║╚██╗██║   ██║   ██╔══╝  ██║╚██╗██║   ██║
+  // ╚██████╗╚██████╔╝██║ ╚████║   ██║   ███████╗██║ ╚████║   ██║
+  //  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚═╝  ╚═══╝   ╚═╝
+  //
+  // ███████╗████████╗██╗   ██╗██╗     ███████╗███████╗
+  // ██╔════╝╚══██╔══╝╚██╗ ██╔╝██║     ██╔════╝██╔════╝
+  // ███████╗   ██║    ╚████╔╝ ██║     █████╗  ███████╗
+  // ╚════██║   ██║     ╚██╔╝  ██║     ██╔══╝  ╚════██║
+  // ███████║   ██║      ██║   ███████╗███████╗███████║
+  // ╚══════╝   ╚═╝      ╚═╝   ╚══════╝╚══════╝╚══════╝
+
+  &.is-default {
     @include properties($text-default)
 
     h1 {
@@ -49,15 +73,18 @@ $content-elements: (
     small {
       @include properties($text-small)
     }
-  }
 
-  small {
-    display: inline-block;
-  }
+    &:not(.no-link-styles) {
+      a {
+        //
+      }
+    }
 
-  @each $element, $default in $content-elements {
-    #{$element} {
-      margin: var(--content-margin-#{$element}, #{$default});
+    &:not(.no-list-styles) {
+      ol,
+      ul {
+        //
+      }
     }
   }
 }

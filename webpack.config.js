@@ -1,13 +1,9 @@
-const paths = require('./gulpfile').paths
-const task = require('./gulpfile').tasks.scripts
-const path = require('path')
-const webpack = require('webpack')
+const path = require('path');
 
 module.exports = {
-  context: path.resolve(__dirname, paths.src, task.paths.src),
   mode: 'development',
   entry: {
-    'app': './app.js',
+    'app': path.resolve(__dirname, 'assets/scripts/app.js'),
   },
   module: {
     rules: [
@@ -18,13 +14,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              [
-                '@babel/preset-env',
-                {
-                  useBuiltIns: 'usage',
-                  modules: false,
-                }
-              ]
+              ['@babel/preset-env', { useBuiltIns: 'usage', modules: false }],
             ]
           }
         }
@@ -33,16 +23,14 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, paths.src, task.paths.src),
+      '@': path.resolve(__dirname, 'assets/scripts'),
     },
     modules: [
-      path.resolve(__dirname, paths.src, task.paths.src),
       path.resolve(__dirname, 'node_modules'),
     ]
   },
   optimization: {
     // splitChunks: {
-    //   name: 'commons',
     //   chunks: 'all',
     // }
   },
@@ -50,8 +38,8 @@ module.exports = {
     //
   ],
   output: {
-    path: path.resolve(__dirname, paths.dest, task.paths.dest),
+    path: path.resolve(__dirname, 'public/assets/scripts'),
     filename: '[name].js',
-    publicPath: '/' + path.relative(paths.public, path.resolve(paths.dest, task.paths.dest)).split(path.sep).join('/'),
+    publicPath: '/assets/scripts/',
   }
 }
