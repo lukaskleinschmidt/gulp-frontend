@@ -5,16 +5,17 @@ Frontend boilerplate using gulp v4 and webpack v4.
 # install dependencies
 npm install --silent
 
-# start to just watch files
+# start php server
+npm run start
+
+# just watch files
 npm run watch
 
 # or start browsersync and watch files
-npm run serve [flags]
+npm run serve
 
-# available flags
---proxy # default false
---port # default 3000
---hot # default false
+# or start browsersync with hot module replacement
+npm run hot
 
 # build assests
 npm run build
