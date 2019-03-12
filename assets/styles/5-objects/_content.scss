@@ -37,7 +37,11 @@ $content-elements: (
 
   @each $element, $default in $content-elements {
     #{$element} {
+<<<<<<< HEAD
       margin: var(--content-#{$element}-margin, #{$default});
+=======
+      margin: var(--content-margin-#{$element}, #{$default});
+>>>>>>> 0c9f34905bf216b009dd20869ccdf68dafb51a3b
     }
   }
 
@@ -55,7 +59,11 @@ $content-elements: (
   // ███████║   ██║      ██║   ███████╗███████╗███████║
   // ╚══════╝   ╚═╝      ╚═╝   ╚══════╝╚══════╝╚══════╝
 
+<<<<<<< HEAD
   &.is-default {
+=======
+  &.is-responsive {
+>>>>>>> 0c9f34905bf216b009dd20869ccdf68dafb51a3b
     @include properties($text-default)
 
     h1 {
@@ -73,6 +81,7 @@ $content-elements: (
     small {
       @include properties($text-small)
     }
+<<<<<<< HEAD
 
     &:not(.no-link-styles) {
       a {
@@ -86,5 +95,7 @@ $content-elements: (
         //
       }
     }
+=======
+>>>>>>> 0c9f34905bf216b009dd20869ccdf68dafb51a3b
   }
 }

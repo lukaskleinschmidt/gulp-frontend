@@ -6,6 +6,13 @@
   margin: 0;
 }
 
+<<<<<<< HEAD
+=======
+.has-background-transparent {
+  background-color: transparent;
+}
+
+>>>>>>> 0c9f34905bf216b009dd20869ccdf68dafb51a3b
 @each $key, $value in config('colors') {
   .has-background-#{trim($key, '--')} {
     background-color: var(#{$key});

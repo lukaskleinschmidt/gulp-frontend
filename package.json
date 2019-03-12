@@ -13,11 +13,19 @@
     "not Android > 0"
   ],
   "devDependencies": {
+<<<<<<< HEAD
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "babel-loader": "^8.0.5",
     "browser-sync": "^2.26.3",
     "core-js": "^2.6.5",
+=======
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-loader": "^8.0.4",
+    "browser-sync": "^2.26.3",
+    "core-js": "^2.6.1",
+>>>>>>> 0c9f34905bf216b009dd20869ccdf68dafb51a3b
     "cross-env": "^5.2.0",
     "del": "^4.0.0",
     "gulp": "^4.0.0",
@@ -28,9 +36,15 @@
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-svg-sprite": "^1.5.0",
+<<<<<<< HEAD
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "webpack-dev-middleware": "^3.6.1",
+=======
+    "webpack": "^4.28.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-middleware": "^3.4.0",
+>>>>>>> 0c9f34905bf216b009dd20869ccdf68dafb51a3b
     "webpack-hot-middleware": "^2.24.3"
   },
   "dependencies": {
