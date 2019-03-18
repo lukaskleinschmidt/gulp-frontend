@@ -7,25 +7,32 @@ export function createCssContentParser(element, pseudoElement = 'after') {
     element = document.querySelector(element);
   }
 
-  function text() {
+  function value() {
+    const content = getComputedStyle(element, ':' + pseudoElement).content;
+
     try {
-      const content = getComputedStyle(element, ':' + pseudoElement).content;
       return JSON.parse(content);
     } catch (e) {
+
+      // because edge does not escape quotes correctly
+      if (typeof content === 'string') {
+        return content.slice(1, -1);
+      }
+
       return null;
     }
   }
 
   function json() {
     try {
-      return JSON.parse(text());
+      return JSON.parse(value());
     } catch (e) {
       return null;
     }
   }
 
   return {
-    text,
+    value,
     json,
   }
 }
