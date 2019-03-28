@@ -8,28 +8,30 @@
     "build": "cross-env NODE_ENV=production node_modules/gulp/bin/gulp.js build"
   },
   "browserslist": [
-    "last 2 versions",
-    "not Explorer > 0",
-    "not Android > 0"
+    "> 0.5%",
+    "not Android < 67",
+    "not Samsung < 8",
+    "not OperaMini all",
+    "not Explorer > 0"
   ],
   "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
     "babel-loader": "^8.0.5",
     "browser-sync": "^2.26.3",
-    "core-js": "^2.6.5",
+    "core-js": "^3.0.0",
     "cross-env": "^5.2.0",
     "del": "^4.0.0",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^6.0.0",
-    "gulp-cli": "^2.0.1",
+    "gulp-cli": "^2.1.0",
     "gulp-cssnano": "^2.1.3",
     "gulp-gzip": "^1.4.2",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-svg-sprite": "^1.5.0",
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3",
+    "webpack-cli": "^3.3.0",
     "webpack-dev-middleware": "^3.6.1",
     "webpack-hot-middleware": "^2.24.3"
   },

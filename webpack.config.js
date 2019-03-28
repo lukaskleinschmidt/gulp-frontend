@@ -14,7 +14,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              ['@babel/preset-env', { useBuiltIns: 'usage', modules: false }],
+              ['@babel/preset-env', { useBuiltIns: 'usage', modules: false, corejs: 3 }],
             ]
           }
         }
