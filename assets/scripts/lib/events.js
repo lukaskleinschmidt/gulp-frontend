@@ -1,4 +1,4 @@
-// example using a third-party event emitter;
+// Example using a third-party event emitter;
 // import EventEmitter from 'eventemitter3';
 //
 // export default function createEvents() {
@@ -17,7 +17,7 @@
 //   }
 // }
 
-// example using a third-party event emitter and proxy
+// Example using a third-party event emitter and proxy
 // import EventEmitter from 'eventemitter3';
 //
 // export default function createEvents() {
@@ -70,19 +70,19 @@ export default function createEvents() {
   }
 
   function off(event, fn) {
-    // all events
+    // All events
     if (!arguments.length) {
       events = Object.create(null);
     }
 
-    // array of events
+    // Array of events
     if (Array.isArray(event)) {
       for (let i = 0, l = event.length; i < l; i++) {
         off(event[i], fn);
       }
     }
 
-    // specific event
+    // Specific event
     const cbs = events[event];
 
     if (!cbs) {
@@ -93,7 +93,7 @@ export default function createEvents() {
       events[event] = null;
     }
 
-    // specific handler
+    // Specific handler
     if (fn) {
       let cb;
       let i = cbs.length;

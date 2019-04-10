@@ -1,4 +1,4 @@
-// colors
+// Colors
 @include config('colors', (
   --primary: #328dc1,
   --black: #000000,
@@ -7,15 +7,9 @@
 ))
 
 
-// font families
+// Font families
 @include config('family', (
   --family-default: (Arial, Helvetica, sans-serif),
   --family-heading: (Arial, Helvetica, sans-serif),
   --family-mono: monospace,
-))
-
-
-// misc
-@include config((
-  --duration: 100ms,
 ))

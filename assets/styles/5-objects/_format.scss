@@ -1,10 +1,10 @@
 $format-options: (
+  // 2 3,
   3 4 'portrait',
-  1 1 'square',
-  4 3,
-  3 4,
-  16 10 'landscape',
-  16 9,
+  // 4 3,
+  // 3 2,
+  // 16 10,
+  16 9 'landscape',
 );
 
 .format {
@@ -27,7 +27,7 @@ $format-options: (
       $selector: &;
     }
 
-    // extend the current format with additional names
+    // Extend the current format with additional names
     @if length($value) > 2 {
       @for $i from 3 through length($value) {
         &.is-#{nth($value, $i)} {
@@ -36,13 +36,6 @@ $format-options: (
       }
     }
   }
-
-  // force media objects to always cover the format
-  > .media {
-    --media-height: 100%;
-    --media-width: 100%;
-    --media-fit: cover;
-  }
 }
 
 .format {
@@ -50,11 +43,4 @@ $format-options: (
   overflow: hidden;
 
   @include format(--format-ratio)
-
-  // force media objects to always cover the format
-  > .media {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
 }

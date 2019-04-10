@@ -9,14 +9,20 @@
     --media-width: auto;
   }
 
-  &.is-contain {
-    --media-fit: contain;
-  }
-
+  // Make the media object work in conjunction with the format object
+  // .format > &,
+  // &.format,
   &.is-cover {
     --media-fit: cover;
   }
 
+  &.is-contain {
+    --media-fit: contain;
+  }
+
+  // Make the media object work in conjunction with the format object
+  // .format > &,
+  // &.format,
   &.is-contain,
   &.is-cover {
     --media-height: 100%;
@@ -25,6 +31,7 @@
 }
 
 .media {
+  // A possible fallback solution for images and object-fit
   // background-position: var(--media-position);
   // background-repeat: no-repeat;
   // background-image: var(--media-source);
@@ -44,4 +51,16 @@
     height: var(--media-height);
     width: var(--media-width);
   }
+
+  // Make the media object work in conjunction with the format object
+  // .format > &,
+  // &.format {
+  //   picture,
+  //   video,
+  //   img {
+  //     position: absolute;
+  //     left: 0;
+  //     top: 0;
+  //   }
+  // }
 }

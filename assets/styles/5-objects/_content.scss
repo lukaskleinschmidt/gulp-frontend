@@ -1,25 +1,3 @@
-$content-elements: (
-  h1: var(--content-margin-heading),
-  h2: var(--content-margin-heading),
-  h3: var(--content-margin-heading),
-  h4: var(--content-margin-heading),
-  h5: var(--content-margin-heading),
-  h6: var(--content-margin-heading),
-  blockquote: var(--content-margin),
-  figure: var(--content-margin),
-  table: var(--content-margin),
-  dl: var(--content-margin),
-  hr: var(--content-margin),
-  ol: var(--content-margin),
-  ul: var(--content-margin),
-  p: var(--content-margin),
-);
-
-.content {
-  --content-margin-heading: 3em 0 1.125em;
-  --content-margin: 1.125em 0;
-}
-
 .content {
   &:not(.is-scope) {
     > :first-child {
@@ -33,12 +11,6 @@ $content-elements: (
 
   small {
     display: inline-block;
-  }
-
-  @each $element, $default in $content-elements {
-    #{$element} {
-      margin: var(--content-#{$element}-margin, #{$default});
-    }
   }
 
   //  ██████╗ ██████╗ ███╗   ██╗████████╗███████╗███╗   ██╗████████╗

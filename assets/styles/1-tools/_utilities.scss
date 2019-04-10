@@ -31,15 +31,15 @@ $root-font-size: 10px !default;
 @function trim($string, $character: ' ') {
   $character-length: str-length($character);
 
-  // remove $character from the beginning of the $string
+  // Remove $character from the beginning of the $string
   @while str-index($string, $character) == 1 {
     $string: str-slice($string, $character-length + 1);
   }
 
-  // current $string length
+  // Current $string length
   $length: str-length($string);
 
-  // remove $character from the end of the $string
+  // Remove $character from the end of the $string
   @while
     $length > $character-length and
     str-slice($string, $length - $character-length + 1) == $character
@@ -184,31 +184,28 @@ $root-font-size: 10px !default;
   $deep: nth($maps, -1) == true;
   $max: if($deep, length($maps) - 1, length($maps));
 
-  // loop through all maps in $maps...
+  // Loop through all maps in $maps...
   @for $i from 1 through $max {
 
     // store current map
     $current: nth($maps, $i);
 
-    // if not in deep mode, simply
-    // merge current map with map
+    // If not in deep mode, simply merge current map with map
     @if not $deep {
       $map: map-merge($map, $current);
     } @else {
 
-      // if in deep mode, loop through
-      // all tuples in the current map
+      // If in deep mode, loop through all tuples in the current map
       @each $key, $value in $current {
 
-        // if value is a nested map and same key
-        // from map is a nested map as well
+        // If value is a nested map and same key from map is a nested map as well
         @if type-of($value) == 'map' and type-of(map-get($map, $key)) == 'map' {
 
-          // recursive extend
+          // Recursive extend
           $value: map-extend(map-get($map, $key), $value, true);
         }
 
-        // merge current tuple with map
+        // Merge current tuple with map
         $map: map-merge($map, ($key: $value));
       }
     }
@@ -225,7 +222,7 @@ $root-font-size: 10px !default;
 
 @function important($value) {
 
-  // recursively handle maps
+  // Recursively handle maps
   @if type-of($value) == 'map' {
     $map: $value;
 
@@ -237,11 +234,11 @@ $root-font-size: 10px !default;
     @return $map;
   }
 
-  // check if the value is already !important
+  // Check if the value is already !important
   @if index($value, !important) {
     @return $value;
   }
 
-  // make the value important
+  // Make the value important
   @return $value !important;
 }

@@ -78,33 +78,33 @@ $properties-default-key: 'default' !default;
   $cache: ();
   $data: nth($args, 1);
 
-  // normalize data
+  // Normalize data
   @if type-of($data) == 'string' {
     $data: ($data: nth($args, 2));
   }
 
   @each $property, $values in $data {
 
-    // normalize values
+    // Normalize values
     @if not(type-of($values) == 'map') {
       $values: (#{$properties-default-key}: $values);
     }
 
     @each $key, $value in $values {
 
-      // group $property: $value by breakpoint
+      // Group $property: $value by breakpoint
       @if not($key == $properties-default-key) {
         $cache: map-extend($cache, ($key: ($property: $value)), true);
       }
 
-      // just output the $property: $value
+      // Just output the $property: $value
       @else {
         #{$property}: $value;
       }
     }
   }
 
-  // output all properties grouped by breakpoint
+  // Output all properties grouped by breakpoint
   @each $key, $values in $cache {
     @include breakpoint($key) {
       @each $property, $value in $values {

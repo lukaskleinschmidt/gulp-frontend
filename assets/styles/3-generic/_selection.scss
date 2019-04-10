@@ -1,0 +1,5 @@
+::selection {
+  // Using just background does not work in edge
+  background-color: var(--selection-background, var(--primary));
+  color: var(--selection-color, var(--white));
+}

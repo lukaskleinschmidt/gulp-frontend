@@ -1,14 +1,14 @@
-// root font-size
+// Root font-size
 $root-font-size: 10px;
 
 
-// breakpoints
+// Breakpoints
 $breakpoint-small: 512px;
 $breakpoint-medium: 768px;
 $breakpoint-large: 1024px;
 $breakpoint-largest: 1280px;
 
-// store breakpoints
+// Store breakpoints
 @include config('breakpoints', (
   'small': $breakpoint-small,
   'medium': $breakpoint-medium,
@@ -17,7 +17,7 @@ $breakpoint-largest: 1280px;
 ))
 
 
-// container widths
+// Container widths
 $container-smaller: 530px;
 $container-small: 620px;
 $container-medium: 710px;
@@ -25,7 +25,7 @@ $container-large: 890px;
 $container-larger: 960px;
 $container-largest: 1200px;
 
-// store container widths
+// Store container widths
 @include config('container-widths', (
   'smaller': $container-smaller,
   'small': $container-small,
@@ -36,47 +36,47 @@ $container-largest: 1200px;
 ))
 
 
-// text formats
+// Text formats
 $text-h1: (
-  line-height: 1.125,
-  font-weight: 400,
+  line-height: var(--line-height, 1.3),
+  font-weight: var(--font-weight, 700),
   font-size: (
-    'default': rem(28px),
-    'medium': rem(32px),
+    'default': var(--font-size, #{rem(28px)}),
+    'medium': var(--font-size, #{rem(32px)}),
   )
 );
 
 $text-h2: (
-  line-height: 1.125,
-  font-weight: 400,
+  line-height: var(--line-height, 1.3),
+  font-weight: var(--font-weight, 700),
   font-size: (
-    'default': rem(20px),
-    'medium': rem(24px),
+    'default': var(--font-size, #{rem(20px)}),
+    'medium': var(--font-size, #{rem(24px)}),
   )
 );
 
 $text-h3: (
-  line-height: 1.125,
-  font-weight: 400,
+  line-height: var(--line-height, 1.3),
+  font-weight: var(--font-weight, 700),
   font-size: (
-    'default': rem(18px),
-    'medium': rem(20px),
+    'default': var(--font-size, #{rem(18px)}),
+    'medium': var(--font-size, #{rem(20px)}),
   )
 );
 
 $text-default: (
-  line-height: 1.35,
-  font-weight: 400,
-  font-size: rem(16px),
+  line-height: var(--line-height, 1.4),
+  font-weight: var(--font-weight, 400),
+  font-size: var(--font-size, #{rem(16px)}),
 );
 
 $text-small: (
-  line-height: 1.35,
-  font-weight: 400,
-  font-size: rem(14px),
+  line-height: var(--line-height, 1.4),
+  font-weight: var(--font-weight, 400),
+  font-size: var(--font-size, #{rem(14px)}),
 );
 
-// store text formats
+// Store text formats
 @include config('text-formats', (
   'h1': $text-h1,
   'h2': $text-h2,

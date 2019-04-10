@@ -14,7 +14,7 @@ export function createCssContentParser(element, pseudoElement = 'after') {
       return JSON.parse(content);
     } catch (e) {
 
-      // because edge does not escape quotes correctly
+      // Because edge does not escape quotes correctly
       if (typeof content === 'string') {
         return content.slice(1, -1);
       }

@@ -17,12 +17,6 @@ body {
   font-size: rem(16px);
 }
 
-*,
-::before,
-::after {
-  box-sizing: border-box;
-}
-
 h1,
 h2,
 h3,
@@ -31,7 +25,8 @@ h5,
 h6 {
   font-family: var(--family-heading);
   font-weight: 700;
-  margin: 3em 0 1.125em;
+  line-height: 1.4;
+  margin: var(--margin, 2.5em 0 1.25em);
 }
 
 blockquote,
@@ -42,10 +37,5 @@ hr,
 ol,
 ul,
 p {
-  margin: 1.125em 0;
-}
-
-::selection {
-  background: var(--selection-background, var(--primary));
-  color: var(--selection-color, var(--white));
+  margin: 1.25em 0;
 }

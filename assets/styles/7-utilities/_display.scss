@@ -2,35 +2,35 @@ $breakpoints: config('breakpoints');
 $length: length($breakpoints);
 $keys: map-keys($breakpoints);
 
-// $options: (
-//   inline-block,
-//   inline-flex,
-//   inline-grid,
-//   inline,
-//   block,
-//   flex,
-//   grid,
-//   none,
-// );
+$display-options: (
+  // inline-block,
+  // inline-flex,
+  // inline-grid,
+  // inline,
+  // block,
+  // flex,
+  // grid,
+  // none,
+);
 
 .display {
   --display-default: none;
   --display-value: block;
   --display-state: var(--display-default);
 
-  // @each $value in $options {
-  //   @if not($value == 'none') {
-  //     &.is-default-#{$value} {
-  //       --display-default: #{$value};
-  //     }
-  //   }
-  //
-  //   @if not($value == 'block') {
-  //     &.is-#{$value} {
-  //       --display-value: #{$value};
-  //     }
-  //   }
-  // }
+  @each $value in $display-options {
+    @if not($value == 'none') {
+      &.is-default-#{$value} {
+        --display-default: #{$value};
+      }
+    }
+
+    @if not($value == 'block') {
+      &.is-#{$value} {
+        --display-value: #{$value};
+      }
+    }
+  }
 
   @each $key in $keys {
     &.at-#{$key} {

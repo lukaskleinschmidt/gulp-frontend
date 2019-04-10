@@ -59,14 +59,14 @@
     $args: append((), $value);
     $fn: nth($pipe, 1);
 
-    // append arguments
+    // Append arguments
     @if $length > 1 {
       @for $i from 2 through $length {
         $args: append($args, nth($pipe, $i), comma);
       }
     }
 
-    // call the function with arguments
+    // Call the function with arguments
     @if function-exists($fn) {
       $value: call(get-function($fn), $args...);
     }
