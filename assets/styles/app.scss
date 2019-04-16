@@ -10,7 +10,10 @@
   '1-tools/json-encode',
   '1-tools/pipe',
   '1-tools/properties',
+  // '1-tools/timeline',
   '1-tools/utilities';
+
+@import '1-tools/timeline';
 
 // Contains configurations, color definitions, etc.
 @import

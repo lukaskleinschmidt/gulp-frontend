@@ -1,0 +1,261 @@
+// @mixin keyframes($params.../*, $options: forwards*/) {
+//   $durations: ();
+//   $values: ();
+//   $current: 0ms;
+//   $total: 0ms;
+//   $options: nth($params, -1);
+//   $max: length($params) - 1;
+//   $uid: unique-id();
+//
+//   @if type-of($options) == 'map' {
+//     $options: forwards;
+//     $max: $max + 1;
+//   }
+//
+//   // Prepare params
+//   @for $n from 1 through $max {
+//     $param: nth($params, $n);
+//
+//     $duration: map-get($param, 'duration');
+//     $value: map-remove($param, 'duration');
+//
+//     // Normalize durations to be a list
+//     @if not(type-of($duration) == 'list') {
+//       $duration: append((), $duration);
+//     }
+//
+//     $durations: append($durations, $duration);
+//     $values: append($values, $value);
+//
+//     @each $value in $duration {
+//       @debug $value;
+//       @debug ms($value);
+//       $total: $total + ms($value);
+//     }
+//   }
+//
+//   animation: #{$total $options $uid};
+//
+//   @keyframes #{$uid} {
+//     @for $n from 1 through $max {
+//       $keyframes: ();
+//       $duration: nth($durations, $n);
+//       $value: nth($values, $n);
+//
+//       @each $value in $duration {
+//         $value: ms($value);
+//         $current: $current + $value;
+//         $keyframes: append($keyframes, $current / $total * 100%, comma);
+//       }
+//
+//       #{$keyframes} {
+//         @each $property, $value in $value {
+//           #{$property}: $value;
+//         }
+//       }
+//     }
+//   }
+// }
+
+@function __keyframe($params, $offset: 0ms) {
+  $duration: nth($params, 1);
+  $values: nth($params, 2);
+
+  @if length($params) > 2 {
+    $duration: nth($params, 2);
+    $values: nth($params, 3);
+    $offset: $offset + nth($params, 1);
+  }
+
+  @return ($offset $duration $values);
+}
+
+@mixin keyframes($params...) {
+  $keyframes: ();
+  $total: 0ms;
+
+  // Normalize the input
+  @each $param in $params {
+
+    // Convert relative params to absolute
+    @if list-separator($param) == 'comma' {
+      $offset: 0ms;
+
+      @each $keyframe in $param {
+        $keyframe: __keyframe($keyframe, $offset);
+        $keyframes: append($keyframes, $keyframe, comma);
+        $offset: nth($keyframe, 1) + nth($keyframe, 2);
+      }
+
+      @if $offset > $total {
+        $total: $offset;
+      }
+    }
+
+    @else {
+      $keyframe: __keyframe($param);
+      $keyframes: append($keyframes, $keyframe, comma);
+      $duration: nth($keyframe, 1) + nth($keyframe, 2);
+
+      @if $duration > $total {
+        $total: $duration;
+      }
+    }
+  }
+
+  // Group and sort params by offset
+
+  // Store current properties and values
+  $properties: ();
+
+  // Add intermediate steps
+  @each $keyframe in $keyframes {
+    @debug $keyframe;
+
+    $values: nth($keyframe, 3);
+
+    $properties: map-merge($properties, $values);
+  }
+
+  @debug $total;
+  @debug $keyframes;
+
+  // $uid: unique-id();
+  //
+  // animation: $total $uid;
+  //
+  // @keyframes #{$uid} {
+    @each $keyframe in $keyframes {
+      @debug $keyframe;
+    }
+
+    // @for $n from 1 through $max {
+    //   $keyframes: ();
+    //   $duration: nth($durations, $n);
+    //   $value: nth($values, $n);
+    //
+    //   @each $value in $duration {
+    //     $value: ms($value);
+    //     $current: $current + $value;
+    //     $keyframes: append($keyframes, $current / $total * 100%, comma);
+    //   }
+    //
+    //   #{$keyframes} {
+    //     @each $property, $value in $value {
+    //       #{$property}: $value;
+    //     }
+    //   }
+    // }
+  // }
+
+
+
+  // $index: 1;
+  // $value: nth($keyframe, $index);
+  //
+  // @while type-of($value) == 'number' {
+  //   $current: $current + ms($value);
+  //   $index: $index + 1;
+  //   $value: nth($keyframe, $index);
+  // }
+  //
+  // @debug $current;
+
+  // $duration: nth($keyframe, 1);
+  // $values: nth($keyframe, 2);
+  // $delay: 0ms;
+  //
+  // @if length($keyframe) > 2 {
+  //   $duration: nth($keyframe, 2);
+  //   $values: nth($keyframe, 3);
+  //   $delay: nth($keyframe, 1);
+  // }
+  //
+  // // convert params to absolute timeline
+  // @if list-separator($param) == 'comma' {
+  //   $keyframes: ();
+  //   $current: 0ms;
+  //
+  //   @each $keyframe in $param {
+  //     $duration: nth($keyframe, 1);
+  //     $values: nth($keyframe, 2);
+  //     $delay: 0ms;
+  //
+  //     @if length($keyframe) > 2 {
+  //       $duration: nth($keyframe, 2);
+  //       $values: nth($keyframe, 3);
+  //       $delay: nth($keyframe, 1);
+  //     }
+  //
+  //     $keyframes: append($keyframes, $delay $duration $values);
+  //
+  //     @debug $keyframe;
+  //   }
+  // }
+  //
+
+}
+
+.test {
+  $keyframes: (
+    1000ms (
+      color: deepskyblue,
+    ),
+    500ms 2000ms (
+      color: tomato,
+    ),
+    500ms 1000ms (
+      color: aquamrine,
+    )
+  );
+
+  $test: (
+    duration: 500ms,
+    delay: 100ms,
+    color: (
+      (value: deepskyblue, duration: 500ms, delay: 0ms),
+      (value: tomato, duration: 500ms, delay: 0ms),
+      (value: aquamrine, duration: 500ms, delay: 0ms),
+    ),
+  );
+
+  @include keyframes($keyframes);
+  @debug '-------------------------';
+  @include keyframes($keyframes...);
+  @debug '-------------------------';
+
+  // @include keyframes($keyframes...)
+
+  // @include timeline((
+  //   duration: 0ms 1000ms,
+  //   transform: rotate(0deg),
+  //   opacity: 1,
+  // ), (
+  //   duration: 300ms 300ms,
+  //   transform: rotate(90deg),
+  //   opacity: .5,
+  // ), (
+  //   duration: 300ms 1000ms,
+  //   transform: rotate(0deg),
+  //   opacity: 1,
+  // ));
+  //
+  // $timeline: timeline-create();
+  // $timeline: timeline-add($timeline, (
+  //   duration: 0ms 1000ms,
+  //   transform: rotate(0deg),
+  //   opacity: 1,
+  // ), true);
+  // $timeline: timeline-add($timeline, (
+  //   duration: 0ms 1000ms,
+  //   transform: rotate(0deg),
+  //   opacity: 1,
+  // ), true);
+  // $timeline: timeline-add($timeline, (
+  //   duration: 300ms 1000ms,
+  //   transform: rotate(0deg),
+  //   opacity: 1,
+  // ), true);
+
+  // @include timeline($timeline);
+}
