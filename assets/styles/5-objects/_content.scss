@@ -27,42 +27,40 @@
   // ███████║   ██║      ██║   ███████╗███████╗███████║
   // ╚══════╝   ╚═╝      ╚═╝   ╚══════╝╚══════╝╚══════╝
 
-  &.is-default {
-    @include properties($text-default)
+  @include properties($text-default)
 
-    h1 {
-      @include properties($text-h1)
+  h1 {
+    @include properties($text-h1)
+  }
+
+  h2 {
+    @include properties($text-h2)
+  }
+
+  h3 {
+    @include properties($text-h3)
+  }
+
+  small {
+    @include properties($text-small)
+  }
+
+  &:not(.no-link-styles) {
+    a {
+      //
     }
+  }
 
-    h2 {
-      @include properties($text-h2)
+  &:not(.no-list-styles) {
+    ol,
+    ul {
+      //
     }
+  }
 
-    h3 {
-      @include properties($text-h3)
-    }
-
-    small {
-      @include properties($text-small)
-    }
-
-    &:not(.no-link-styles) {
-      a {
-        //
-      }
-    }
-
-    &:not(.no-list-styles) {
-      ol,
-      ul {
-        //
-      }
-    }
-
-    &:not(.no-table-styles) {
-      table {
-        //
-      }
+  &:not(.no-table-styles) {
+    table {
+      //
     }
   }
 }

@@ -7,8 +7,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; // This needs to come after -webkit-font-smoothing
   text-rendering: optimizeLegibility;
-  font-size: var(--root-font-size, #{($root-font-size / $browser-font-size) * 100%});
-  position: relative;
+  font-size: #{($root-font-size / $browser-font-size) * 100%};
 }
 
 body {
@@ -37,5 +36,5 @@ hr,
 ol,
 ul,
 p {
-  margin: 1.25em 0;
+  margin: var(--margin, 1.25em 0);
 }
