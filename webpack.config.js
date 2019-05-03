@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: {
-    'app': path.resolve(__dirname, 'assets/scripts/app.js'),
+    'app': path.resolve(__dirname, 'resources/scripts/app.js'),
   },
   module: {
     rules: [
@@ -23,7 +23,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'assets/scripts'),
+      '@': path.resolve(__dirname, 'resources/scripts'),
     },
     modules: [
       path.resolve(__dirname, 'node_modules'),

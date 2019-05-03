@@ -41,7 +41,7 @@ function scriptsBuild() {
 }
 
 function styles() {
-  return gulp.src('assets/styles/**/*.scss')
+  return gulp.src('resources/styles/**/*.scss')
     .pipe(sourcemaps.init())
     .pipe(
       sass.sync({ outputStyle: 'expanded' })
@@ -120,13 +120,13 @@ function browsersync(done) {
 }
 
 function watch() {
-  gulp.watch('assets/styles/**/*.scss', { ignoreInitial: false }, styles);
-  gulp.watch('assets/icons/**/*.svg', { ignoreInitial: false }, icons);
-  gulp.watch('assets/media/**/*', { ignoreInitial: false }, media);
-  gulp.watch('assets/fonts/**/*.{eot,svg,ttf,woff,woff2,otf}', { ignoreInitial: false }, fonts);
+  gulp.watch('resources/styles/**/*.scss', { ignoreInitial: false }, styles);
+  gulp.watch('resources/icons/**/*.svg', { ignoreInitial: false }, icons);
+  gulp.watch('resources/media/**/*', { ignoreInitial: false }, media);
+  gulp.watch('resources/fonts/**/*.{eot,svg,ttf,woff,woff2,otf}', { ignoreInitial: false }, fonts);
 
   if (FLAG_HOT === false) {
-    gulp.watch('assets/scripts/**/*.js', { ignoreInitial: false }, scripts);
+    gulp.watch('resources/scripts/**/*.js', { ignoreInitial: false }, scripts);
   }
 }
 
@@ -143,7 +143,7 @@ function icons() {
     ]
   }
 
-  return gulp.src('assets/icons/**/*.svg')
+  return gulp.src('resources/icons/**/*.svg')
     .pipe(sprite({
       shape: {
         id: {
@@ -176,12 +176,12 @@ function icons() {
 }
 
 function media() {
-  return gulp.src('assets/media/**/*')
+  return gulp.src('resources/media/**/*')
     .pipe(gulp.dest('public/assets/media'));
 }
 
 function fonts() {
-  return gulp.src('assets/fonts/**/*.{eot,svg,ttf,woff,woff2,otf}')
+  return gulp.src('resources/fonts/**/*.{eot,svg,ttf,woff,woff2,otf}')
     .pipe(gulp.dest('public/assets/fonts'));
 }
 
