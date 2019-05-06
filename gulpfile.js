@@ -2,13 +2,14 @@ const path = require('path');
 const del = require('del');
 const exec = require('child_process').exec;
 const browserSync = require('browser-sync');
-const autoprefixer = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
-const cssnano = require('gulp-cssnano');
+const postcss = require('gulp-postcss');
 const sprite = require('gulp-svg-sprite');
 const sass = require('gulp-sass');
 const gzip = require('gulp-gzip');
 const gulp = require('gulp');
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 
 const NODE_ENV = process.env.NODE_ENV;
 const FLAG_HOT = process.env.npm_config_hot || false;
@@ -47,22 +48,26 @@ function styles() {
       sass.sync({ outputStyle: 'expanded' })
         .on('error', sass.logError)
     )
-    .pipe(autoprefixer())
+    .pipe(postcss([
+      autoprefixer(),
+    ]))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('public/assets/styles'));
 }
 
 function stylesBuild() {
   return styles()
-    .pipe(cssnano({
-      reduceIdents: false,
-      discardUnused: {
-        fontFace: false,
-        counterStyle: false,
-        keyframes: false,
-        namespace: false,
-      }
-    }))
+    .pipe(postcss([
+      cssnano({
+        reduceIdents: false,
+        discardUnused: {
+          fontFace: false,
+          counterStyle: false,
+          keyframes: false,
+          namespace: false,
+        }
+      }),
+    ]))
     .pipe(gulp.dest('public/assets/styles'))
     .pipe(gzip({ append: true }))
     .pipe(gulp.dest('public/assets/styles'));
@@ -187,9 +192,9 @@ function fonts() {
 
 gulp.task('clean', clean);
 gulp.task('scripts', scripts);
-gulp.task('scripts:build', scriptsBuild);
+gulp.task('scriptsBuild', scriptsBuild);
 gulp.task('styles', styles);
-gulp.task('styles:build', stylesBuild);
+gulp.task('stylesBuild', stylesBuild);
 gulp.task('browsersync', browsersync);
 gulp.task('media', media);
 gulp.task('icons', icons);
@@ -202,8 +207,8 @@ const serve = gulp.parallel(
 );
 
 const build = gulp.series('clean', gulp.parallel(
-  'scripts:build',
-  'styles:build',
+  'scriptsBuild',
+  'stylesBuild',
   'media',
   'icons',
   'fonts',

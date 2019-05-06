@@ -19,4 +19,7 @@ npm run hot
 
 # build assests
 npm run build
+
+# check browserslist
+npx browserlist '> 0.5%, not Android < 67, not Samsung < 8, not OperaMini all, not Explorer > 0'
 ```
