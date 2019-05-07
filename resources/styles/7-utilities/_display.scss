@@ -18,23 +18,23 @@ $display-options: (
 
   @each $value in $display-options {
     @if not($value == 'block') {
-      &.as-#{$value} {
+      &.--as-#{$value} {
         --display-value: #{$value};
       }
     }
   }
 
   @each $key in $keys {
-    &.at-#{$key} {
-      @include breakpoint($key) {
+    &.--at-#{$key} {
+      @include at($key) {
         --display: var(--display-value);
       }
     }
   }
 
   @each $key in $keys {
-    &.until-#{$key} {
-      @include breakpoint-until($key) {
+    &.--until-#{$key} {
+      @include until($key) {
         --display: var(--display-value);
       }
     }
@@ -47,9 +47,9 @@ $display-options: (
       @for $n from $i + 1 through $length {
         $max: nth($keys, $n);
 
-        &.between-#{$min}-#{$max},
-        &.between-#{$min}-and-#{$max} {
-          @include breakpoint-between($min, $max) {
+        &.--between-#{$min}-#{$max},
+        &.--between-#{$min}-and-#{$max} {
+          @include between($min, $max) {
             --display: var(--display-value);
           }
         }

@@ -66,7 +66,7 @@
 /// @param {String} $media-type ['all'] - Chosen media
 
 @mixin at($min-width, $media-type: 'all') {
-  @include breakpoint($min-width, 0px, $media-type) {
+  @include breakpoint($min-width, $media-type) {
     @content;
   }
 }
@@ -90,7 +90,7 @@
 /// @param {String} $media-type ['all'] - Chosen media
 
 @mixin until($max-width, $media-type: 'all') {
-  @include breakpoint-until(0px, $max-width, $media-type) {
+  @include breakpoint-until($max-width, $media-type) {
     @content;
   }
 }

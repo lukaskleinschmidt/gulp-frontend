@@ -39,7 +39,7 @@
 ///     @include format(400px, 300px);
 ///
 ///     // Using custom properties.
-///     @include format(--format-width, --format-height);
+///     @include format(--width, --height);
 ///   }
 
 @mixin format($ratio.../*, $height */) {

@@ -1,17 +1,17 @@
-.has-overflow-hidden {
+.overflow-hidden {
   overflow: hidden;
 }
 
-.is-marginless {
+.marginless {
   margin: 0;
 }
 
-.has-background-transparent {
+.background-transparent {
   background-color: transparent;
 }
 
 @each $key, $value in config('colors') {
-  .has-background-#{trim($key, '--')} {
+  .background-#{trim($key, '--')} {
     background-color: var(#{$key});
   }
 }

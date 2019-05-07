@@ -21,12 +21,12 @@ $column-options: (
   --column-width: auto;
   --column-flex: 0 0 0;
 
-  &.is-narrow {
+  &.--narrow {
     --column-flex: none;
   }
 
   @each $key, $value in $column-options {
-    &.is-#{$key} {
+    &.--#{$key} {
       --column-width: #{$value};
       --column-flex: none;
     }

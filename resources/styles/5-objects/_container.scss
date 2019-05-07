@@ -10,21 +10,21 @@
 
   @each $key, $value in config('container-widths') {
     @if not($key == 'largest') {
-      &.is-#{$key} {
+      &.--#{$key} {
         --container-width: #{$value};
       }
     }
   }
 
-  &.is-left {
+  &.--left {
     --container-margin-left: 0px;
   }
 
-  &.is-right {
+  &.--right {
     --container-margin-right: 0px;
   }
 
-  &.is-collapsed {
+  &.--collapsed {
     --container-padding: 0px;
   }
 }
@@ -35,7 +35,7 @@
   margin-right: var(--container-margin-right);
   margin-left: var(--container-margin-left);
 
-  &:not(.is-fullwidth) {
+  &:not(.--fullwidth) {
     max-width: calc(var(--container-width) + var(--container-padding) * 2);
   }
 }

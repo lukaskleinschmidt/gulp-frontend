@@ -4,7 +4,7 @@
   --media-width: 100%;
   --media-fit: fill;
 
-  &.is-vertical {
+  &.--vertical {
     --media-height: 100%;
     --media-width: auto;
   }
@@ -12,19 +12,19 @@
   // Make the media object work in conjunction with the format object
   // .format > &,
   // &.format,
-  &.is-cover {
+  &.--cover {
     --media-fit: cover;
   }
 
-  &.is-contain {
+  &.--contain {
     --media-fit: contain;
   }
 
   // Make the media object work in conjunction with the format object
   // .format > &,
   // &.format,
-  &.is-contain,
-  &.is-cover {
+  &.--contain,
+  &.--cover {
     --media-height: 100%;
     --media-width: 100%;
   }
@@ -41,6 +41,7 @@
   width: var(--media-width);
 
   picture,
+  canvas,
   video,
   img {
     object-position: var(--media-position);
@@ -50,17 +51,15 @@
     display: block;
     height: var(--media-height);
     width: var(--media-width);
-  }
 
-  // Make the media object work in conjunction with the format object
-  // .format > &,
-  // &.format {
-  //   picture,
-  //   video,
-  //   img {
-  //     position: absolute;
-  //     left: 0;
-  //     top: 0;
-  //   }
-  // }
+    // Make the media object work in conjunction with the format object
+    // @at-root {
+    //   #{selector-append('.format', &)},
+    //   #{selector-nest('.format', &)} {
+    //     position: absolute;
+    //     left: 0;
+    //     top: 0;
+    //   }
+    // }
+  }
 }

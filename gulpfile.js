@@ -8,8 +8,6 @@ const sprite = require('gulp-svg-sprite');
 const sass = require('gulp-sass');
 const gzip = require('gulp-gzip');
 const gulp = require('gulp');
-const autoprefixer = require('autoprefixer');
-const cssnano = require('cssnano');
 
 const NODE_ENV = process.env.NODE_ENV;
 const FLAG_HOT = process.env.npm_config_hot || false;
@@ -23,15 +21,15 @@ function clean() {
   ]);
 }
 
-function scripts() {
-  return exec('node node_modules/webpack/bin/webpack.js --hide-modules --color --config webpack.config.js', (error, stdout) => {
+function scripts(done) {
+  return exec('npx webpack --hide-modules --color', (error, stdout) => {
     if (error) console.log(error);
     console.log(stdout);
   });
 }
 
 function scriptsBuild() {
-  return exec('node node_modules/webpack/bin/webpack.js --color --config webpack.config.js -p', (error, stdout) => {
+  return exec('npx webpack --color -p', (error, stdout) => {
     if (error) console.log(error);
     console.log(stdout);
 
@@ -45,11 +43,14 @@ function styles() {
   return gulp.src('resources/styles/**/*.scss')
     .pipe(sourcemaps.init())
     .pipe(
-      sass.sync({ outputStyle: 'expanded' })
+      sass
+        .sync({ outputStyle: 'expanded' })
         .on('error', sass.logError)
     )
     .pipe(postcss([
-      autoprefixer(),
+      require('autoprefixer')({
+        //
+      }),
     ]))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('public/assets/styles'));
@@ -58,7 +59,7 @@ function styles() {
 function stylesBuild() {
   return styles()
     .pipe(postcss([
-      cssnano({
+      require('cssnano')({
         reduceIdents: false,
         discardUnused: {
           fontFace: false,
@@ -109,6 +110,7 @@ function browsersync(done) {
     notify: false,
     files: [
       'public/assets/**/*',
+      'public/**/*.html',
     ],
     ignore: [
       //
@@ -125,13 +127,17 @@ function browsersync(done) {
 }
 
 function watch() {
-  gulp.watch('resources/styles/**/*.scss', { ignoreInitial: false }, styles);
-  gulp.watch('resources/icons/**/*.svg', { ignoreInitial: false }, icons);
-  gulp.watch('resources/media/**/*', { ignoreInitial: false }, media);
-  gulp.watch('resources/fonts/**/*.{eot,svg,ttf,woff,woff2,otf}', { ignoreInitial: false }, fonts);
+  const options = {
+    ignoreInitial: false
+  }
+
+  gulp.watch('resources/styles/**/*.scss', options, styles);
+  gulp.watch('resources/icons/**/*.svg', options, icons);
+  gulp.watch('resources/media/**/*', options, media);
+  gulp.watch('resources/fonts/**/*.{eot,svg,ttf,woff,woff2,otf}', options, fonts);
 
   if (FLAG_HOT === false) {
-    gulp.watch('resources/scripts/**/*.js', { ignoreInitial: false }, scripts);
+    gulp.watch('resources/scripts/**/*.js', options, scripts);
   }
 }
 
@@ -192,9 +198,9 @@ function fonts() {
 
 gulp.task('clean', clean);
 gulp.task('scripts', scripts);
-gulp.task('scriptsBuild', scriptsBuild);
+gulp.task('scripts:build', scriptsBuild);
 gulp.task('styles', styles);
-gulp.task('stylesBuild', stylesBuild);
+gulp.task('styles:build', stylesBuild);
 gulp.task('browsersync', browsersync);
 gulp.task('media', media);
 gulp.task('icons', icons);
@@ -207,8 +213,8 @@ const serve = gulp.parallel(
 );
 
 const build = gulp.series('clean', gulp.parallel(
-  'scriptsBuild',
-  'stylesBuild',
+  'scripts:build',
+  'styles:build',
   'media',
   'icons',
   'fonts',

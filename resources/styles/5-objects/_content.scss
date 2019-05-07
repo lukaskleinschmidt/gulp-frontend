@@ -1,5 +1,5 @@
 .content {
-  &:not(.is-scope) {
+  &:not(.--scope) {
     > :first-child {
       margin-top: 0;
     }
@@ -45,20 +45,20 @@
     @include properties($text-small)
   }
 
-  &:not(.no-link-styles) {
+  &:not(.--no-link-styles) {
     a {
       //
     }
   }
 
-  &:not(.no-list-styles) {
+  &:not(.--no-list-styles) {
     ol,
     ul {
       //
     }
   }
 
-  &:not(.no-table-styles) {
+  &:not(.--no-table-styles) {
     table {
       //
     }

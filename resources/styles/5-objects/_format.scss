@@ -12,16 +12,13 @@ $format-options: (
   --format-width: 1;
   --format-ratio: calc(var(--format-width) / var(--format-height));
 
-  &.is-horizontal {
-    --format-ratio: calc(var(--format-height) / var(--format-width));
-  }
-
   @each $value in $format-options {
     $selector: null;
     $height: nth($value, 2);
     $width: nth($value, 1);
 
-    &.is-#{$width}\/#{$height} {
+    // Needs to be escaped otherwise sass will throw an error
+    &.\--#{$width}\/#{$height} {
       --format-height: #{$height};
       --format-width: #{$width};
       $selector: &;
@@ -30,7 +27,7 @@ $format-options: (
     // Extend the current format with additional names
     @if length($value) > 2 {
       @for $i from 3 through length($value) {
-        &.is-#{nth($value, $i)} {
+        &.--#{nth($value, $i)} {
           @extend #{$selector};
         }
       }
@@ -42,5 +39,7 @@ $format-options: (
   position: relative;
   overflow: hidden;
 
-  @include format(--format-ratio)
+  @include format(--format-ratio) {
+    float: left;
+  }
 }

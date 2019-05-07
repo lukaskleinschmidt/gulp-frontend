@@ -22,15 +22,15 @@
     padding-top: var(--columns-gap-vertical);
   }
 
-  &.is-multiline {
+  &.--multiline {
     flex-wrap: wrap;
   }
 
-  &.is-inline {
+  &.--inline {
     display: inline-flex;
   }
 
-  // &.has-separator {
+  // &.--separator {
   //   > .column {
   //     position: relative;
   //

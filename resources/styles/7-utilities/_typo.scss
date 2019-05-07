@@ -1,49 +1,49 @@
-.is-capitalized {
+.capitalized {
   text-transform: capitalize;
 }
 
-.is-lowercase {
+.lowercase {
   text-transform: lowercase;
 }
 
-.is-uppercase {
+.uppercase {
   text-transform: uppercase;
 }
 
-.is-italic {
+.italic {
   font-style: italic;
 }
 
-.has-text-left {
+.text-left {
   text-align: left;
 }
 
-.has-text-right {
+.text-right {
   text-align: right;
 }
 
-.has-text-centered {
+.text-centered {
   text-align: center;
 }
 
-.has-text-justified {
+.text-justified {
   text-align: justify;
 }
 
-.has-text-nowrap {
+.text-nowrap {
   white-space: nowrap;
 }
 
 @each $key, $value in config('text-formats') {
   $value: important($value);
 
-  .has-text-#{$key} {
+  .text-#{$key} {
     @include properties($value)
   }
 }
 
 @each $key, $value in config('colors') {
-  .has-text-#{trim($key, '--')} {
+  .text-#{trim($key, '--')} {
     color: $value !important;
   }
 }
