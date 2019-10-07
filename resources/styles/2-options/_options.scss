@@ -3,7 +3,7 @@ $root-font-size: 10px;
 
 
 // Breakpoints
-$breakpoint-small: 512px;
+$breakpoint-small: 640px;
 $breakpoint-medium: 768px;
 $breakpoint-large: 1024px;
 $breakpoint-largest: 1280px;
@@ -38,51 +38,124 @@ $container-largest: 1200px;
 ))
 
 
-// Text formats
-$text-h1: (
-  line-height: var(--line-height, 1.3),
-  font-weight: var(--font-weight, 700),
-  font-size: (
-    'default': var(--font-size, #{rem(28px)}),
-    'medium': var(--font-size, #{rem(32px)}),
-  )
-);
+@mixin text-h1 {
+  line-height: var(--line-height, 1.3);
+  font-weight: var(--font-weight, 700);
+  font-size:  var(--font-size, #{rem(36px)});
 
-$text-h2: (
-  line-height: var(--line-height, 1.3),
-  font-weight: var(--font-weight, 700),
-  font-size: (
-    'default': var(--font-size, #{rem(20px)}),
-    'medium': var(--font-size, #{rem(24px)}),
-  )
-);
+  @include at('small') {
+    font-size: var(--font-size, #{rem(54px)});
+  }
+}
 
-$text-h3: (
-  line-height: var(--line-height, 1.3),
-  font-weight: var(--font-weight, 700),
-  font-size: (
-    'default': var(--font-size, #{rem(18px)}),
-    'medium': var(--font-size, #{rem(20px)}),
-  )
-);
+@mixin text-h2 {
+  line-height: var(--line-height, 1.3);
+  font-weight: var(--font-weight, 700);
+  font-size:  var(--font-size, #{rem(20px)});
 
-$text-default: (
-  line-height: var(--line-height, 1.4),
-  font-weight: var(--font-weight, 400),
-  font-size: var(--font-size, #{rem(16px)}),
-);
+  @include at('small') {
+    font-size: var(--font-size, #{rem(24px)});
+  }
+}
 
-$text-small: (
-  line-height: var(--line-height, 1.4),
-  font-weight: var(--font-weight, 400),
-  font-size: var(--font-size, #{rem(14px)}),
-);
+@mixin text-h3 {
+  line-height: var(--line-height, 1.3);
+  font-weight: var(--font-weight, 700);
+  font-size:  var(--font-size, #{rem(18px)});
 
-// Store text formats
-@include config('text-formats', (
-  'h1': $text-h1,
-  'h2': $text-h2,
-  'h3': $text-h3,
-  'default': $text-default,
-  'small': $text-small,
-))
+  @include at('small') {
+    font-size: var(--font-size, #{rem(20px)});
+  }
+}
+
+@mixin text-default {
+  line-height: var(--line-height, 1.4);
+  font-weight: var(--font-weight, 400);
+  font-size:  var(--font-size, #{rem(16px)});
+}
+
+@mixin text-small {
+  line-height: var(--line-height, 1.4);
+  font-weight: var(--font-weight, 400);
+  font-size:  var(--font-size, #{rem(14px)});
+}
+
+// @function __to-unit($value, $unit) {
+//   // @if unitless($value) {
+//   //   @return $value;
+//   // }
+//
+//   @if function-exists($unit) {
+//     @return call(get-function($unit), $value);
+//   }
+//
+//   @error 'Unknown unit for #{$value} (#{$type}).';
+// }
+//
+// @function responsive($min, $max, $to, $unit: 'rem', $from: 320px) {
+//   @if type-of($to) == 'string' {
+//     $to: config('breakpoints', $to);
+//   }
+//
+//   @if type-of($from) == 'string' {
+//     $from: config('breakpoints', $from);
+//   }
+//
+//   $min: __to-unit($min, $unit);
+//   $max: __to-unit($max, $unit);
+//   $from: __to-unit($from, $unit);
+//   $to: __to-unit($to, $unit);
+//
+//   @return (
+//     $properties-default-key: calc(#{$min} + #{strip-unit($max - $min)} * (100vw - #{$from}) / #{strip-unit($to - $from)}),
+//     $to: $max,
+//   );
+// }
+//
+// // Text formats
+// $text-h1: (
+//   // line-height: var(--line-height, 1.3),
+//   line-height: responsive(1.2em, 3em, 'largest', 'rem'),
+//   // line-height: calc(1.2),
+//   font-weight: var(--font-weight, 700),
+//   font-size: responsive(36px, 60px, 'largest'),
+// );
+//
+// $text-h2: (
+//   line-height: var(--line-height, 1.3),
+//   font-weight: var(--font-weight, 700),
+//   font-size: (
+//     'default': var(--font-size, #{rem(20px)}),
+//     320px: var(--font-size, #{rem(24px)}),
+//   )
+// );
+//
+// $text-h3: (
+//   line-height: var(--line-height, 1.3),
+//   font-weight: var(--font-weight, 700),
+//   font-size: (
+//     'default': var(--font-size, #{rem(18px)}),
+//     'medium': var(--font-size, #{rem(20px)}),
+//   )
+// );
+//
+// $text-default: (
+//   line-height: var(--line-height, 1.4),
+//   font-weight: var(--font-weight, 400),
+//   font-size: var(--font-size, #{rem(16px)}),
+// );
+//
+// $text-small: (
+//   line-height: var(--line-height, 1.4),
+//   font-weight: var(--font-weight, 400),
+//   font-size: var(--font-size, #{rem(14px)}),
+// );
+//
+// // Store text formats
+// @include config('text-formats', (
+//   'h1': $text-h1,
+//   'h2': $text-h2,
+//   'h3': $text-h3,
+//   'default': $text-default,
+//   'small': $text-small,
+// ))

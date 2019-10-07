@@ -1,12 +1,8 @@
 .container {
   --container-margin-right: auto;
   --container-margin-left: auto;
-  --container-padding: 20px;
+  --container-padding: calc(1.3vh + 3.6vw);
   --container-width: #{$container-largest};
-
-  @include breakpoint('medium') {
-    --container-padding: 40px;
-  }
 
   @each $key, $value in config('container-widths') {
     @if not($key == 'largest') {

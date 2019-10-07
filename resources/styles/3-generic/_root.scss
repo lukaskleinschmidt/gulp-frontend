@@ -8,7 +8,7 @@
     }
 
     // If the key starts with two dashes it is most likely a custom property
-    @if str-index($key, '--') == 1 {
+    @if type-of($key) == 'map' and str-index($key, '--') == 1 {
       #{$key}: $value;
     }
   }

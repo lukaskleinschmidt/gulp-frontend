@@ -34,12 +34,32 @@
   white-space: nowrap;
 }
 
-@each $key, $value in config('text-formats') {
-  $value: important($value);
+// @each $key, $value in config('text-formats') {
+//   $value: important($value);
+//
+//   .text-#{$key} {
+//     @include properties($value)
+//   }
+// }
 
-  .text-#{$key} {
-    @include properties($value)
-  }
+.text-h1 {
+  @include text-h1
+}
+
+.text-h2 {
+  @include text-h2
+}
+
+.text-h3 {
+  @include text-h3
+}
+
+.text-default {
+  @include text-default
+}
+
+.text-small {
+  @include text-small
 }
 
 @each $key, $value in config('colors') {

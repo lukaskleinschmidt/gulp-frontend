@@ -21,7 +21,7 @@ function clean() {
   ]);
 }
 
-function scripts(done) {
+function scripts() {
   return exec('npx webpack --hide-modules --color', (error, stdout) => {
     if (error) console.log(error);
     console.log(stdout);
