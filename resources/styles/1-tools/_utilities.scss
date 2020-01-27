@@ -1,14 +1,19 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+@use 'sass:string';
+
+
 /// The browser font-size.
 ///
 /// @type Number
-
 $browser-font-size: 16px !default;
 
 
 /// The desired root font-size.
 ///
 /// @type Number
-
 $root-font-size: 10px !default;
 
 
@@ -16,7 +21,6 @@ $root-font-size: 10px !default;
 ///
 /// @param {Number} $value - Value to be stripped.
 /// @return {Number} - The stripped value.
-
 @function strip-unit($value) {
   @return $value / ($value * 0 + 1);
 }
@@ -27,25 +31,24 @@ $root-font-size: 10px !default;
 /// @param {String} $string - The string that will be trimmed.
 /// @param {String} $character [' '] - Character that you want to be stripped.
 /// @return {String} The trimmed string.
-
 @function trim($string, $character: ' ') {
-  $character-length: str-length($character);
+  $character-length: string.length($character);
 
   // Remove $character from the beginning of the $string
-  @while str-index($string, $character) == 1 {
-    $string: str-slice($string, $character-length + 1);
+  @while string.index($string, $character) == 1 {
+    $string: string.slice($string, $character-length + 1);
   }
 
   // Current $string length
-  $length: str-length($string);
+  $length: string.length($string);
 
   // Remove $character from the end of the $string
   @while
     $length > $character-length and
-    str-slice($string, $length - $character-length + 1) == $character
+    string.slice($string, $length - $character-length + 1) == $character
   {
     $length: $length - $character-length;
-    $string: str-slice($string, 0, $length);
+    $string: string.slice($string, 0, $length);
   }
 
   @return $string;
@@ -56,9 +59,8 @@ $root-font-size: 10px !default;
 ///
 /// @param {Number} $value - The pixel value to be converted.
 /// @return {Number} The converted value in rem.
-
 @function rem($value) {
-  $unit: unit($value);
+  $unit: math.unit($value);
 
   @if $value == 0 {
     @return 0;
@@ -78,9 +80,8 @@ $root-font-size: 10px !default;
 ///
 /// @param {Number} $value - The rem value to be converted.
 /// @return {Number} The converted value in pixels.
-
 @function px($value) {
-  $unit: unit($value);
+  $unit: math.unit($value);
 
   @if $value == 0 {
     @return 0;
@@ -101,9 +102,8 @@ $root-font-size: 10px !default;
 ///
 /// @param {Number} $value - The pixel value to be converted.
 /// @return {Number} The converted value in em.
-
 @function em($value) {
-  $unit: unit($value);
+  $unit: math.unit($value);
 
   @if $value == 0 {
     @return 0;
@@ -123,11 +123,10 @@ $root-font-size: 10px !default;
 ///
 /// @param {Number} $value - The duration to be converted.
 /// @return {Number} The converted value in milliseconds.
-
 @function ms($value) {
-  $unit: unit($value);
+  $unit: math.unit($value);
 
-  @if unitless($value) {
+  @if math.is-unitless($value) {
     @return $value * 1ms;
   } @else if $unit == 'ms' {
     @return $value;
@@ -143,11 +142,10 @@ $root-font-size: 10px !default;
 ///
 /// @param {Number} $value - The duration to be converted.
 /// @return {Number} The converted value in seconds.
-
 @function s($value) {
-  $unit: unit($value);
+  $unit: math.unit($value);
 
-  @if unitless($value) {
+  @if math.is-unitless($value) {
     @return $value * 1s;
   } @else if $unit == 's' {
     @return $value;
@@ -164,10 +162,9 @@ $root-font-size: 10px !default;
 /// @param {Map} $map - Map.
 /// @param {Arglist} $keys - Keys to fetch.
 /// @return {Mixed} - Desired value.
-
 @function map-deep-get($map, $keys...) {
   @each $key in $keys {
-    $map: map-get($map, $key);
+    $map: map.get($map, $key);
   }
   @return $map;
 }
@@ -179,66 +176,36 @@ $root-font-size: 10px !default;
 /// @param {Arglist} $maps - Other maps to merge.
 /// @param {Bool} $deep [false] - Recursive mode.
 /// @return {Map} The final merged map.
-
 @function map-extend($map, $maps.../*, $deep */) {
-  $deep: nth($maps, -1) == true;
-  $max: if($deep, length($maps) - 1, length($maps));
+  $deep: list.nth($maps, -1) == true;
+  $max: if($deep, list.length($maps) - 1, list.length($maps));
 
   // Loop through all maps in $maps...
   @for $i from 1 through $max {
 
     // store current map
-    $current: nth($maps, $i);
+    $current: list.nth($maps, $i);
 
     // If not in deep mode, simply merge current map with map
     @if not $deep {
-      $map: map-merge($map, $current);
+      $map: map.merge($map, $current);
     } @else {
 
       // If in deep mode, loop through all tuples in the current map
       @each $key, $value in $current {
 
         // If value is a nested map and same key from map is a nested map as well
-        @if type-of($value) == 'map' and type-of(map-get($map, $key)) == 'map' {
+        @if meta.type-of($value) == 'map' and meta.type-of(map.get($map, $key)) == 'map' {
 
           // Recursive extend
-          $value: map-extend(map-get($map, $key), $value, true);
+          $value: map-extend(map.get($map, $key), $value, true);
         }
 
         // Merge current tuple with map
-        $map: map-merge($map, ($key: $value));
+        $map: map.merge($map, ($key: $value));
       }
     }
   }
 
   @return $map;
-}
-
-
-/// Programmatically add !important to a single value or a map of values.
-///
-/// @param {Mixed} $value - A single value or a map of values.
-/// @return {Mixed} - Edited input.
-
-@function important($value) {
-
-  // Recursively handle maps
-  @if type-of($value) == 'map' {
-    $map: $value;
-
-    @each $key, $value in $map {
-      $value: important($value);
-      $map: map-merge($map, ($key: $value));
-    }
-
-    @return $map;
-  }
-
-  // Check if the value is already !important
-  @if index($value, !important) {
-    @return $value;
-  }
-
-  // Make the value important
-  @return $value !important;
 }

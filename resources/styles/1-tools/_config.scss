@@ -1,7 +1,10 @@
+@use 'sass:list';
+@use 'sass:meta';
+
+
 /// Variable holding config data.
 ///
 /// @type Number
-
 $__config-data: () !default;
 
 
@@ -17,13 +20,12 @@ $__config-data: () !default;
 ///
 ///   // Using a key value pair.
 ///   @include config('key', 'value')
-
 @mixin config($args...) {
-  $data: nth($args, 1);
+  $data: list.nth($args, 1);
 
   // normalize data
-  @if not(type-of($data) == 'map') {
-    $data: ($data: nth($args, 2));
+  @if not(meta.type-of($data) == 'map') {
+    $data: ($data: list.nth($args, 2));
   }
 
   $__config-data: map-extend($__config-data, $data, true) !global;
@@ -34,7 +36,6 @@ $__config-data: () !default;
 ///
 /// @param {Arglist} $keys - Keys to fetch.
 /// @return {Mixed} - Desired value.
-
 @function config($keys...) {
   @return map-deep-get($__config-data, $keys...);
 }

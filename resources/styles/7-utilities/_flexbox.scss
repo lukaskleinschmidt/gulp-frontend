@@ -1,0 +1,216 @@
+// $options: (
+//   flex-direction: (
+//     'flex-row': row,
+//     'flex-row-reverse': row-reverse,
+//     'flex-col': column,
+//     'flex-col-reverse': column-reverse,
+//   ),
+//   flex-wrap: (
+//     'flex-nowrap': nowrap,
+//     'flex-wrap': wrap,
+//     'flex-wrap-reverse': wrap-reverse,
+//   ),
+//   align-items: (
+//     'items-stretch': stretch,
+//     'items-start': flex-start,
+//     'items-center': center,
+//     'items-end': flex-end,
+//     'items-baseline': baseline,
+//   ),
+//   align-content: (
+//     'content-start': flex-start,
+//     'content-center': center,
+//     'content-end': flex-end,
+//     'content-between': space-between,
+//     'content-around': space-around,
+//   ),
+//   align-self: (
+//     'self-auto': auto,
+//     'self-start': flex-start,
+//     'self-center': center,
+//     'self-end': flex-end,
+//     'self-stretch': stretch,
+//   ),
+//   justify-content: (
+//     'justify-start': flex-start,
+//     'justify-center': center,
+//     'justify-end': flex-end,
+//     'justify-between': space-between,
+//     'justify-around': space-around,
+//   ),
+//   flex: (
+//     'flex-initial': 0 1 auto,
+//     'flex-1': 1 1 0%,
+//     'flex-auto': 1 1 auto,
+//     'flex-none': none,
+//   ),
+//   flex-grow: (
+//     'flex-grow': 1,
+//     'flex-grow-0': 0,
+//   ),
+//   flex-shrink: (
+//     'flex-shrink': 1,
+//     'flex-shrink-0': 0,
+//   ),
+//   order: (
+//     'order-first': -9999,
+//     'order-last': 9999,
+//     'order-none': 0,
+//     'order-1': 1,
+//     'order-2': 2,
+//     'order-3': 3,
+//     'order-4': 4,
+//     'order-5': 5,
+//     'order-6': 6,
+//     'order-7': 7,
+//     'order-8': 8,
+//     'order-9': 9,
+//   )
+// );
+//
+// @each $prop, $values in $options {
+//   @each $key, $value in $values {
+//     .#{$key} {
+//       @include variants('responsive') {
+//         #{$prop}: $value;
+//       }
+//     }
+//   }
+// }
+
+.flex {
+  @include variants((
+    'row': row,
+    'row-reverse': row-reverse,
+    'col': column,
+    'col-reverse': column-reverse,
+  ), 'responsive') using ($key, $value) {
+    &#{$key} {
+      align-items: $value;
+    }
+  }
+}
+
+.flex {
+  @include variants((
+    'nowrap': nowrap,
+    'wrap': wrap,
+    'wrap-reverse': wrap-reverse,
+  ), 'responsive') using ($key, $value) {
+    &#{$key} {
+      align-items: $value;
+    }
+  }
+}
+
+.flex {
+  @include variants((
+    'initial': 0 1 auto,
+    '1': 1 1 0%,
+    'auto': 1 1 auto,
+    'none': none,
+  ), 'responsive') using ($key, $value) {
+    &#{$key} {
+      align-items: $value;
+    }
+  }
+}
+
+.flex {
+  @include variants((
+    'grow': 1,
+    'grow-0': 0,
+  ), 'responsive') using ($key, $value) {
+    &#{$key} {
+      align-items: $value;
+    }
+  }
+}
+
+.flex {
+  @include variants((
+    'shrink': 1,
+    'shrink-0': 0,
+  ), 'responsive') using ($key, $value) {
+    &#{$key} {
+      align-items: $value;
+    }
+  }
+}
+
+.items {
+  @include variants((
+    'stretch': stretch,
+    'start': flex-start,
+    'center': center,
+    'end': flex-end,
+    'baseline': baseline,
+  ), 'responsive') using ($key, $value) {
+    &#{$key} {
+      align-items: $value;
+    }
+  }
+}
+
+.content {
+  @include variants((
+    'start': flex-start,
+    'center': center,
+    'end': flex-end,
+    'between': space-between,
+    'around': space-around,
+  ), 'responsive') using ($key, $value) {
+    &#{$key} {
+      align-content: $value;
+    }
+  }
+}
+
+.self {
+  @include variants((
+    'auto': auto,
+    'start': flex-start,
+    'center': center,
+    'end': flex-end,
+    'stretch': stretch,
+  ), 'responsive') using ($key, $value) {
+    &#{$key} {
+      align-self: $value;
+    }
+  }
+}
+
+.justify {
+  @include variants((
+    'start': flex-start,
+    'center': center,
+    'end': flex-end,
+    'between': space-between,
+    'around': space-around,
+  ), 'responsive') using ($key, $value) {
+    &#{$key} {
+      order: $value;
+    }
+  }
+}
+
+.order {
+  @include variants((
+    'first': -9999,
+    'last': 9999,
+    'none': 0,
+    '1': 1,
+    '2': 2,
+    '3': 3,
+    '4': 4,
+    '5': 5,
+    '6': 6,
+    '7': 7,
+    '8': 8,
+    '9': 9,
+  ), 'responsive') using ($key, $value) {
+    &#{$key} {
+      order: $value;
+    }
+  }
+}

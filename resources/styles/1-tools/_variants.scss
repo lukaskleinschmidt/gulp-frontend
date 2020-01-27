@@ -1,0 +1,169 @@
+@use 'sass:string';
+@use 'sass:list';
+
+
+/// Unset a given value from a list.
+///
+/// @param {List} $list - The string that will be trimmed.
+/// @param {String} $value - Value that you want to be removed.
+/// @return {List} Returns the filtered list.
+@function __remove($list, $value) {
+  $result: ();
+
+  @for $i from 1 through list.length($list) {
+    @if list.nth($list, $i) != $value {
+      $result: list.append($result, list.nth($list, $i));
+    }
+  }
+
+  @return $result;
+}
+
+
+/// Creates the selector depending on the current variant and breakpoint.
+///
+/// @param {String} $variant [null]
+/// @param {String} $breakpoint [null]
+/// @return {List} Returns the updated selector.
+@function __selector($variant: null, $breakpoint: null) {
+  $selectors: ();
+
+  @each $selector in & {
+    $selector: list.nth($selector, 1);
+    $selector: string.slice($selector, 2);
+
+    // Add the variant to the current selector
+    @if $variant {
+      $selector: '#{$variant}\\:#{$selector}';
+    }
+
+    // Add the breakpoint to the current selector
+    @if $breakpoint {
+      $selector: '#{$breakpoint}\\:#{$selector}';
+    }
+
+    @if $selector {
+      // Convert back to a proper class
+      $selectors: list.append($selectors, '.#{$selector}', comma);
+    }
+  }
+
+  @return $selectors;
+}
+
+
+/// Appends a pseudo-class to a selector.
+///
+/// @param {String} $selector
+/// @param {String} $pseudo-class [null]
+/// @return {String} Returns the updated selector.
+@function __pseudo-class($selector, $pseudo-class: null) {
+  @if $pseudo-class {
+    $selector: '#{$selector}:#{$pseudo-class}';
+  }
+
+  @return $selector;
+}
+
+
+/// Generates the css for the given options depending on the current variant
+/// and breakpoint.
+///
+/// @param {Map} $options
+/// @param {String} $variant [null]
+/// @param {String} $breakpoint [null]
+@mixin __options($options, $variant: null, $breakpoint: null) {
+  $pseudo-class: $variant;
+  $group: null;
+
+  @if type-of($variant) == 'string' and string.index($variant, 'group-') {
+    $pseudo-class: string.slice($pseudo-class, 7);
+    $group: '.group';
+  }
+
+  // Get the selector depending on the current variant and breakpoint
+  $selector: __selector($variant, $breakpoint);
+
+  @if $options {
+    @each $key, $value in $options {
+      @if $group {
+        #{__pseudo-class($group, $pseudo-class)} #{$selector} {
+            @content($key, $value);
+        }
+      } @else {
+        #{$selector} {
+          @content(__pseudo-class($key, $pseudo-class), $value);
+        }
+      }
+    }
+  } @else {
+    @if $group {
+      #{__pseudo-class($group, $pseudo-class)} #{$selector} {
+        @content;
+      }
+    } @else {
+      #{__pseudo-class($selector, $pseudo-class)} {
+        @content;
+      }
+    }
+  }
+}
+
+
+/// Generates the css for the given options and variants depending on the
+/// current breakpoint.
+///
+/// @param {Map} $options
+/// @param {List} $variants
+/// @param {String} $breakpoint [null]
+@mixin __variants($options, $variants, $breakpoint: null) {
+  @include __options($options, null, $breakpoint) using ($data...) {
+    @content($data...);
+  }
+
+  @each $variant in $variants {
+    @include __options($options, $variant, $breakpoint) using ($data...) {
+      @content($data...);
+    }
+  }
+}
+
+
+/// Generates the css for the given options and variants.
+///
+/// @param {Map | List} $options
+/// @param {List} $variants [null]
+@mixin variants($options.../*, $variants */) {
+  $variants: list.nth($options, -1);
+  $options: list.nth($options, 1);
+
+  @if (type-of($variants) == 'map') {
+    $variants: null;
+  }
+
+  @if (type-of($options) != 'map') {
+    $options: null;
+  }
+
+  $responsive: list.index($variants, 'responsive');
+
+  @if $responsive {
+    $variants: __remove($variants, 'responsive');
+  }
+
+  @at-root {
+    @include __variants($options, $variants) using ($data...) {
+      @content($data...);
+    }
+
+    @if $responsive {
+      @each $breakpoint, $value in config('breakpoints') {
+        @include at($value) {
+          @include __variants($options, $variants, $breakpoint) using ($data...) {
+            @content($data...);
+          }
+        }
+      }
+    }
+  }
+}

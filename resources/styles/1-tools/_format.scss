@@ -2,7 +2,6 @@
 ///
 /// @param {Number | String} $value - Either a number or a string.
 /// @return {Number | String} The parsed input.
-
 @function __parse-format($value) {
   $type: type-of($value);
 
@@ -41,7 +40,6 @@
 ///     // Using custom properties.
 ///     @include format(--width, --height);
 ///   }
-
 @mixin format($ratio.../*, $height */) {
 
   // Calculate the ratio using a width and a height if a second parameter is

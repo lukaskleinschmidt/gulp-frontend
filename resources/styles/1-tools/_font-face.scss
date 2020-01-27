@@ -1,3 +1,7 @@
+@use 'sass:list';
+@use 'sass:map';
+
+
 /// Create @font-face declarations.
 ///
 /// @param {String} $file - Path without file extension.
@@ -20,22 +24,21 @@
 ///   //   font-weight: 300;
 ///   //   font-style: normal;
 ///   // }
-
 @mixin font-face($file, $formats, $src: ()) {
   @font-face {
-    @if index($formats, eot) {
+    @if list.index($formats, eot) {
       src: url('#{$file}.eot');
     }
 
     @each $format in $formats {
-      $src: append($src, url('#{$file}.#{map-get((
+      $src: list.append($src, url('#{$file}.#{map.get((
         eot: 'eot?#iefix',
         ttf: 'ttf',
         otf: 'otf',
         woff2: 'woff2',
         woff: 'woff',
         svg: 'svg#svgFontName',
-      ), $format)}') format('#{map-get((
+      ), $format)}') format('#{map.get((
         eot: 'embedded-opentype',
         ttf: 'truetype',
         otf: 'opentype',

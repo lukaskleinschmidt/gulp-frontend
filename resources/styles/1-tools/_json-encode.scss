@@ -5,7 +5,6 @@
 ///
 /// @param {Bool} $bool - Bool to be encoded.
 /// @return {Bool} - Encoded bool.
-
 @function __json-encode-bool($bool) {
   @return $bool;
 }
@@ -15,7 +14,6 @@
 ///
 /// @param {Color} $color - Color to be encoded.
 /// @return {String} - Encoded color.
-
 @function __json-encode-color($color) {
   @return __quote($color);
 }
@@ -25,7 +23,6 @@
 ///
 /// @param {List} $list - List to be encoded.
 /// @return {String} - Encoded list.
-
 @function __json-encode-list($list) {
   $str: '';
 
@@ -41,7 +38,6 @@
 ///
 /// @param {Map} $map - Map to be encoded.
 /// @return {String} - Encoded map.
-
 @function __json-encode-map($map) {
   $str: '';
 
@@ -57,7 +53,6 @@
 ///
 /// @param {Null} $null
 /// @return {String}
-
 @function __json-encode-null($null) {
   @return 'null';
 }
@@ -67,7 +62,6 @@
 ///
 /// @param {Number} $number - Number to be encoded.
 /// @return {String} - Encoded number.
-
 @function __json-encode-number($number) {
   @return if(unitless($number), $number, __quote($number));
 }
@@ -77,7 +71,6 @@
 ///
 /// @param {String} $string - String to be encoded.
 /// @return {String} - Encoded string.
-
 @function __json-encode-string($string) {
   @return __quote($string);
 }
@@ -90,7 +83,6 @@
 /// @param {Boolean} $nested [false]
 /// @param {Boolean} $recursive [false]
 /// @return {String} - Quoted value.
-
 @function __to-string($list, $glue: '', $nested: false, $recursive: false) {
   $result: '';
 
@@ -112,7 +104,6 @@
 ///
 /// @param {Mixed} $value - Value to be quoted.
 /// @return {string} - Quoted value.
-
 @function __quote($value) {
   @return '"' + __to-string($value) + '"';
 }
@@ -122,7 +113,6 @@
 ///
 /// @param {Mixed} $value - Value to be stringified.
 /// @return {String} - JSON encoded string.
-
 @function json-encode($value) {
   $type: type-of($value);
 

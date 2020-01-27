@@ -1,3 +1,6 @@
+@use 'sass:selector';
+@use 'sass:list';
+
 $format-options: (
   // 2 3,
   3 4 'portrait',
@@ -13,29 +16,30 @@ $format-options: (
   --format-ratio: calc(var(--format-width) / var(--format-height));
 
   @each $value in $format-options {
-    $selector: null;
+    $selectors: ();
     $height: nth($value, 2);
     $width: nth($value, 1);
 
-    // Needs to be escaped otherwise sass will throw an error
-    &.\--#{$width}\/#{$height} {
-      --format-height: #{$height};
-      --format-width: #{$width};
-      $selector: &;
-    }
+    // Add the current format
+    $selector: selector.append(&, '.--#{$width}\\/#{$height}');
+    $selectors: list.append($selectors, $selector, comma);
 
-    // Extend the current format with additional names
+    // Append the current format with additional names
     @if length($value) > 2 {
       @for $i from 3 through length($value) {
-        &.--#{nth($value, $i)} {
-          @extend #{$selector};
-        }
+        $selector: selector.append(&, '.--#{nth($value, $i)}');
+        $selectors: list.append($selectors, $selector, comma);
+      }
+    }
+
+    @at-root {
+      #{$selectors} {
+        --format-height: #{$height};
+        --format-width: #{$width};
       }
     }
   }
-}
 
-.format {
   position: relative;
   overflow: hidden;
 

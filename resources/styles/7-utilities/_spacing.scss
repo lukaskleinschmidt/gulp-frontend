@@ -1,66 +1,72 @@
+@use 'sass:map';
 
-
-.spacing {
-  --spacing-amount: 0px;
-  --spacing-bottom: var(--spacing-amount);
-  --spacing-right: var(--spacing-amount);
-  --spacing-left: var(--spacing-amount);
-  --spacing-top: var(--spacing-amount);
-
-  margin:
-    var(--spacing-top)
-    var(--spacing-right)
-    var(--spacing-bottom)
-    var(--spacing-left);
-
-  &.--not-first {
-
+@mixin __spacing($propery, $key, $value) {
+  &-#{$key} {
+    #{$propery}: $value;
   }
 
-  &.--not-last {
-
+  &x-#{$key} {
+    #{$propery}-right: $value;
+    #{$propery}-left: $value;
   }
 
-  // &.--small {
-  //   --spacing-amount: 10px;
-  // }
-  //
-  // &.--medium {
-  //   --spacing-amount: 10px;
-  // }
-  //
-  // &.--large {
-  //   --spacing-amount: 10px;
-  // }
-
-  &[class$="-right"] {
-    background: orange;
-    --spacing-amount: 10px;
+  &y-#{$key} {
+    #{$propery}-bottom: $value;
+    #{$propery}-top: $value;
   }
 
-  &[class|="--small"] {
-    background: orange;
-    --spacing-amount: 10px;
+  &t-#{$key} {
+    #{$propery}-top: $value;
   }
 
-  &[class|="--medium"] {
-    --spacing-amount: 20px;
+  &r-#{$key} {
+    #{$propery}-right: $value;
   }
 
-  &[class|="--large"] {
-    --spacing-amount: 40px;
+  &b-#{$key} {
+    #{$propery}-bottom: $value;
+  }
+
+  &l-#{$key} {
+    #{$propery}-left: $value;
   }
 }
 
-[class^="spacing-"] {
+$options: (
+  'px': 1px,
+  '0': 0,
+  '1': .25rem,
+  '2': .5rem,
+  '3': .75rem,
+  '4': 1rem,
+  '5': 1.25rem,
+  '6': 1.5rem,
+  '8': 2rem,
+  '10': 2.5rem,
+  '12': 3rem,
+  '16': 4rem,
+  '20': 5rem,
+  '24': 6rem,
+  '32': 8rem,
+  '40': 10rem,
+  '48': 12rem,
+  '56': 14rem,
+  '64': 16rem,
+);
 
+.p {
+  @include variants($options, 'responsive') using ($key, $value) {
+    @include __spacing('padding', $key, #{$value})
+  }
 }
 
-[class$="-large"] {
+$options: map.merge((
+  'auto': auto,
+), $options);
 
-}
-
-
-img {
-  display: block;
+.m {
+  @include variants($options, 'responsive') using ($key, $value) {
+    @include __spacing('margin', $key, $value);
+    @include __spacing('margin', -#{$key}, -#{$value});
+  }
 }

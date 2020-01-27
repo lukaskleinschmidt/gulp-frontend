@@ -1,38 +1,20 @@
 .content {
-  &:not(.--scope) {
-    > :first-child {
-      margin-top: 0;
-    }
-
-    > :last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  small {
-    display: inline-block;
-  }
-
-  // @include properties($text-default)
+  @include wrap;
   @include text-default;
 
   h1 {
-    // @include properties($text-h1)
     @include text-h1;
   }
 
   h2 {
-    // @include properties($text-h2)
     @include text-h2;
   }
 
   h3 {
-    // @include properties($text-h3);
     @include text-h3;
   }
 
   small {
-    // @include properties($text-small)
     @include text-small;
   }
 

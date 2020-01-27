@@ -40,6 +40,8 @@ function scriptsBuild() {
 }
 
 function styles() {
+  sass.compiler = require('sass');
+
   return gulp.src('resources/styles/**/*.scss')
     .pipe(sourcemaps.init())
     .pipe(
@@ -59,6 +61,13 @@ function styles() {
 function stylesBuild() {
   return styles()
     .pipe(postcss([
+      require('@fullhuman/postcss-purgecss')({
+        defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
+        content: [
+          'public/**/*.html',
+        ],
+        whitelistPatterns: [/^--.*/],
+      }),
       require('cssnano')({
         reduceIdents: false,
         discardUnused: {

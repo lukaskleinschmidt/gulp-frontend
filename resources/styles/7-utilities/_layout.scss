@@ -1,0 +1,87 @@
+.relative {
+  position: relative;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.block {
+  @include variants('responsive') {
+    display: block;
+  }
+}
+
+.inline-block {
+  @include variants('responsive') {
+    display: inline-block;
+  }
+}
+
+.inline {
+  @include variants('responsive') {
+    display: inline;
+  }
+}
+
+.flex {
+  @include variants('responsive') {
+    display: flex;
+  }
+}
+
+.inline-flex {
+  @include variants('responsive') {
+    display: inline-flex;
+  }
+}
+
+.hidden {
+  @include variants('responsive') {
+    display: none;
+  }
+}
+
+.clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.wrap {
+  @include wrap
+}
+
+
+// $options: (
+//   float: (
+//     'float-left': left,
+//     'float-right': right,
+//     'float-none': none,
+//   )
+// );
+//
+// @each $prop, $values in $options {
+//   @each $key, $value in $values {
+//     .#{$key} {
+//       @include variants('responsive') {
+//         #{$prop}: $value;
+//       }
+//     }
+//   }
+// }
+
+
+.float {
+  @include variants((
+    'left': left,
+    'right': right,
+    'none': none,
+  ), 'responsive') using ($key, $value) {
+    &-#{$key} {
+      float: $value;
+    }
+  }
+}

@@ -1,13 +1,17 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:meta';
+
+
 /// Transform each value in a list.
 ///
 /// @param {List} $list - List to be transformed.
 /// @param {Arglist} $pipes - List of functions.
 /// @return {List} - Transformed list.
-
 @function __pipe-list($list, $pipes...) {
-  @for $i from 1 through length($list) {
+  @for $i from 1 through list.length($list) {
     $value: pipe(nth($list, $i), $pipes...);
-    $list: set-nth($list, $i, $value);
+    $list: list.set-nth($list, $i, $value);
   }
 
   @return $list;
@@ -19,11 +23,10 @@
 /// @param {Map} $map - Map to be transformed.
 /// @param {Arglist} $pipes - List of functions.
 /// @return {Map} - Transformed map.
-
 @function __pipe-map($map, $pipes...) {
   @each $key, $value in $map {
     $value: pipe($value, $pipes...);
-    $map: map-merge($map, ($key: $value));
+    $map: map.merge($map, ($key: $value));
   }
 
   @return $map;
@@ -35,12 +38,11 @@
 /// @param {Mixed} $value - List or map to be transformed.
 /// @param {Arglist} $pipes - List of functions.
 /// @return {Mixed} - Transformed list or map.
-
 @function pipe-each($value, $pipes...) {
-  $type: type-of($value);
+  $type: meta.type-of($value);
 
-  @if function-exists('__pipe-#{$type}') {
-    @return call(get-function('__pipe-#{$type}'), $value, $pipes...);
+  @if meta.function-exists('__pipe-#{$type}') {
+    @return meta.call(meta.get-function('__pipe-#{$type}'), $value, $pipes...);
   }
 
   @error 'Unknown type for #{$value} (#{$type}).';
@@ -52,23 +54,22 @@
 /// @param {Mixed} $value - Value to be transformed.
 /// @param {Arglist} $pipes - List of functions.
 /// @return {Mixed} - Transformed value.
-
 @function pipe($value, $pipes...) {
   @each $pipe in $pipes {
-    $length: length($pipe);
-    $args: append((), $value);
-    $fn: nth($pipe, 1);
+    $length: list.length($pipe);
+    $args: list.append((), $value);
+    $fn: list.nth($pipe, 1);
 
     // Append arguments
     @if $length > 1 {
       @for $i from 2 through $length {
-        $args: append($args, nth($pipe, $i), comma);
+        $args: list.append($args, list.nth($pipe, $i), comma);
       }
     }
 
     // Call the function with arguments
-    @if function-exists($fn) {
-      $value: call(get-function($fn), $args...);
+    @if meta.function-exists($fn) {
+      $value: meta.call(meta.get-function($fn), $args...);
     }
   }
 

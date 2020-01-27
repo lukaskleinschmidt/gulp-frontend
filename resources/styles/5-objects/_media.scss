@@ -1,3 +1,6 @@
+// Make the media object work in conjunction with the format object
+@use 'sass:selector';
+
 .media {
   --media-position: center;
   --media-height: auto;
@@ -10,8 +13,8 @@
   }
 
   // Make the media object work in conjunction with the format object
-  // .format > &,
-  // &.format,
+  .format > &,
+  &.format,
   &.--cover {
     --media-fit: cover;
   }
@@ -21,8 +24,8 @@
   }
 
   // Make the media object work in conjunction with the format object
-  // .format > &,
-  // &.format,
+  .format > &,
+  &.format,
   &.--contain,
   &.--cover {
     --media-height: 100%;
@@ -53,13 +56,13 @@
     width: var(--media-width);
 
     // Make the media object work in conjunction with the format object
-    // @at-root {
-    //   #{selector-append('.format', &)},
-    //   #{selector-nest('.format', &)} {
-    //     position: absolute;
-    //     left: 0;
-    //     top: 0;
-    //   }
-    // }
+    @at-root {
+      #{selector.append('.format', &)},
+      #{selector.nest('.format', &)} {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
   }
 }

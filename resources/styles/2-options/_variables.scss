@@ -4,12 +4,12 @@
   --black: #000000,
   --gray: #666666,
   --white: #ffffff,
-))
+));
 
 
 // Font families
-@include config('family', (
+@include config('families', (
   --family-default: (Arial, Helvetica, sans-serif),
   --family-heading: (Arial, Helvetica, sans-serif),
   --family-mono: monospace,
-))
+));

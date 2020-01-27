@@ -1,14 +1,16 @@
 .container {
   --container-margin-right: auto;
   --container-margin-left: auto;
-  --container-padding: calc(1.3vh + 3.6vw);
-  --container-width: #{$container-largest};
+  --container-padding: 2rem;
+  --container-width: 100%;
 
-  @each $key, $value in config('container-widths') {
-    @if not($key == 'largest') {
-      &.--#{$key} {
-        --container-width: #{$value};
-      }
+  @include at('medium') {
+    --container-padding: 4rem;
+  }
+
+  @each $key, $value in config('breakpoints') {
+    &.--#{$key} {
+      --container-width: #{$value};
     }
   }
 
@@ -23,15 +25,10 @@
   &.--collapsed {
     --container-padding: 0px;
   }
-}
 
-.container {
   padding-right: var(--container-padding);
   padding-left: var(--container-padding);
   margin-right: var(--container-margin-right);
   margin-left: var(--container-margin-left);
-
-  &:not(.--fullwidth) {
-    max-width: calc(var(--container-width) + var(--container-padding) * 2);
-  }
+  max-width: var(--container-width);
 }
