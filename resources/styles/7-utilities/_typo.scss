@@ -35,27 +35,27 @@
 }
 
 .text-h1 {
-  @include text-h1
+  @include text-h1;
 }
 
 .text-h2 {
-  @include text-h2
+  @include text-h2;
 }
 
 .text-h3 {
-  @include text-h3
+  @include text-h3;
 }
 
 .text-default {
-  @include text-default
+  @include text-default;
 }
 
 .text-small {
-  @include text-small
+  @include text-small;
 }
 
 @each $key, $value in config('colors') {
-  .text-#{trim($key, '--color-')} {
+  .text-#{trim($key, '--')} {
     color: $value;
     color: var(#{$key}) !important;
   }
@@ -67,35 +67,6 @@
     font-family: var(#{$key}) !important;
   }
 }
-
-// $options: (
-//   font-size: (
-//     'text-xs': rem(14px),
-//     'text-s': rem(15px),
-//     'text-m': rem(16px),
-//     'text-l': rem(18px),
-//     'text-xl': rem(19px),
-//     'text-2xl': rem(23px),
-//     'text-3xl': rem(28px),
-//     'text-4xl': rem(34px),
-//     'text-5xl': rem(40px),
-//   ),
-//   text-align: (
-//     'text-left': left,
-//     'text-right': right,
-//     'text-center': center,
-//   )
-// );
-//
-// @each $prop, $values in $options {
-//   @each $key, $value in $values {
-//     .#{$key} {
-//       @include variants('responsive') {
-//         #{$prop}: $value;
-//       }
-//     }
-//   }
-// }
 
 .text {
   @include variants((

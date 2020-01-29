@@ -17,17 +17,17 @@ $format-options: (
 
   @each $value in $format-options {
     $selectors: ();
-    $height: nth($value, 2);
-    $width: nth($value, 1);
+    $height: list.nth($value, 2);
+    $width: list.nth($value, 1);
 
     // Add the current format
     $selector: selector.append(&, '.--#{$width}\\/#{$height}');
     $selectors: list.append($selectors, $selector, comma);
 
     // Append the current format with additional names
-    @if length($value) > 2 {
-      @for $i from 3 through length($value) {
-        $selector: selector.append(&, '.--#{nth($value, $i)}');
+    @if list.length($value) > 2 {
+      @for $i from 3 through list.length($value) {
+        $selector: selector.append(&, '.--#{list.nth($value, $i)}');
         $selectors: list.append($selectors, $selector, comma);
       }
     }

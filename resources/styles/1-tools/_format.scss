@@ -1,9 +1,14 @@
+@use 'sass:list';
+@use 'sass:meta';
+@use 'sass:string';
+
+
 /// Parse the value.
 ///
 /// @param {Number | String} $value - Either a number or a string.
 /// @return {Number | String} The parsed input.
 @function __parse-format($value) {
-  $type: type-of($value);
+  $type: meta.type-of($value);
 
   // If the value is a number simply remove the unit
   @if $type == 'number' {
@@ -16,7 +21,7 @@
   }
 
   // If the value starts with two dashes it is probably a custom property
-  @if str-index($value, '--') {
+  @if string.index($value, '--') {
     @return #{var($value)};
   }
 
@@ -44,17 +49,17 @@
 
   // Calculate the ratio using a width and a height if a second parameter is
   // present
-  @if length($ratio) > 1 {
+  @if list.length($ratio) > 1 {
     $ratio: calc(
-      #{__parse-format(nth($ratio, 1))} /
-      #{__parse-format(nth($ratio, 2))}
+      #{__parse-format(list.nth($ratio, 1))} /
+      #{__parse-format(list.nth($ratio, 2))}
     );
   }
 
   // If there is no second parameter present we will assume that the given value
   // is a ratio
   @else {
-    $ratio: __parse-format(nth($ratio, 1));
+    $ratio: __parse-format(list.nth($ratio, 1));
   }
 
   &::before {

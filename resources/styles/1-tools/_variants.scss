@@ -1,5 +1,6 @@
-@use 'sass:string';
 @use 'sass:list';
+@use 'sass:meta';
+@use 'sass:string';
 
 
 /// Unset a given value from a list.
@@ -30,7 +31,10 @@
 
   @each $selector in & {
     $selector: list.nth($selector, 1);
-    $selector: string.slice($selector, 2);
+
+    @if meta.type-of($selector) == 'string' {
+      $selector: string.slice($selector, 2);
+    }
 
     // Add the variant to the current selector
     @if $variant {
@@ -76,7 +80,8 @@
   $pseudo-class: $variant;
   $group: null;
 
-  @if type-of($variant) == 'string' and string.index($variant, 'group-') {
+  // Handle group variants
+  @if meta.type-of($variant) == 'string' and string.index($variant, 'group-') {
     $pseudo-class: string.slice($pseudo-class, 7);
     $group: '.group';
   }
@@ -87,8 +92,10 @@
   @if $options {
     @each $key, $value in $options {
       @if $group {
-        #{__pseudo-class($group, $pseudo-class)} #{$selector} {
-            @content($key, $value);
+        #{__pseudo-class($group, $pseudo-class)} {
+          #{$selector} {
+              @content($key, $value);
+          }
         }
       } @else {
         #{$selector} {
@@ -98,8 +105,10 @@
     }
   } @else {
     @if $group {
-      #{__pseudo-class($group, $pseudo-class)} #{$selector} {
-        @content;
+      #{__pseudo-class($group, $pseudo-class)} {
+        #{$selector} {
+          @content;
+        }
       }
     } @else {
       #{__pseudo-class($selector, $pseudo-class)} {
@@ -129,22 +138,37 @@
 }
 
 
+/// Delegates input depending on the parent selector.
+///
+/// @param {Map} $options
+/// @param {List} $variants
+/// @param {String} $breakpoint
+@mixin __generator($options, $variants, $breakpoint) {
+  @if & {
+    @include __variants($options, $variants, $breakpoint) using ($data...) {
+      @content($data...);
+    }
+  } @else {
+    @content($options, $variants, $breakpoint);
+  }
+}
+
+
 /// Generates the css for the given options and variants.
 ///
-/// @param {Map | List} $options
+/// @param {Map} $options - Can be omitted
 /// @param {List} $variants [null]
-@mixin variants($options.../*, $variants */) {
-  $variants: list.nth($options, -1);
-  $options: list.nth($options, 1);
+/// @param {String} $breakpoint [null]
+@mixin variants($options, $variants: null, $breakpoint: null) {
 
-  @if (type-of($variants) == 'map') {
-    $variants: null;
-  }
-
-  @if (type-of($options) != 'map') {
+  // Shift attributes by one when the options map is omitted
+  @if (meta.type-of($options) != 'map') {
+    $breakpoint: $variants;
+    $variants: $options;
     $options: null;
   }
 
+  // Check for the responsive variant
   $responsive: list.index($variants, 'responsive');
 
   @if $responsive {
@@ -152,14 +176,14 @@
   }
 
   @at-root {
-    @include __variants($options, $variants) using ($data...) {
+    @include __generator($options, $variants, $breakpoint) using ($data...) {
       @content($data...);
     }
 
     @if $responsive {
       @each $breakpoint, $value in config('breakpoints') {
         @include at($value) {
-          @include __variants($options, $variants, $breakpoint) using ($data...) {
+          @include __generator($options, $variants, $breakpoint) using ($data...) {
             @content($data...);
           }
         }

@@ -1,37 +1,5 @@
 @use 'sass:map';
 
-@mixin __spacing($propery, $key, $value) {
-  &-#{$key} {
-    #{$propery}: $value;
-  }
-
-  &x-#{$key} {
-    #{$propery}-right: $value;
-    #{$propery}-left: $value;
-  }
-
-  &y-#{$key} {
-    #{$propery}-bottom: $value;
-    #{$propery}-top: $value;
-  }
-
-  &t-#{$key} {
-    #{$propery}-top: $value;
-  }
-
-  &r-#{$key} {
-    #{$propery}-right: $value;
-  }
-
-  &b-#{$key} {
-    #{$propery}-bottom: $value;
-  }
-
-  &l-#{$key} {
-    #{$propery}-left: $value;
-  }
-}
-
 $options: (
   'px': 1px,
   '0': 0,
@@ -56,7 +24,35 @@ $options: (
 
 .p {
   @include variants($options, 'responsive') using ($key, $value) {
-    @include __spacing('padding', $key, #{$value})
+    &-#{$key} {
+      padding: $value;
+    }
+
+    &x-#{$key} {
+      padding-right: $value;
+      padding-left: $value;
+    }
+
+    &y-#{$key} {
+      padding-bottom: $value;
+      padding-top: $value;
+    }
+
+    &t-#{$key} {
+      padding-top: $value;
+    }
+
+    &r-#{$key} {
+      padding-right: $value;
+    }
+
+    &b-#{$key} {
+      padding-bottom: $value;
+    }
+
+    &l-#{$key} {
+      padding-left: $value;
+    }
   }
 }
 
@@ -64,9 +60,74 @@ $options: map.merge((
   'auto': auto,
 ), $options);
 
-.m {
-  @include variants($options, 'responsive') using ($key, $value) {
-    @include __spacing('margin', $key, $value);
-    @include __spacing('margin', -#{$key}, -#{$value});
+@include variants($options, 'responsive') using ($attr...) {
+  .m {
+    @include variants($attr...) using ($key, $value) {
+      &-#{$key} {
+        margin: $value;
+      }
+
+      &x-#{$key} {
+        margin-right: $value;
+        margin-left: $value;
+      }
+
+      &y-#{$key} {
+        margin-bottom: $value;
+        margin-top: $value;
+      }
+
+      &t-#{$key} {
+        margin-top: $value;
+      }
+
+      &r-#{$key} {
+        margin-right: $value;
+      }
+
+      &b-#{$key} {
+        margin-bottom: $value;
+      }
+
+      &l-#{$key} {
+        margin-left: $value;
+      }
+    }
+  }
+
+  .-m {
+    @include variants($attr...) using ($key, $value) {
+      $value: -#{$value};
+
+      &-#{$key} {
+        margin: $value;
+      }
+
+      &x-#{$key} {
+        margin-right: $value;
+        margin-left: $value;
+      }
+
+      &y-#{$key} {
+        margin-bottom: $value;
+        margin-top: $value;
+      }
+
+      &t-#{$key} {
+        margin-top: $value;
+      }
+
+      &r-#{$key} {
+        margin-right: $value;
+      }
+
+      &b-#{$key} {
+        margin-bottom: $value;
+      }
+
+      &l-#{$key} {
+        margin-left: $value;
+      }
+    }
   }
 }

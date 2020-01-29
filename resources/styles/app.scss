@@ -1,6 +1,5 @@
 @charset 'utf-8';
 
-
 // Globally used mixins and functions. It’s important not to output any CSS in
 // the first 2 layers.
 @import
@@ -53,5 +52,6 @@
   '7-utilities/flexbox',
   '7-utilities/layout',
   '7-utilities/misc',
+  '7-utilities/sizing',
   '7-utilities/spacing',
   '7-utilities/typo';

@@ -1,14 +1,17 @@
+@use 'sass:meta';
+@use 'sass:string';
+
 // Recursively output custom properties stored in the config map
 @mixin variables($map: config()) {
   @each $key, $value in $map {
 
     // Loop through all tuples in the current map
-    @if type-of($value) == 'map' {
+    @if meta.type-of($value) == 'map' {
       @include variables($value)
     }
 
     // If the key starts with two dashes it is most likely a custom property
-    @if type-of($key) == 'map' and str-index($key, '--') == 1 {
+    @if meta.type-of($key) == 'string' and string.index($key, '--') == 1 {
       #{$key}: $value;
     }
   }

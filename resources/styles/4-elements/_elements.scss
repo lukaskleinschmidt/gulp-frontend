@@ -1,5 +1,7 @@
 html,
 body {
+  // scroll-behavior: smooth;
+  // scrollbar-width: thin;
   font-family: var(--family-default);
 }
 
@@ -11,7 +13,7 @@ html {
 }
 
 body {
-  line-height: 1.35;
+  line-height: 1.4;
   font-weight: 400;
   font-size: rem(16px);
 }
@@ -24,7 +26,7 @@ h5,
 h6 {
   font-family: var(--family-heading);
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.2;
   margin: var(--margin, 2.5em 0 1.25em);
 }
 
@@ -37,8 +39,4 @@ ol,
 ul,
 p {
   margin: var(--margin, 1.25em 0);
-}
-
-img {
-  max-width: 100%;
 }

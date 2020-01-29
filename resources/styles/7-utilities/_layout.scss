@@ -50,30 +50,6 @@
   }
 }
 
-.wrap {
-  @include wrap
-}
-
-
-// $options: (
-//   float: (
-//     'float-left': left,
-//     'float-right': right,
-//     'float-none': none,
-//   )
-// );
-//
-// @each $prop, $values in $options {
-//   @each $key, $value in $values {
-//     .#{$key} {
-//       @include variants('responsive') {
-//         #{$prop}: $value;
-//       }
-//     }
-//   }
-// }
-
-
 .float {
   @include variants((
     'left': left,

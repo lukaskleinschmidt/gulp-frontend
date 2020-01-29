@@ -1,3 +1,9 @@
+@use 'sass:list';
+@use 'sass:math';
+@use 'sass:meta';
+@use 'sass:string';
+
+
 // Many thanks to Hugo Giraudel and https://github.com/HugoGiraudel/SassyJSON
 
 
@@ -30,7 +36,7 @@
     $str: $str + ', ' + json-encode($item);
   }
 
-  @return '[' + str-slice($str, 3) + ']';
+  @return '[' + string.slice($str, 3) + ']';
 }
 
 
@@ -45,7 +51,7 @@
     $str: $str + ', ' + __quote($key) + ': ' + json-encode($value);
   }
 
-  @return '{' + str-slice($str, 3) + '}';
+  @return '{' + string.slice($str, 3) + '}';
 }
 
 
@@ -63,7 +69,7 @@
 /// @param {Number} $number - Number to be encoded.
 /// @return {String} - Encoded number.
 @function __json-encode-number($number) {
-  @return if(unitless($number), $number, __quote($number));
+  @return if(math.is-unitless($number), $number, __quote($number));
 }
 
 
@@ -86,13 +92,13 @@
 @function __to-string($list, $glue: '', $nested: false, $recursive: false) {
   $result: '';
 
-  @for $i from 1 through length($list) {
-    $e: nth($list, $i);
+  @for $i from 1 through list.length($list) {
+    $e: list.nth($list, $i);
 
-    @if type-of($e) == 'list' and $recursive {
+    @if meta.type-of($e) == 'list' and $recursive {
       $result: $result + __to-string($e, $glue, $nested: true, $recursive: true);
     } @else {
-      $result: if($i != length($list) or $nested, $result + $e + $glue, $result + $e);
+      $result: if($i != list.length($list) or $nested, $result + $e + $glue, $result + $e);
     }
   }
 
@@ -114,10 +120,10 @@
 /// @param {Mixed} $value - Value to be stringified.
 /// @return {String} - JSON encoded string.
 @function json-encode($value) {
-  $type: type-of($value);
+  $type: meta.type-of($value);
 
-  @if function-exists('__json-encode-#{$type}') {
-    @return call(get-function('__json-encode-#{$type}'), $value);
+  @if meta.function-exists('__json-encode-#{$type}') {
+    @return meta.call(meta.get-function('__json-encode-#{$type}'), $value);
   }
 
   @error 'Unknown type for #{$value} (#{$type}).';
